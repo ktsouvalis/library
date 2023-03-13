@@ -29,4 +29,6 @@ Route::get('/search_student', function(){
 
 Route::post('/search_student', [StudentController::class,'findStudent']);
 
-Route::post('/return_book',[LoanController::class, 'return_book']);
+Route::post('/return_book',[LoanController::class, 'return_book'])->middleware('auth');
+
+Route::get('/profile/{student}',[StudentController::class, 'show_profile'])->middleware('auth');

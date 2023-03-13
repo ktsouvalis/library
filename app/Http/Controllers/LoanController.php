@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Loan;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class LoanController extends Controller
@@ -16,7 +17,8 @@ class LoanController extends Controller
         $book = Book::find($loan->book->id);
         $book->available = 1;
         $book->save();
+        $student = Student::find($loan->student->id);
 
-        return redirect('/search_student')->with('success','Η επιστροφή καταχωρήθηκε επιτυχώς');
+        return redirect("/profile/$student->id")->with('success','Η επιστροφή καταχωρήθηκε επιτυχώς');
     }
 }
