@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentController;
 
@@ -27,3 +28,5 @@ Route::get('/search_student', function(){
 });//->middleware('auth');
 
 Route::post('/search_student', [StudentController::class,'findStudent']);
+
+Route::post('/return_book',[LoanController::class, 'return_book']);

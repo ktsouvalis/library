@@ -7,6 +7,7 @@
     <title>Βιβιλιοθήκη</title>
 </head>
 <body>
+    <a href="/">Αρχική</a><br>
     @auth
     <form action="" method="post">
         @csrf
@@ -21,9 +22,9 @@
     <br><br>
     @isset($student)
         
-        <h4 style="color:blue">{{$student->surname}}</h4>
-        <h4 style="color:blue">{{$student->name}}</h4>
-        <h4 style="color:blue">{{$student->class}}{{$student->sec}}</h4>
+        <p>{{$student->surname}}</p>
+        <p>{{$student->name}}</p>
+        <p>{{$student->class}}{{$student->sec}}</p>
         <br><br><br>
         @isset($books_loaned)
             <table style="border: 1px solid black; text-align:center;width:80%">
@@ -35,8 +36,10 @@
                     <th>Ημερομηνία Δανεισμού</th>
                 </tr>
                 @foreach($books_loaned as $loan)
-                <form action="/return" method="post">
-                    <input type="hidden" name="book_id" value={{$loan->book->id}}>
+                <form action="/return_book" method="post">
+                    @csrf
+                    <input type="hidden" name="student_id" value={{$student->id}}>
+                    <input type="hidden" name="loan_id" value={{$loan->id}}>
                     <tr style="border: 1px solid black">  
                         <td>{{$loan->book->id}}</td>
                         <td>{{$loan->book->title}}</td>
