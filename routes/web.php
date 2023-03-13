@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +16,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('index');
+}); // ->name('login'); NEEDED WHEN MIDDLEWARE('AUTH') IS USED
+
+Route::post('/login', [UserController::class,'login']);
+Route::get('/logout',[UserController::class, 'logout']);
+
+Route::get('/search_student', function(){
+    return view('search_student');
+});//->middleware('auth');
+
+Route::post('/search_student', [StudentController::class,'findStudent']);
