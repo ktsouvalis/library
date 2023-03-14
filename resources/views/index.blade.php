@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Βιβιλιοθήκη</title>
-</head>
+<x-layout>
 <body>
-    <h1 style="text-align:center;">Βιβλιοθήκη 45ου Δημοτικού Σχολείου Πάτρας</h1>
-    <h2><a href="/show_all_books" target="_blank">Κατάλογος Βιβλίων</a></h2><br>
+<div class="container bg-light xxl">
+    <p class="h3">Βιβλιοθήκη 45ου Δημοτικού Σχολείου Πάτρας</p>
+    <div class="d-flex flex row p-2 justify-content-around">
+    <div><h2><a href="/show_all_books" target="_blank">Κατάλογος Βιβλίων</a></h2></div>
     @auth
-        
         <a href='/logout'>Αποσύνδεση</a>
         <br><br><br>
         {{-- <h2><a href="#" target="_blank">Εισαγωγή βιβλίων από αρχείο</a></h2>
@@ -25,30 +19,31 @@
         <br><br>
         {{-- <h2><a href="#" target="_blank">Επεξεργασία βιβλίου</a></h2> --}}
     @else
-        <h2>Login</h2>
-        <form action="/login" method="post" >
+        <form action="/login" method="post">
             @csrf
-            <div>
-                <label for="name">Όνομα Χρήστη: </label>
-                <input type="text" value="{{old('name')}}" name="name">
-                @error('name')
-                   {{$message}}
-                @enderror
-                <br><br>
+            <div class="mb-3">
+                <label for="name" class="form-label">Όνομα Χρήστη</label>
+                <div class="">
+                    <input type="text" value="{{old('name')}}" name="name" class="form-control">
+                    @error('name')
+                        {{$message}}
+                    @enderror
+                </div>
             </div>
-            <div>
-                <label for="password">Κωδικός Πρόσβασης: </label>
-                <input type="password" name="password">
-                @error('password')
-                    {{$message}}
-                @enderror
-                <br><br>
+            <div class="mb-3">
+                <label for="password" class="form-label">Κωδικός</label>
+                <div class="">
+                    <input type="password" name="password" class="form-control">
+                    @error('password')
+                        {{$message}}
+                    @enderror
+                </div>
             </div>
-            <div>
-                <input type="submit" value="Είσοδος">
-            </div>
+            <button type="submit" class="btn btn-primary">Είσοδος</button>
         </form>
+
     @endauth
+    </div>
 
     @if (session()->has('success'))
     <div class='container container--narrow'>
@@ -65,5 +60,5 @@
     </div>
     </div>
     @endif    
-</body>
-</html>
+    
+</x-layout>
