@@ -11,7 +11,7 @@
         <h2><a href="#" target="_blank">Εισαγωγή βιβλίων μέσω φόρμας</a></h2> --}}
         <br><br>
         <h2><a href="#" target="_blank">Αναζήτηση Βιβλίου</a></h2>
-        <h2><a href="/search_student">Αναζήτηση Μαθητή</a></h2>
+        <h2><a href="/search_student">Αναζήτηση Μαθητή με Α.Μ.</a></h2>
         <br><br>
         {{-- <h2><a href="/show_who_books_out" target="_blank">Αναζήτηση δανεισμών ανά τμήμα</a></h2>
         <h2><a href="/number_of_total_outs_per_class" target="_blank">Αριθμός συνολικών δανεισμών ανά τάξη</a></h2>
