@@ -24,7 +24,7 @@ Route::post('/login', [UserController::class,'login']);
 Route::get('/logout',[UserController::class, 'logout']);
 
 Route::get('/search_student', function(){
-    return view('search_student');
+    return view('search-student');
 });//->middleware('auth');
 
 Route::post('/search_student', [StudentController::class,'findStudent']);
