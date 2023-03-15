@@ -10,28 +10,40 @@
     
         
         <div class="row p-2 justify-content-evenly">
-            <a class="col-lg-3 card text-bg-secondary mb-3" style="max-width: 18rem; opacity: 0.7;" href="#">
-           
-                
+            <a class="col-lg-3 card text-bg-secondary mb-3" style="max-width: 20rem; opacity: 0.7;" href="#">
                 <div class="card-body" style="text-align: center; padding: 5rem">
                   <h5 class="card-title">Κατάλογος Βιβλίων</h5>
                   <p class="card-text"></p>
-                </div>
-            
+                </div> 
             </a>
         @auth
-            <a href='/logout'>Αποσύνδεση</a>
-            <br><br><br>
+            
+            
             {{-- <h2><a href="#" target="_blank">Εισαγωγή βιβλίων από αρχείο</a></h2>
             <h2><a href="#" target="_blank">Εισαγωγή βιβλίων μέσω φόρμας</a></h2> --}}
-            <br><br>
-            <h2><a href="#" target="_blank">Αναζήτηση Βιβλίου</a></h2>
-            <h2><a href="/search_student">Αναζήτηση Μαθητή με Α.Μ.</a></h2>
-            <br><br>
+            <a class="col-lg-3 card text-bg-success mb-3" style="max-width: 20rem; opacity: 0.7;" href="/logout">
+                <div class="card-body" style="text-align: center; padding: 5rem">
+                <h5 class="card-title">Αναζήτηση Βιβλίου</h5>
+                <p class="card-text"></p>
+                </div> 
+            </a>
+            <a class="col-lg-3 card text-bg-warning mb-3" style="max-width: 20rem; opacity: 0.7;" href="/search_student">
+                <div class="card-body" style="text-align: center; padding: 5rem">
+                <h5 class="card-title">Αναζήτηση Μαθητή με Α.Μ.</h5>
+                <p class="card-text"></p>
+                </div> 
+            </a>
+
+            <a class="col-lg-3 card w-3 text-bg-dark mb-3" style="max-width: 20rem; opacity: 0.7;" href="/logout">
+                <div class="card-body" style="text-align: center; padding: 5rem">
+                <h5 class="card-title">Αποσύνδεση</h5>
+                <p class="card-text"></p>
+                </div> 
+            </a>
+            
             {{-- <h2><a href="/show_who_books_out" target="_blank">Αναζήτηση δανεισμών ανά τμήμα</a></h2>
             <h2><a href="/number_of_total_outs_per_class" target="_blank">Αριθμός συνολικών δανεισμών ανά τάξη</a></h2>
             <h2><a href="/all_books_to_xlsx" target="_blank">Εξαγωγή Βάσης σε αρχείο xlsx</a></h2> --}}
-            <br><br>
             {{-- <h2><a href="#" target="_blank">Επεξεργασία βιβλίου</a></h2> --}}
         @else
     

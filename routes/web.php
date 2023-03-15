@@ -18,7 +18,7 @@ use App\Http\Controllers\StudentController;
 
 Route::get('/', function () {
     return view('index');
-}); // ->name('login'); NEEDED WHEN MIDDLEWARE('AUTH') IS USED
+})->name('login'); //NEEDED WHEN MIDDLEWARE('AUTH') IS USED
 
 Route::post('/login', [UserController::class,'login']);
 Route::get('/logout',[UserController::class, 'logout']);
