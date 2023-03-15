@@ -18,17 +18,17 @@ use App\Http\Controllers\StudentController;
 
 Route::get('/', function () {
     return view('index');
-})->name('login'); //NEEDED WHEN MIDDLEWARE('AUTH') IS USED
+}); //->name('login'); //NEEDED WHEN MIDDLEWARE('AUTH') IS USED
 
 Route::post('/login', [UserController::class,'login']);
 Route::get('/logout',[UserController::class, 'logout']);
 
 Route::get('/search_student', function(){
     return view('search-student');
-});//->middleware('auth');
+})->middleware('myauth');
 
 Route::post('/search_student', [StudentController::class,'findStudent']);
 
-Route::post('/return_book',[LoanController::class, 'return_book'])->middleware('auth');
+Route::post('/return_book',[LoanController::class, 'return_book'])->middleware('myauth');
 
-Route::get('/profile/{student}',[StudentController::class, 'show_profile'])->middleware('auth');
+Route::get('/profile/{student}',[StudentController::class, 'show_profile'])->middleware('myauth');
