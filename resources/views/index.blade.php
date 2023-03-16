@@ -10,7 +10,7 @@
     
         
         <div class="row p-2 justify-content-evenly">
-            <a class="col-lg-3 card text-bg-secondary mb-3" style="max-width: 20rem; opacity: 0.7;" href="#">
+            <a class="col-lg-3 card text-bg-primary mb-3" style="max-width: 20rem; opacity: 0.7;" href="#">
                 <div class="card-body" style="text-align: center; padding: 5rem">
                   <h5 class="card-title">Κατάλογος Βιβλίων</h5>
                   <p class="card-text"></p>
