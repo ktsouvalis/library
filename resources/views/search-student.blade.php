@@ -21,10 +21,13 @@
             <p>{{$student->name}}</p>
             {{$student->class}}{{$student->sec}}
         </div> --}}
-        <div class="badge bg-warning text-wrap" style="width: 8rem;">
+        {{-- <div class="badge bg-warning text-wrap" style="width: 8rem;">
             {{$student->surname}} {{$student->name}}, {{$student->class}}{{$student->sec}}
+        </div> --}}
+        <div class="badge bg-warning text-wrap" style="width: 12rem;">
+            <a href="/profile/{{$student->id}}" target="_blank">{{$student->surname}} {{$student->name}}, {{$student->class}}{{$student->sec}}</a>
         </div>
-           <br> <a href="/profile/{{$student->id}}" target="_blank">Δανεισμοί μαθητή</a>
+           {{-- <br> <a href="/profile/{{$student->id}}" target="_blank">{{$student->surname}} {{$student->name}}, {{$student->class}}{{$student->sec}}</a> --}}
         @endisset
     @else
         <h3 style="color:red">Δεν έχετε δικαίωμα πρόσβασης στη σελίδα</h3>
