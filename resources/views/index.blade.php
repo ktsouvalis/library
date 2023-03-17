@@ -17,19 +17,17 @@
                 </div> 
             </a>
         @auth
-            
-            
             {{-- <h2><a href="#" target="_blank">Εισαγωγή βιβλίων από αρχείο</a></h2>
             <h2><a href="#" target="_blank">Εισαγωγή βιβλίων μέσω φόρμας</a></h2> --}}
-            <a class="col-lg-3 card text-bg-success mb-3" style="max-width: 20rem; opacity: 0.7;" href="/logout">
+            <a class="col-lg-3 card text-bg-success mb-3" style="max-width: 20rem; opacity: 0.7;" href="/">
                 <div class="card-body" style="text-align: center; padding: 5rem">
-                <h5 class="card-title">Αναζήτηση Βιβλίου</h5>
+                <h5 class="card-title">Βιβλία</h5>
                 <p class="card-text"></p>
                 </div> 
             </a>
-            <a class="col-lg-3 card text-bg-warning mb-3" style="max-width: 20rem; opacity: 0.7;" href="/search_student">
+            <a class="col-lg-3 card text-bg-warning mb-3" style="max-width: 20rem; opacity: 0.7;" href="/student">
                 <div class="card-body" style="text-align: center; padding: 5rem">
-                <h5 class="card-title">Αναζήτηση Μαθητή με Α.Μ.</h5>
+                <h5 class="card-title">Μαθητές</h5>
                 <p class="card-text"></p>
                 </div> 
             </a>

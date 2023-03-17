@@ -23,11 +23,11 @@ Route::get('/', function () {
 Route::post('/login', [UserController::class,'login']);
 Route::get('/logout',[UserController::class, 'logout']);
 
-Route::get('/search_student', function(){
-    return view('search-student');
+Route::get('/student', function(){
+    return view('student');
 })->middleware('myauth');
 
-Route::post('/search_student', [StudentController::class,'findStudent']);
+Route::post('/student', [StudentController::class,'findStudent']);
 
 Route::post('/return_book',[LoanController::class, 'return_book'])->middleware('myauth');
 

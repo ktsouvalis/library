@@ -16,7 +16,7 @@ class StudentController extends Controller
 
         $student = Student::find($incomingFields['student_id']);
         
-        return view('/search-student',['student'=>$student]);
+        return view('student',['student'=>$student]);
     }
 
     public function show_profile(Student $student){
