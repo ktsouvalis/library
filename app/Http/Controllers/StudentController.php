@@ -16,7 +16,7 @@ class StudentController extends Controller
 
         $student = Student::find($incomingFields['student_id']);
         
-        return view('student',['student'=>$student]);
+        return view('student',['student'=>$student, "active_tab"=>"id"]);
     }
 
     public function show_profile(Student $student){
