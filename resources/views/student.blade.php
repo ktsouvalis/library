@@ -6,7 +6,7 @@
 <!--tabs-->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-          <button class="nav-link @isset($active_tab) @if($active_tab=='search') {{'active'}} @endif @else {{'active'}} @endisset" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="true">Αναζήτηση Μαθητή με Επώνυμο</button>
+          <button class="nav-link @isset($active_tab) @if($active_tab=='search') {{'active'}} @endif @else {{'active'}} @endisset" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="true">Αναζήτηση Μαθητή με ΑΜ ή Επώνυμο </button>
         </li>
         <li class="nav-item" role="presentation">
           <button class="nav-link @isset($active_tab) @if($active_tab=='TO_BE_COMPLETED') {{'active'}} @endif @endisset" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" aria-controls="tab3" aria-selected="false">Μαζική Εισαγωγή Μαθητών</button>
@@ -23,16 +23,16 @@
                 <form action="" method="post" class="container-fluid">
                 @csrf
                 @error('student_surname')
-                    {{$message}}
+                    <div class="alert alert-danger" role="alert">Πρέπει να συμπληρώσετε ένα από τα δύο πεδία</div>
                 @enderror
                 <div class="input-group">
-                    <span class="input-group-text" id="basic-addon1">Αναζήτηση με Επώνυμο ή ΑΜ:</span>
+                    <span class="input-group-text" id="basic-addon1">Εισάγετε Αριθμό Μητρώου ή μέρος του Επωνύμου</span>
+                </div>
+                <div class="input-group">
+                    <input name="student_id" type="number" value="{{old('student_id')}}" class="form-control" placeholder="Κωδικός Μαθητή" aria-label="ΑΜ Μαθητή" aria-describedby="basic-addon2">
                 </div>
                 <div class="input-group">
                     <input name="student_surname" type="text" value="{{old('student_surname')}}" class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon1"><br>
-                </div>
-                <div class="input-group">
-                    <input name="student_id" type="number" value="{{old('student_id')}}" class="form-control" placeholder="Κωδικός Μαθητή" aria-label="Κωδικός Μαθητή" aria-describedby="basic-addon2">
                 </div>
                 <button type="submit" class="btn btn-primary">Αναζήτηση</button>
                 </form>

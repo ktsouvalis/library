@@ -13,7 +13,10 @@ class StudentController extends Controller
         // $incomingFields=$request->validate([
         //     'student_id'=>'numeric'
         // ]);
-        $incomingFields=$request;
+        $incomingFields=$request->validate([
+            'student_surname'=>'required_without:student_id',
+            'student_id'=>'required_without:student_surname'
+        ]);
 
         // $student = Student::find($incomingFields['student_id']);
 
