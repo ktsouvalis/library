@@ -25,7 +25,7 @@
                     @csrf
                     <input type="hidden" name="asks_to" value="search">
                     <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1">Εισάγετε Αριθμό Μητρώου ή μέρος του Επωνύμου</span>
+                        <span class="input-group-text" id="basic-addon1"><strong>Εισάγετε Αριθμό Μητρώου ή μέρος του Επωνύμου</strong></span>
                     </div>
                     <div class="input-group">
                         <input name="student_am1" type="number" value="" class="form-control" placeholder="Αριθμός Μητρώου Μαθητή" aria-label="ΑΜ Μαθητή" aria-describedby="basic-addon2">
@@ -36,20 +36,21 @@
                     <button type="submit" class="btn btn-primary">Αναζήτηση</button>
                 </form>
             </nav>
-            @error('student_surname1')
+            @isset($empty_fields)
                 <div class="alert alert-danger" role="alert">Πρέπει να συμπληρώσετε ένα από τα δύο πεδία</div>
-            @enderror
-            @isset($students)
-                @if($students->isEmpty())
-                    <div class="alert alert-warning" role="alert">Δε βρέθηκε μαθητής με τα στοιχεία που εισάγατε</div>
-                @else
-                    @foreach($students as $student)
-                        <div class="badge bg-warning text-wrap" style="width: 12rem;">
-                            <a href="/profile/{{$student->id}}" target="_blank">{{$student->surname}} {{$student->name}}, {{$student->class}}{{$student->sec}}</a>
-                        </div>
-                        <br>
-                    @endforeach
-                @endif
+            @else
+                @isset($students)
+                    @if($students->isEmpty())
+                        <div class="alert alert-warning" role="alert">Δε βρέθηκε μαθητής με τα στοιχεία που εισάγατε</div>
+                    @else
+                        @foreach($students as $student)
+                            <div class="badge bg-warning text-wrap" style="width: 12rem;">
+                                <a href="/profile/{{$student->id}}" target="_blank">{{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->class}}{{$student->sec}}</a>
+                            </div>
+                            <br>
+                        @endforeach
+                    @endif
+                @endisset
             @endisset
         </div>
 
@@ -72,7 +73,7 @@
                     @csrf
                     <input type="hidden" name="asks_to" value="insert">
                     <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1">Εισαγωγή Μαθητή</span>
+                        <span class="input-group-text" id="basic-addon1"><strong>Στοιχεία Μαθητή</strong></span>
                     </div>
                     <div class="input-group">
                         <input name="student_am3" type="number" value="" class="form-control" placeholder="Αριθμός Μητρώου Μαθητή" aria-label="ΑΜ Μαθητή" aria-describedby="basic-addon2" required>
@@ -99,13 +100,11 @@
                 <div class="alert alert-danger" role="alert">Υπάρχει ήδη μαθητής με τον Α.Μ. {{$old_data['student_am3']}} </div>
             @else
                 @isset($record)
-                    <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div></div>
-                    {{$record->am}} <br>
-                    {{$record->surname}} <br>
-                    {{$record->name}}<br>
-                    {{$record->f_name}}<br>
-                    {{$record->class}}<br>
-                    {{$record->sec}}<br>
+                    <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div>
+                        <div class="badge bg-warning text-wrap" style="width: 12rem;">
+                            <a href="/profile/{{$record->id}}" target="_blank">{{$record->am}}, {{$record->surname}} {{$record->name}}, {{$record->class}}{{$record->sec}}</a>
+                        </div>
+                    </div>
                 @endisset
             @endisset
         </div>
