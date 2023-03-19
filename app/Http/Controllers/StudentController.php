@@ -44,7 +44,7 @@ class StudentController extends Controller
                 "sec"=>$request['student_sec3'],
             ]);
             } catch (QueryException $e) {
-                return view('student',['constraint_error'=>'error', 'given_am3'=>$request['student_am3'],'active_tab'=>'insert']);
+                return view('student',['constraint_error'=>'error', 'old_data'=>$request,'active_tab'=>'insert']);
             }
             return view('student',['record'=>$record,'active_tab'=>'insert']);
         }
