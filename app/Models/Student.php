@@ -13,7 +13,8 @@ class Student extends Model
                             'name',
                             'f_name',
                             'class',
-                            'sec'
+                            'sec',
+                            'am'
 ];
 
 }

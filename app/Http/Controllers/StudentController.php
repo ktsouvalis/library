@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Loan;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class StudentController extends Controller
 {
@@ -13,13 +14,13 @@ class StudentController extends Controller
         
         if($request['asks_to']=="search"){
             $incomingFields=$request->validate([
-                'student_surname'=>'required_without:student_id',
-                'student_id'=>'required_without:student_surname'
+                'student_surname1'=>'required_without:student_am1',
+                'student_am1'=>'required_without:student_surname1'
             ]);
 
-            $given_surname = isset($incomingFields['student_surname']) ? $incomingFields['student_surname'] : '';
-            $given_id = isset($incomingFields['student_id']) ? $incomingFields['student_id'] : 0;
-            $students= ($given_id <> 0) ? Student::where('id', $given_id)->get() : Student::Where('surname', 'LIKE', "$given_surname%")->orderBy('surname')->get();
+            $given_surname = isset($incomingFields['student_surname1']) ? $incomingFields['student_surname1'] : '';
+            $given_am = isset($incomingFields['student_am1']) ? $incomingFields['student_am1'] : 0;
+            $students= ($given_am <> 0) ? Student::where('am', $given_am)->get() : Student::Where('surname', 'LIKE', "$given_surname%")->orderBy('surname')->get();
             
             return view('student',['students'=>$students, 'active_tab'=>'search']);
         }
@@ -31,9 +32,21 @@ class StudentController extends Controller
         }
         elseif($request['asks_to']=="insert"){
             
-            //INSERT STUDENT RECORD CODE GOES HERE
-
-            return view('student',['result3'=>'ok_tab3','active_tab'=>'insert']);
+            // $incomingFields=$request->validate(['student_am3'=>'unique:students,am']);
+            $incomingFields=$request;
+            try{
+            $record = Student::create([
+                "am"=> $request['student_am3'],
+                "surname"=> $request['student_surname3'],
+                "name"=> $request['student_name3'],
+                "f_name"=> $request['student_fname3'],
+                "class"=> $request['student_class3'],
+                "sec"=>$request['student_sec3'],
+            ]);
+            } catch (QueryException $e) {
+                return view('student',['constraint_error'=>'error', 'given_am3'=>$request['student_am3'],'active_tab'=>'insert']);
+            }
+            return view('student',['record'=>$record,'active_tab'=>'insert']);
         }
     }
 

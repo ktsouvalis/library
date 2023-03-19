@@ -28,17 +28,17 @@
                         <span class="input-group-text" id="basic-addon1">Εισάγετε Αριθμό Μητρώου ή μέρος του Επωνύμου</span>
                     </div>
                     <div class="input-group">
-                        <input name="student_id" type="number" value="{{old('student_id')}}" class="form-control" placeholder="Κωδικός Μαθητή" aria-label="ΑΜ Μαθητή" aria-describedby="basic-addon2">
+                        <input name="student_am1" type="number" value="{{old('student_am1')}}" class="form-control" placeholder="Αριθμός Μητρώου Μαθητή" aria-label="ΑΜ Μαθητή" aria-describedby="basic-addon2">
                     </div>
                     <div class="input-group">
-                        <input name="student_surname" type="text" value="{{old('student_surname')}}" class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon1"><br>
+                        <input name="student_surname1" type="text" value="{{old('student_surname1')}}" class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon1"><br>
                     </div>
                     <button type="submit" class="btn btn-primary">Αναζήτηση</button>
                 </form>
             </nav>
-            @error('student_surname')
+            {{-- @error('student_surname1')
                 <div class="alert alert-danger" role="alert">Πρέπει να συμπληρώσετε ένα από τα δύο πεδία</div>
-            @enderror
+            @enderror --}}
             @isset($students)
                 @if($students->isEmpty())
                     <div class="alert alert-warning" role="alert">Δε βρέθηκε μαθητής με τα στοιχεία που εισάγατε</div>
@@ -71,19 +71,45 @@
                 <form action="" method="post" class="container-fluid">
                     @csrf
                     <input type="hidden" name="asks_to" value="insert">
-                    <button type="submit" class="btn btn-primary">tab3</button>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">Εισαγωγή Μαθητή</span>
+                    </div>
+                    <div class="input-group">
+                        <input name="student_am3" type="number" value="" class="form-control" placeholder="Αριθμός Μητρώου Μαθητή" aria-label="ΑΜ Μαθητή" aria-describedby="basic-addon2" required>
+                    </div>
+                    <div class="input-group">
+                        <input name="student_surname3" type="text" value=""  class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon1" required><br>
+                    </div>
+                    <div class="input-group">
+                        <input name="student_name3" type="text" value="" class="form-control" placeholder="Όνομα Μαθητή" aria-label="Όνομα Μαθητή" aria-describedby="basic-addon1" required><br>
+                    </div>
+                    <div class="input-group">
+                        <input name="student_fname3" type="text" value="" class="form-control" placeholder="Πατρώνυμο Μαθητή" aria-label="Πατρώνυμο Μαθητή" aria-describedby="basic-addon1" required><br>
+                    </div>
+                    <div class="input-group">
+                        <input name="student_class3" type="text" value="" class="form-control" placeholder="Τάξη" aria-label="Τάξη" aria-describedby="basic-addon1" required><br>
+                    </div>
+                    <div class="input-group">
+                        <input name="student_sec3" type="number" value="}" class="form-control" placeholder="Τμήμα" aria-label="Τμήμα" aria-describedby="basic-addon1" required><br>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Προσθήκη</button>
                 </form>
             </nav>
-            @isset($result3)
-                {{$result3}}
+            @isset($constraint_error)
+                <div class="alert alert-danger" role="alert">Υπάρχει ήδη μαθητής με τον Α.Μ. {{$given_am3}} </div>
+            @else
+                @isset($record)
+                    <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div></div>
+                    {{$record->am}} <br>
+                    {{$record->surname}} <br>
+                    {{$record->name}}<br>
+                    {{$record->f_name}}<br>
+                    {{$record->class}}<br>
+                    {{$record->sec}}<br>
+                @endisset
             @endisset
         </div>
-
     </div>
-        
-    @else
-        <h3 style="color:red">Δεν έχετε δικαίωμα πρόσβασης στη σελίδα</h3>
-        <p><a href="/">Συνδεθείτε</a></p>
     @endauth
     </div>
 </x-layout>
