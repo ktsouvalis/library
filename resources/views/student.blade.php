@@ -45,7 +45,7 @@
                     @else
                         @foreach($students as $student)
                             <div class="badge bg-warning text-wrap" style="width: 12rem;">
-                                <a href="/profile/{{$student->id}}" target="_blank">{{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->class}}{{$student->sec}}</a>
+                                <a href="/profile/{{$student->id}}" target="_blank">{{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->class}}</a>
                             </div>
                             <br>
                         @endforeach
@@ -90,19 +90,17 @@
                     <div class="input-group">
                         <input name="student_class3" type="text" value="@isset($constraint_error) {{ $old_data['student_class3'] }} @endisset" class="form-control" placeholder="Τάξη" aria-label="Τάξη" aria-describedby="basic-addon1" required><br>
                     </div>
-                    <div class="input-group">
-                        <input name="student_sec3" type="number" class="form-control" placeholder="Τμήμα" aria-label="Τμήμα" aria-describedby="basic-addon1" required><br>
-                    </div>
                     <button type="submit" class="btn btn-primary">Προσθήκη</button>
                 </form>
             </nav>
             @isset($constraint_error)
                 <div class="alert alert-danger" role="alert">Υπάρχει ήδη μαθητής με τον Α.Μ. {{$old_data['student_am3']}} </div>
+                
             @else
                 @isset($record)
                     <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div>
                         <div class="badge bg-warning text-wrap" style="width: 12rem;">
-                            <a href="/profile/{{$record->id}}" target="_blank">{{$record->am}}, {{$record->surname}} {{$record->name}}, {{$record->class}}{{$record->sec}}</a>
+                            <a href="/profile/{{$record->id}}" target="_blank">{{$record->am}}, {{$record->surname}} {{$record->name}}, {{$record->class}}</a>
                         </div>
                     </div>
                 @endisset

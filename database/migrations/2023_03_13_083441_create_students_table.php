@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('name',255);
             $table->string('f_name',255);
             $table->string('class',20);
-            $table->tinyInteger('sec');
             $table->timestamps();
         });
     }
