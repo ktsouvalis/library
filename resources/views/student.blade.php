@@ -79,23 +79,22 @@
                         <input name="student_am3" type="number" value="" class="form-control" placeholder="Αριθμός Μητρώου Μαθητή" aria-label="ΑΜ Μαθητή" aria-describedby="basic-addon2" required>
                     </div>
                     <div class="input-group">
-                        <input name="student_surname3" type="text" value="@isset($constraint_error) {{ $old_data['student_surname3'] }} @endisset"  class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon1" required><br>
+                        <input name="student_surname3" type="text" value="@isset($dberror) {{ $old_data['student_surname3'] }} @endisset"  class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon1" required><br>
                     </div>
                     <div class="input-group">
-                        <input name="student_name3" type="text" value="@isset($constraint_error) {{ $old_data['student_name3'] }} @endisset" class="form-control" placeholder="Όνομα Μαθητή" aria-label="Όνομα Μαθητή" aria-describedby="basic-addon1" required><br>
+                        <input name="student_name3" type="text" value="@isset($dberror) {{ $old_data['student_name3'] }} @endisset" class="form-control" placeholder="Όνομα Μαθητή" aria-label="Όνομα Μαθητή" aria-describedby="basic-addon1" required><br>
                     </div>
                     <div class="input-group">
-                        <input name="student_fname3" type="text" value="@isset($constraint_error) {{ $old_data['student_fname3'] }} @endisset" class="form-control" placeholder="Πατρώνυμο Μαθητή" aria-label="Πατρώνυμο Μαθητή" aria-describedby="basic-addon1" required><br>
+                        <input name="student_fname3" type="text" value="@isset($dberror) {{ $old_data['student_fname3'] }} @endisset" class="form-control" placeholder="Πατρώνυμο Μαθητή" aria-label="Πατρώνυμο Μαθητή" aria-describedby="basic-addon1" required><br>
                     </div>
                     <div class="input-group">
-                        <input name="student_class3" type="text" value="@isset($constraint_error) {{ $old_data['student_class3'] }} @endisset" class="form-control" placeholder="Τάξη" aria-label="Τάξη" aria-describedby="basic-addon1" required><br>
+                        <input name="student_class3" type="text" value="@isset($dberror) {{ $old_data['student_class3'] }} @endisset" class="form-control" placeholder="Τάξη" aria-label="Τάξη" aria-describedby="basic-addon1" required><br>
                     </div>
                     <button type="submit" class="btn btn-primary">Προσθήκη</button>
                 </form>
             </nav>
-            @isset($constraint_error)
-                <div class="alert alert-danger" role="alert">Υπάρχει ήδη μαθητής με τον Α.Μ. {{$old_data['student_am3']}} </div>
-                
+            @isset($dberror)
+                <div class="alert alert-danger" role="alert">{{$dberror}}</div>
             @else
                 @isset($record)
                     <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div>
