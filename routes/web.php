@@ -41,3 +41,9 @@ Route::get('/edit_student/{student}', function(Student $student){
 })->middleware('myauth');
 
 Route::post('/edit_student/{student}', [StudentController::class, 'save_profile'])->middleware('myauth');
+
+Route::get('/add_loan/{student}', function(Student $student){
+    return view('add-loan', ['student' => $student]);
+})->middleware('myauth');
+
+Route::post('/save_loan/{student}',[LoanController::class, 'lend_book'])->middleware('myauth');
