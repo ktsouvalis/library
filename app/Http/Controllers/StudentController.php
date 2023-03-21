@@ -66,6 +66,35 @@ class StudentController extends Controller
         }
     }
 
+    public function save_profile(Student $student, Request $request){
+
+        $incomingFields = $request->all();
+        $saved = False;
+
+        $student->am = $incomingFields['student_am'];
+        $student->surname = $incomingFields['student_surname'];
+        $student->name = $incomingFields['student_name'];
+        $student->f_name = $incomingFields['student_fname'];
+        $student->class = $incomingFields['student_class'];
+
+        if($student->isDirty()){
+            if($student->isDirty('am')){
+                $rules = [
+                    'student_am'=>'unique:students,am'
+                ];
+                $given_am = $incomingFields['student_am'];
+                $validator = Validator::make($incomingFields, $rules);
+                if($validator->fails()){
+                    return view('edit-student',['dberror'=>"Υπάρχει ήδη μαθητής με τον Α.Μ. $given_am", 'student' => $student]);
+                }
+            }
+            $student->save();
+            $saved = True;
+        }
+
+       return view('edit-student',['saved' => $saved, 'student' => $student]);
+    }
+
     public function show_profile(Student $student){
 
         $loans = Loan::where('student_id',$student->id)->orderBy('date_out')->get();

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\UserController;
@@ -34,3 +35,9 @@ Route::post('/student', [StudentController::class,'studentActions']);
 Route::post('/return_book',[LoanController::class, 'return_book'])->middleware('myauth');
 
 Route::get('/profile/{student}',[StudentController::class, 'show_profile'])->middleware('myauth');
+
+Route::get('/edit_student/{student}', function(Student $student){
+    return view('edit-student',['student' => $student]);
+})->middleware('myauth');
+
+Route::post('/edit_student/{student}', [StudentController::class, 'save_profile'])->middleware('myauth');

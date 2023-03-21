@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{$student->surname}} {{$student->name}} </title>
-</head>
+<x-layout>
 <body>
     <p>{{$student->surname}}</p>
     <p>{{$student->name}}</p>
     <p>{{$student->class}}{{$student->sec}}</p>
+    <div class="badge bg-warning text-wrap" style="width: 12rem;">
+        <a href="/edit_student/{{$student->id}}" target="_blank">Επεξεργασία στοιχείων μαθητή</a>
+    </div>
     <br><br><br>
     @isset($loans)
         <table style="border: 1px solid black; text-align:center;width:80%">
@@ -46,5 +42,4 @@
         <br>
     σύνολο ενεργών δανεισμών: <strong>{{$i}}</strong> από <strong>{{$loans->count()}}</strong>
     @endisset
-</body>
-</html>
+</x-layout>
