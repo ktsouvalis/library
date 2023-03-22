@@ -1,4 +1,5 @@
 <x-layout>
+    <div class="container">
 <body>
     <div class="badge bg-success text-wrap" style="width: 12rem;">
         {{$student->am}} {{$student->surname}} {{$student->name}} {{$student->f_name}} {{$student->class}}
@@ -13,7 +14,7 @@
     </div>
     <br><br><br>
     @isset($loans)
-        <table style="border: 1px solid black; text-align:center;width:80%">
+        <table class="table table-striped table-hover table-light">
             <tr>
                 <th>Κωδικός Βιβλίου</th>
                 <th>Τίτλος</th>
@@ -27,7 +28,7 @@
                 @csrf
                 {{-- <input type="hidden" name="student_id" value={{$student->id}}> --}}
                 <input type="hidden" name="loan_id" value={{$loan->id}}>
-                <tr style="border: 1px solid black">  
+                <tr >  
                     <td>{{$loan->book->id}}</td>
                     <td>{{$loan->book->title}}</td>
                     <td>{{$loan->book->writer}}</td>
@@ -45,5 +46,5 @@
         <br>
     σύνολο ενεργών δανεισμών: <strong>{{$loans->whereNull('date_in')->count()}}</strong> από <strong>{{$loans->count()}}</strong>
     @endisset
-
+</div>
 </x-layout>

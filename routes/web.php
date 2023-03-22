@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Book;
 use App\Models\Loan;
 use App\Models\Student;
 use Illuminate\Support\Facades\Route;
@@ -54,4 +55,10 @@ Route::get('/loans/{student}', function(Student $student){
 })->name('search_loan')->middleware('myauth');
 
 Route::post('/loans/search/{student}',[LoanController::class, 'searchBook'])->name('loans_search_student')->middleware('myauth');
+
 Route::post('/loans/save/{student}',[LoanController::class, 'lendBookFromStudent'])->name('loans_save_student')->middleware('myauth');
+
+Route::get('/all-books', function(){
+    $books = Book::all();
+    return view('all-books',['books' => $books]);
+});

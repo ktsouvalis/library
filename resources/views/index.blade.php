@@ -6,11 +6,11 @@
       <br><br><br><br><br><br>
     <div class="container">
        
-        <p class="h3">Βιβλιοθήκη 45ου Δημοτικού Σχολείου Πάτρας</p>
+        <p class="h3">{{env('APP_NAME')}}</p>
     
         
         <div class="row p-2 justify-content-evenly">
-            <a class="col-lg-3 card text-bg-primary mb-3" style="max-width: 20rem; opacity: 0.7;" href="#">
+            <a class="col-lg-3 card text-bg-primary mb-3" style="max-width: 20rem; opacity: 0.9;" href="/all-books">
                 <div class="card-body" style="text-align: center; padding: 5rem">
                   <h5 class="card-title">Κατάλογος Βιβλίων</h5>
                   <p class="card-text"></p>
@@ -19,25 +19,25 @@
         @auth
             {{-- <h2><a href="#" target="_blank">Εισαγωγή βιβλίων από αρχείο</a></h2>
             <h2><a href="#" target="_blank">Εισαγωγή βιβλίων μέσω φόρμας</a></h2> --}}
-            <a class="col-lg-3 card text-bg-success mb-3" style="max-width: 20rem; opacity: 0.7;" href="/">
+            <a class="col-lg-3 card text-bg-success mb-3" style="max-width: 20rem; opacity: 0.9;" href="/">
                 <div class="card-body" style="text-align: center; padding: 5rem">
                 <h5 class="card-title">Βιβλία</h5>
                 <p class="card-text"></p>
                 </div> 
             </a>
-            <a class="col-lg-3 card text-bg-warning mb-3" style="max-width: 20rem; opacity: 0.7;" href="/student">
+            <a class="col-lg-3 card text-bg-warning mb-3" style="max-width: 20rem; opacity: 0.9;" href="/student">
                 <div class="card-body" style="text-align: center; padding: 5rem">
                 <h5 class="card-title">Μαθητές</h5>
                 <p class="card-text"></p>
                 </div> 
             </a>
-            <a class="col-lg-3 card text-bg-danger mb-3" style="max-width: 20rem; opacity: 0.7;" href="/loans">
+            <a class="col-lg-3 card text-bg-danger mb-3" style="max-width: 20rem; opacity: 0.9;" href="/loans">
                 <div class="card-body" style="text-align: center; padding: 5rem">
                 <h5 class="card-title">Δανεισμοί</h5>
                 <p class="card-text"></p>
                 </div> 
             </a>
-            <a class="col-lg-3 card w-3 text-bg-dark mb-3" style="max-width: 20rem; opacity: 0.7;" href="/logout">
+            <a class="col-lg-3 card w-3 text-bg-dark mb-3" style="max-width: 20rem; opacity: 0.5;" href="/logout">
                 <div class="card-body" style="text-align: center; padding: 5rem">
                 <h5 class="card-title">Αποσύνδεση</h5>
                 <p class="card-text"></p>

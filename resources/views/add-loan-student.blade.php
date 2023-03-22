@@ -1,8 +1,10 @@
 <x-layout>
-    <nav class="navbar navbar-light bg-light">
-        <div class="badge bg-success text-wrap" style="width: 12rem;">
-                {{$student->am}} {{$student->surname}} {{$student->name}} {{$student->f_name}} {{$student->class}}
+    <div class="container py-3">
+    {{-- <nav class="navbar navbar-light bg-light"> --}}
+        <div class="badge bg-success text-wrap m-3">
+                {{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->f_name}}, {{$student->class}}
         </div>
+        <div class="m-3">
         <form action="{{route('loans_search_student', [$student->id])}}" method="post" class="container-fluid">
             @csrf
             <input type="hidden" name="student_id" value="{{$student->id}}">
@@ -15,26 +17,37 @@
             </div>
             <button type="submit" class="btn btn-primary">Αναζήτηση</button>
         </form>
-    </nav>
+        </div>
+    {{-- </nav> --}}
     @isset($dberror)
                 <div class="alert alert-danger" role="alert">{{$dberror}}</div>
     @else
         @isset($book)
         
-            <div class="badge bg-success text-wrap" style="width: 12rem;">
+        <div class="row py-3 m-3">
+            <div class="col-2 badge bg-warning text-wrap">
                 {{$book->title}}, <i>{{$book->writer}}</i>, Εκδόσεις {{$book->publisher}}
             </div>
+        
+            <div class="col">
             <form action="{{route('loans_save_student', [$student->id])}}" method="post" class="container-fluid">
                 @csrf
                 <input type="hidden" name="asks_to" value="save">
                 <input type="hidden" name="student_id" value="{{$student->id}}">
                 <input type="hidden" name="book_id" value={{$book->id}}>
-                <button type="submit" class="btn btn-primary">Καταχώρηση Δανεισμού</button>
+                
+                <div class="input-group">
+                    <button type="submit" class="btn btn-primary" style="">Καταχώρηση Δανεισμού</button>
+                </div>
             </form>
+            </div>
+        </div>
 
             @endif
         @endisset
         @isset($saved)
             <div class="alert alert-success" role="alert">Ο Δανεισμός καταχωρήθηκε</div>
         @endisset
+        </div>
+        
 </x-layout>
