@@ -21,36 +21,28 @@
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='search') {{'show active'}}  @endif @else {{'show active'}} @endisset" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
             <!-- 1st tab's content-->
             <nav class="navbar navbar-light bg-light">
-                <form action="" method="post" class="container-fluid">
+                <form action="{{route('search_student')}}" method="post" class="container-fluid">
                     @csrf
-                    <input type="hidden" name="asks_to" value="search">
                     <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><strong>Εισάγετε Αριθμό Μητρώου ή μέρος του Επωνύμου</strong></span>
+                        <span class="input-group-text" id="basic-addon1"><strong>Εισάγετε μέρος του Επωνύμου</strong></span>
                     </div>
                     <div class="input-group">
-                        <input name="student_am1" type="number" value="" class="form-control" placeholder="Αριθμός Μητρώου Μαθητή" aria-label="ΑΜ Μαθητή" aria-describedby="basic-addon2">
-                    </div>
-                    <div class="input-group">
-                        <input name="student_surname1" type="text" value="" class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon1"><br>
+                        <input name="student_surname1" type="text" value="" class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon1" required><br>
                     </div>
                     <button type="submit" class="btn btn-primary">Αναζήτηση</button>
                 </form>
             </nav>
-            @isset($empty_fields)
-                <div class="alert alert-danger" role="alert">Πρέπει να συμπληρώσετε ένα από τα δύο πεδία</div>
-            @else
-                @isset($students)
-                    @if($students->isEmpty())
-                        <div class="alert alert-warning" role="alert">Δε βρέθηκε μαθητής με τα στοιχεία που εισάγατε</div>
-                    @else
-                        @foreach($students as $student)
-                            <div class="badge bg-warning text-wrap" style="width: 12rem;">
-                                <a href="/profile/{{$student->id}}" target="_blank">{{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->class}}</a>
-                            </div>
-                            <br>
-                        @endforeach
-                    @endif
-                @endisset
+            @isset($students)
+                @if($students->isEmpty())
+                    <div class="alert alert-warning" role="alert">Δε βρέθηκε μαθητής με τα στοιχεία που εισάγατε</div>
+                @else
+                    @foreach($students as $student)
+                        <div class="badge bg-warning text-wrap" style="width: 12rem;">
+                            <a href="/profile/{{$student->id}}" target="_blank">{{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->class}}</a>
+                        </div>
+                        <br>
+                    @endforeach
+                @endif
             @endisset
         </div>
 
@@ -69,7 +61,7 @@
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='insert') {{'show active'}} @endif @endisset" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
             <nav class="navbar navbar-light bg-light">
-                <form action="" method="post" class="container-fluid">
+                <form action="{{route('insert_student')}}" method="post" class="container-fluid">
                     @csrf
                     <input type="hidden" name="asks_to" value="insert">
                     <div class="input-group">

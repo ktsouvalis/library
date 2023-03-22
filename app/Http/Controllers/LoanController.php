@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class LoanController extends Controller
 {
     //
-    public function return_book(Request $request){
+    public function returnBook(Request $request){
         $loan = Loan::find($request['loan_id']);
         $loan->date_in = date('y/m/d');
         $loan->save();
@@ -21,39 +21,39 @@ class LoanController extends Controller
         $book->save();
         $student = Student::find($loan->student->id);
 
-        return redirect("/profile/$student->id")->with('success','Η επιστροφή καταχωρήθηκε επιτυχώς');
+        return back()->with('success','Η επιστροφή καταχωρήθηκε επιτυχώς');
+        //return redirect("/profile/$student->id")->with('success','Η επιστροφή καταχωρήθηκε επιτυχώς');
     }
 
-    public function lend_book(Student $student, Request $request){
+    public function searchBook(Student $student, Request $request){
         $incomingFields = $request->all();
-        if($request['asks_to'] =='search'){
-            //VALIDATION
-            $rules = [
-                'book_id' => Rule::exists('books', 'id')->where('available', 1)
-            ];
-            $given_id = $incomingFields['book_id'];
-            $validator = Validator::make($incomingFields, $rules);
-            if($validator->fails()){
-                return view('add-loan',['dberror'=>"Το βιβλίο $given_id δεν υπάρχει ή δεν είναι διαθέσιμο προς δανεισμό", 'student' => $student]);
-            }
-            // END VALIDATION
-
-            return view('add-loan',['book' => Book::find($incomingFields['book_id']), 'student' => $student]);
+        //VALIDATION
+        $rules = [
+            'book_id' => Rule::exists('books', 'id')->where('available', 1)
+        ];
+        $given_id = $incomingFields['book_id'];
+        $validator = Validator::make($incomingFields, $rules);
+        if($validator->fails()){
+            return view('add-loan-student',['dberror'=>"Το βιβλίο $given_id δεν υπάρχει ή δεν είναι διαθέσιμο προς δανεισμό", 'student' => $student]);
         }
-        if($request['asks_to'] == 'save'){
-            
-            Loan::create([
-                'book_id' => $incomingFields = $request['book_id'],
-                'student_id' => $student->id,
-                'date_out' => date('y/m/d'),
-            ]);
+        // END VALIDATION
 
-            $book = Book::find($request['book_id']);
-            $book->available=0;
-            $book->save();
-            $saved = True;
+        return view('add-loan-student',['book' => Book::find($incomingFields['book_id']), 'student' => $student]);
+    }
 
-            return redirect("/profile/$student->id")->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
-        }
+    public function lendBookFromStudent(Student $student, Request $request){
+
+        Loan::create([
+            'book_id' => $incomingFields = $request['book_id'],
+            'student_id' => $student->id,
+            'date_out' => date('y/m/d'),
+        ]);
+
+        $book = Book::find($request['book_id']);
+        $book->available=0;
+        $book->save();
+        $saved = True;
+
+        return redirect("/profile/$student->id")->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
     }
 }

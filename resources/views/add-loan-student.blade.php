@@ -3,7 +3,7 @@
         <div class="badge bg-success text-wrap" style="width: 12rem;">
                 {{$student->am}} {{$student->surname}} {{$student->name}} {{$student->f_name}} {{$student->class}}
         </div>
-        <form action="/save_loan/{{$student->id}}" method="post" class="container-fluid">
+        <form action="{{route('loans_search_student', [$student->id])}}" method="post" class="container-fluid">
             @csrf
             <input type="hidden" name="student_id" value="{{$student->id}}">
             <input type="hidden" name="asks_to" value="search">
@@ -24,7 +24,7 @@
             <div class="badge bg-success text-wrap" style="width: 12rem;">
                 {{$book->title}}, <i>{{$book->writer}}</i>, Εκδόσεις {{$book->publisher}}
             </div>
-            <form action="/save_loan/{{$student->id}}" method="post" class="container-fluid">
+            <form action="{{route('loans_save_student', [$student->id])}}" method="post" class="container-fluid">
                 @csrf
                 <input type="hidden" name="asks_to" value="save">
                 <input type="hidden" name="student_id" value="{{$student->id}}">

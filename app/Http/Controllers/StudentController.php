@@ -10,60 +10,45 @@ use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
-    //
-    public function studentActions(Request $request){
+    public function searchStudent(Request $request){
+        
+        $incomingFields = $request->all();
+        
+        $given_surname = $incomingFields['student_surname1'];
+        
+        $students= Student::Where('surname', 'LIKE', "$given_surname%")->orderBy('surname')->orderBy('class')->get();
+        
+        return view('student',['students'=>$students, 'active_tab'=>'search']);
+    }
 
-        if($request['asks_to']=="search"){
-
-            $incomingFields = $request->all();
-            $rules = [
-                'student_surname1'=>'required_without:student_am1',
-                'student_am1'=>'required_without:student_surname1'
-            ];
-            $validator = Validator::make($incomingFields, $rules);
-            if($validator->fails()){
-                return view('student',['empty_fields'=>'error', 'active_tab'=>'search']);
-            }
-
-            $given_am = isset($incomingFields['student_am1']) ? $incomingFields['student_am1'] : 0;
-            $given_surname = $incomingFields['student_surname1'];
-            
-            $students= ($given_am <> 0) ? Student::where('am', $given_am)->get() : Student::Where('surname', 'LIKE', "$given_surname%")->orderBy('surname')->get();
-           
-            return view('student',['students'=>$students, 'active_tab'=>'search']);
+    public function insertStudent(Request $request){
+        
+        //VALIDATION
+        $incomingFields = $request->all();
+        $rules = [
+            'student_am3'=>'unique:students,am'
+        ];
+        $given_am = $incomingFields['student_am3'];
+        $validator = Validator::make($incomingFields, $rules);
+        if($validator->fails()){
+            return view('student',['dberror'=>"Υπάρχει ήδη μαθητής με τον Α.Μ. $given_am", 'old_data'=>$request,'active_tab'=>'insert']);
         }
-        elseif($request['asks_to']=="import"){
-            
-            //IMPORT FROM EXCEL CODE GOES HERE
 
-            return view('student',['result2'=>'ok_tab2','active_tab'=>'import']);
+        //VALIDATION PASSED
+        try{
+            $record = Student::create([
+                'am' => $incomingFields['student_am3'],
+                'surname' => $incomingFields['student_surname3'],
+                'name' => $incomingFields['student_name3'],
+                'f_name' => $incomingFields['student_fname3'],
+                'class' => $incomingFields['student_class3']
+            ]);
+        } 
+        catch(QueryException $e){
+            return view('student',['dberror'=>"Κάποιο πρόβλημα προέκυψε κατά την εκτέλεση της εντολής, προσπαθήστε ξανά.", 'old_data'=>$request,'active_tab'=>'insert']);
         }
-        elseif($request['asks_to']=="insert"){
 
-            $incomingFields = $request->all();
-            $rules = [
-                'student_am3'=>'unique:students,am'
-            ];
-            $given_am = $incomingFields['student_am3'];
-            $validator = Validator::make($incomingFields, $rules);
-            if($validator->fails()){
-                return view('student',['dberror'=>"Υπάρχει ήδη μαθητής με τον Α.Μ. $given_am", 'old_data'=>$request,'active_tab'=>'insert']);
-            }
-            try{
-                $record = Student::create([
-                    'am' => $incomingFields['student_am3'],
-                    'surname' => $incomingFields['student_surname3'],
-                    'name' => $incomingFields['student_name3'],
-                    'f_name' => $incomingFields['student_fname3'],
-                    'class' => $incomingFields['student_class3']
-                ]);
-            } 
-            catch(QueryException $e){
-                return view('student',['dberror'=>"Κάποιο πρόβλημα προέκυψε κατά την εκτέλεση της εντολής, προσπαθήστε ξανά.", 'old_data'=>$request,'active_tab'=>'insert']);
-            }
-
-            return view('student',['record'=>$record,'active_tab'=>'insert']);
-        }
+        return view('student',['record'=>$record,'active_tab'=>'insert']);
     }
 
     public function save_profile(Student $student, Request $request){

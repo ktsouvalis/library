@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Loan;
 use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoanController;
@@ -17,10 +18,6 @@ use App\Http\Controllers\StudentController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('index');
-// }); //->name('login'); //NEEDED WHEN MIDDLEWARE('AUTH') IS USED
-
 Route::view('/','index');
 
 Route::post('/login', [UserController::class,'login']);
@@ -28,11 +25,15 @@ Route::get('/logout',[UserController::class, 'logout']);
 
 Route::get('/student', function(){
     return view('student');
-})->middleware('myauth');
+})->name('student')->middleware('myauth');
 
-Route::post('/student', [StudentController::class,'studentActions']);
+Route::get('/student/{something}', function (){
+    return redirect('/');
+});
 
-Route::post('/return_book',[LoanController::class, 'return_book'])->middleware('myauth');
+Route::post('/student/search', [StudentController::class,'searchStudent'])->name('search_student')->middleware('myauth');
+
+Route::post('/student/insert', [StudentController::class,'insertStudent'])->name('insert_student')->middleware('myauth');
 
 Route::get('/profile/{student}',[StudentController::class, 'show_profile'])->middleware('myauth');
 
@@ -42,8 +43,15 @@ Route::get('/edit_student/{student}', function(Student $student){
 
 Route::post('/edit_student/{student}', [StudentController::class, 'save_profile'])->middleware('myauth');
 
-Route::get('/add_loan/{student}', function(Student $student){
-    return view('add-loan', ['student' => $student]);
+Route::get('/loans', function(){
+    $loans = Loan::all();
+    return view('loans', ['loans' => $loans]);
 })->middleware('myauth');
 
-Route::post('/save_loan/{student}',[LoanController::class, 'lend_book'])->middleware('myauth');
+Route::post('/loans/return',[LoanController::class, 'returnBook'])->middleware('myauth');
+Route::get('/loans/{student}', function(Student $student){
+    return view('add-loan-student', ['student' => $student]);
+})->name('search_loan')->middleware('myauth');
+
+Route::post('/loans/search/{student}',[LoanController::class, 'searchBook'])->name('loans_search_student')->middleware('myauth');
+Route::post('/loans/save/{student}',[LoanController::class, 'lendBookFromStudent'])->name('loans_save_student')->middleware('myauth');

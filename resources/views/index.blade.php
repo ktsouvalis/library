@@ -31,7 +31,12 @@
                 <p class="card-text"></p>
                 </div> 
             </a>
-
+            <a class="col-lg-3 card text-bg-danger mb-3" style="max-width: 20rem; opacity: 0.7;" href="/loans">
+                <div class="card-body" style="text-align: center; padding: 5rem">
+                <h5 class="card-title">Δανεισμοί</h5>
+                <p class="card-text"></p>
+                </div> 
+            </a>
             <a class="col-lg-3 card w-3 text-bg-dark mb-3" style="max-width: 20rem; opacity: 0.7;" href="/logout">
                 <div class="card-body" style="text-align: center; padding: 5rem">
                 <h5 class="card-title">Αποσύνδεση</h5>
