@@ -29,30 +29,29 @@ class LoanController extends Controller
         $incomingFields = $request->all();
         //VALIDATION
         $rules = [
-            'book_id' => Rule::exists('books', 'id')->where('available', 1)
+            'book_code' => Rule::exists('books', 'code')->where('available', 1)
         ];
-        $given_id = $incomingFields['book_id'];
+        $given_code = $incomingFields['book_code'];
         $validator = Validator::make($incomingFields, $rules);
         if($validator->fails()){
-            return view('add-loan-student',['dberror'=>"Το βιβλίο $given_id δεν υπάρχει ή δεν είναι διαθέσιμο προς δανεισμό", 'student' => $student]);
+            return view('add-loan-student',['dberror'=>"Το βιβλίο $given_code δεν υπάρχει ή δεν είναι διαθέσιμο προς δανεισμό", 'student' => $student]);
         }
         // END VALIDATION
 
-        return view('add-loan-student',['book' => Book::find($incomingFields['book_id']), 'student' => $student]);
+        return view('add-loan-student',['book' => Book::where('code','=',$incomingFields['book_code'])->first(), 'student' => $student]);
     }
 
     public function lendBookFromStudent(Student $student, Request $request){
-
+        // $book = Book::where('code','=', $request['book_code'])->first();
+        $book = Book::find($request['book_id']);
         Loan::create([
-            'book_id' => $incomingFields = $request['book_id'],
+            'book_id' => $book->id,
             'student_id' => $student->id,
             'date_out' => date('y/m/d'),
         ]);
 
-        $book = Book::find($request['book_id']);
         $book->available=0;
         $book->save();
-        $saved = True;
 
         return redirect("/profile/$student->id")->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
     }

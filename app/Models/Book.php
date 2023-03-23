@@ -10,7 +10,8 @@ class Book extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [ 'writer', 
+    protected $fillable = [ 'id',
+                            'writer', 
                             'title',
                             'publisher',
                             'subject',

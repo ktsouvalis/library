@@ -20,7 +20,7 @@
                 {{-- <input type="hidden" name="student_id" value={{$student->id}}> --}}
                 <input type="hidden" name="loan_id" value={{$loan->id}}>
                 <tr >  
-                    <td>{{$loan->book->id}}</td>
+                    <td>{{$loan->book->code}}</td>
                     <td>{{$loan->book->title}}</td>
                     <td>{{$loan->book->writer}}</td>
                     <td>{{$loan->book->publisher}}</td>

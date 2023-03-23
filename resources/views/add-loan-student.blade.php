@@ -13,7 +13,7 @@
                 <span class="input-group-text" id="basic-addon1"><strong>Εισάγετε Κωδικό Βιβιλίου προς Δανεισμό</strong></span>
             </div>
             <div class="input-group">
-                <input name="book_id" type="number" value="" class="form-control" placeholder="Κωδικός Βιβλίο" aria-label="Κωδικός Βιβιλίου" aria-describedby="basic-addon2">
+                <input name="book_code" type="number" value="" class="form-control" placeholder="Κωδικός Βιβλίο" aria-label="Κωδικός Βιβιλίου" aria-describedby="basic-addon2">
             </div>
             <button type="submit" class="btn btn-primary">Αναζήτηση</button>
         </form>
