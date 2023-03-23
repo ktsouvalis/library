@@ -6,13 +6,13 @@
 <!--tabs-->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-          <button class="nav-link @isset($active_tab) @if($active_tab=='search') {{'active'}} @endif @else {{'active'}} @endisset" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="true">Αναζήτηση Μαθητή με ΑΜ ή Επώνυμο </button>
+          <button class="nav-link @isset($active_tab) @if($active_tab=='search') {{'active'}} @endif @else {{'active'}} @endisset" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="true">Αναζήτηση Βιβλίου με βάση τον τίτλο </button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link @isset($active_tab) @if($active_tab=='import') {{'active'}} @endif @endisset" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="tab2" aria-selected="false">Μαζική Εισαγωγή Μαθητών</button>
+          <button class="nav-link @isset($active_tab) @if($active_tab=='import') {{'active'}} @endif @endisset" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="tab2" aria-selected="false">Μαζική Εισαγωγή Βιβλίων</button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link @isset($active_tab) @if($active_tab=='insert') {{'active'}} @endif @endisset" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" aria-controls="tab3" aria-selected="false">Εισαγωγή μαθητή</button>
+          <button class="nav-link @isset($active_tab) @if($active_tab=='insert') {{'active'}} @endif @endisset" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" aria-controls="tab3" aria-selected="false">Εισαγωγή βιβλίου</button>
         </li>
     </ul>
 <!--tab content-->
@@ -38,7 +38,7 @@
                 @else
                     @foreach($books as $book)
                         <div class="badge bg-warning text-wrap" style="width: 12rem;">
-                            <a href="/book_profile/{{$book->id}}" target="_blank">{{$book->id}}, {{$student->surname}} {{$student->name}}, {{$student->class}}</a>
+                            <a href="/book_profile/{{$book->id}}" target="_blank">{{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}</a>
                         </div>
                         <br>
                     @endforeach
@@ -61,26 +61,44 @@
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='insert') {{'show active'}} @endif @endisset" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
             <nav class="navbar navbar-light bg-light">
-                <form action="{{route('insert_student')}}" method="post" class="container-fluid">
+                <form action="{{route('insert_book')}}" method="post" class="container-fluid">
                     @csrf
                     <input type="hidden" name="asks_to" value="insert">
                     <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><strong>Στοιχεία Μαθητή</strong></span>
+                        <span class="input-group-text" id="basic-addon1"><strong>Στοιχεία Βιβλίου</strong></span>
                     </div>
                     <div class="input-group">
-                        <input name="student_am3" type="number" value="" class="form-control" placeholder="Αριθμός Μητρώου Μαθητή" aria-label="ΑΜ Μαθητή" aria-describedby="basic-addon2" required>
+                        <input name="book_code3" type="number" value="" class="form-control" placeholder="Κωδικός Βιβλίου" aria-label="Κωδικός Βιβλίου" aria-describedby="basic-addon2" required>
                     </div>
                     <div class="input-group">
-                        <input name="student_surname3" type="text" value="@isset($dberror) {{ $old_data['student_surname3'] }} @endisset"  class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon1" required><br>
+                        <input name="book_writer3" type="text" value="@isset($dberror) {{ $old_data['book_writer3'] }} @endisset"  class="form-control" placeholder="Συγγραφέας" aria-label="Συγγραφέας" aria-describedby="basic-addon1" required><br>
                     </div>
                     <div class="input-group">
-                        <input name="student_name3" type="text" value="@isset($dberror) {{ $old_data['student_name3'] }} @endisset" class="form-control" placeholder="Όνομα Μαθητή" aria-label="Όνομα Μαθητή" aria-describedby="basic-addon1" required><br>
+                        <input name="book_title3" type="text" value="@isset($dberror) {{ $old_data['book_title3'] }} @endisset" class="form-control" placeholder="Τίτλος" aria-label="Τίτλος" aria-describedby="basic-addon1" required><br>
                     </div>
                     <div class="input-group">
-                        <input name="student_fname3" type="text" value="@isset($dberror) {{ $old_data['student_fname3'] }} @endisset" class="form-control" placeholder="Πατρώνυμο Μαθητή" aria-label="Πατρώνυμο Μαθητή" aria-describedby="basic-addon1" required><br>
+                        <input name="book_publisher3" type="text" value="@isset($dberror) {{ $old_data['book_publisher3'] }} @endisset" class="form-control" placeholder="Εκδόσεις" aria-label="Εκδόσεις" aria-describedby="basic-addon1" required><br>
                     </div>
                     <div class="input-group">
-                        <input name="student_class3" type="text" value="@isset($dberror) {{ $old_data['student_class3'] }} @endisset" class="form-control" placeholder="Τάξη" aria-label="Τάξη" aria-describedby="basic-addon1" required><br>
+                        <input name="book_subject3" type="text" value="@isset($dberror) {{ $old_data['book_subject3'] }} @endisset" class="form-control" placeholder="Θεματική" aria-label="Θεματική" aria-describedby="basic-addon1" required><br>
+                    </div>
+                    <div class="input-group">
+                        <input name="book_publish_place3" type="text" value="@isset($dberror) {{ $old_data['book_publish_place3'] }} @endisset" class="form-control" placeholder="Τόπος Έκδοσης" aria-label="Τόπος Έκδοσης" aria-describedby="basic-addon1" required><br>
+                    </div>
+                    <div class="input-group">
+                        <input name="book_publish_year3" type="text" value="@isset($dberror) {{ $old_data['book_publish_year3'] }} @endisset" class="form-control" placeholder="Χρονολογία Έκδοσης" aria-label="Χρονολογία Έκδοσης" aria-describedby="basic-addon1" required><br>
+                    </div>
+                    <div class="input-group">
+                        <input name="book_no_of_pages3" type="number" value="@isset($dberror) {{ $old_data['book_no_of_pages3'] }} @endisset" class="form-control" placeholder="Αρ. Σελίδων" aria-label="Αρ. Σελίδων" aria-describedby="basic-addon1" required><br>
+                    </div>
+                    <div class="input-group">
+                        <input name="book_acquired_by3" type="text" value="@isset($dberror) {{ $old_data['book_acquired_by3'] }} @endisset" class="form-control" placeholder="Τρόπος απόκτησης" aria-label="Τρόπος απόκτησης" aria-describedby="basic-addon1" required><br>
+                    </div>
+                    <div class="input-group">
+                        <input name="book_acquired_year3" type="text" value="@isset($dberror) {{ $old_data['book_acquired_year3'] }} @endisset" class="form-control" placeholder="Χρονολογία απόκτησης" aria-label="Χρονολογία απόκτησης" aria-describedby="basic-addon1" required><br>
+                    </div>
+                    <div class="input-group">
+                        <input name="book_comments3" type="text" value="@isset($dberror) {{ $old_data['book_comments3'] }} @endisset" class="form-control" placeholder="Σχόλια" aria-label="Σχόλια" aria-describedby="basic-addon1" required><br>
                     </div>
                     <button type="submit" class="btn btn-primary">Προσθήκη</button>
                 </form>
@@ -91,7 +109,7 @@
                 @isset($record)
                     <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div>
                         <div class="badge bg-warning text-wrap" style="width: 12rem;">
-                            <a href="/profile/{{$record->id}}" target="_blank">{{$record->am}}, {{$record->surname}} {{$record->name}}, {{$record->class}}</a>
+                            <a href="/book_profile/{{$record->id}}" target="_blank">{{$record->code}}, {{$record->writer}}, <i>{{$record->title}}</i>, {{$record->publisher}}</a>
                         </div>
                     </div>
                 @endisset

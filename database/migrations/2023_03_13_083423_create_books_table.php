@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('publish_year',255)->nullable();
             $table->integer('no_of_pages')->nullable();
             $table->string('acquired_by')->nullable();
-            $table->date('acquired_date')->nullable();
+            $table->string('acquired_year',255)->nullable();
             $table->text('comments')->nullable();
             $table->boolean('available');
             $table->timestamps();

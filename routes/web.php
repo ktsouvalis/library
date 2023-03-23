@@ -4,6 +4,7 @@ use App\Models\Book;
 use App\Models\Loan;
 use App\Models\Student;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentController;
@@ -62,3 +63,17 @@ Route::get('/all-books', function(){
     $books = Book::all();
     return view('all-books',['books' => $books]);
 });
+
+Route::get('/book', function(){
+    return view('book');
+})->name('book')->middleware('myauth');
+
+Route::get('/book/{something}', function (){
+    return redirect('/');
+});
+
+Route::post('/book/search', [BookController::class,'searchBook'])->name('search_book')->middleware('myauth');
+
+Route::post('/book/insert', [BookController::class,'insertBook'])->name('insert_book')->middleware('myauth');
+
+Route::get('/book_profile/{book}',[BookController::class, 'show_profile'])->middleware('myauth');

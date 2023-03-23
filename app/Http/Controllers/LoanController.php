@@ -27,6 +27,7 @@ class LoanController extends Controller
 
     public function searchBook(Student $student, Request $request){
         $incomingFields = $request->all();
+        
         //VALIDATION
         $rules = [
             'book_code' => Rule::exists('books', 'code')->where('available', 1)
@@ -50,7 +51,7 @@ class LoanController extends Controller
             'date_out' => date('y/m/d'),
         ]);
 
-        $book->available=0;
+        $book->available = 0;
         $book->save();
 
         return redirect("/profile/$student->id")->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');

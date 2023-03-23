@@ -16,7 +16,7 @@ class StudentController extends Controller
         
         $given_surname = $incomingFields['student_surname1'];
         
-        $students= Student::Where('surname', 'LIKE', "$given_surname%")->orderBy('surname')->orderBy('class')->get();
+        $students= Student::Where('surname', 'LIKE', "%$given_surname%")->orderBy('surname')->orderBy('class')->get();
         
         return view('student',['students'=>$students, 'active_tab'=>'search']);
     }

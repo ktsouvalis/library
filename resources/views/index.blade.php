@@ -19,7 +19,7 @@
         @auth
             {{-- <h2><a href="#" target="_blank">Εισαγωγή βιβλίων από αρχείο</a></h2>
             <h2><a href="#" target="_blank">Εισαγωγή βιβλίων μέσω φόρμας</a></h2> --}}
-            <a class="col-lg-3 card text-bg-success mb-3" style="max-width: 20rem; opacity: 0.9;" href="/">
+            <a class="col-lg-3 card text-bg-success mb-3" style="max-width: 20rem; opacity: 0.9;" href="/book">
                 <div class="card-body" style="text-align: center; padding: 5rem">
                 <h5 class="card-title">Βιβλία</h5>
                 <p class="card-text"></p>

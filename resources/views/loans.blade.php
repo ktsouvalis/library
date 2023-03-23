@@ -21,7 +21,7 @@
                 <input type="hidden" name="loan_id" value={{$loan->id}}>
                 <tr >  
                     <td>{{$loan->book->code}}</td>
-                    <td>{{$loan->book->title}}</td>
+                    <td><a href="/book_profile/{{$loan->book->id}}" target="_blank">{{$loan->book->title}}</a></td>
                     <td>{{$loan->book->writer}}</td>
                     <td>{{$loan->book->publisher}}</td>
                     <td><a href="/profile/{{$loan->student->id}}" target="_blank">{{$loan->student->surname}}</a></td>
