@@ -79,9 +79,8 @@ class StudentController extends Controller
             $saved = True;
         }
 
-        // return view('student-profile',['student'=>$student, 'loans'=>$loans])->with(['success', 'Ο μαθητής αποθηκεύτηκε']);
-
-        return view('student-profile',['student'=>$student, 'success'=>'Επιτυχής αποθήκευση']);
+        
+        return redirect("/profile/$student->id")->with('success','Επιτυχής αποθήκευση');
     }
 
     public function show_profile(Student $student){
