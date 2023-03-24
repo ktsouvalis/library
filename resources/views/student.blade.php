@@ -94,7 +94,7 @@
                 @isset($record)
                     <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div>
                         <div class="badge bg-warning text-wrap" style="width: 12rem;">
-                            <a href="/profile/{{$record->id}}" target="_blank">{{$record->am}}, {{$record->surname}} {{$record->name}}, {{$record->class}}</a>
+                            <a href="/profile/{{$record->id}}">{{$record->am}}, {{$record->surname}} {{$record->name}}, {{$record->class}}</a>
                         </div>
                     </div>
                 @endisset
