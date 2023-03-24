@@ -13,10 +13,23 @@ class BookController extends Controller
     public function searchBook(Request $request){
         
         $incomingFields = $request->all();
+
+        $rules = [
+            'book_code1'=>'required_without:book_title1',
+            'book_title1'=>'required_without:book_code1'
+        ];
+        $validator = Validator::make($incomingFields, $rules);
+        if($validator->fails()){
+            return view('book',['uierror'=>"Πρέπει να συμπληρώσετε τουλάχιστον ένα από τα δύο πεδία", 'active_tab'=>'search']);
+        }
         
-        $given_title = $incomingFields['book_title1'];
+        $given_title = isset($incomingFields['book_title1']) ? $incomingFields['book_title1'] : '';
+        $given_code = isset($incomingFields['book_code1']) ? $incomingFields['book_code1'] : 0;
+        $books= ($given_code <> 0) ? Book::where('code', $given_code)->get() : Book::Where('title', 'LIKE', "%$given_title%")->orderBy('title')->get();
         
-        $books= Book::where('title', 'LIKE', "%$given_title%")->orderBy('title')->get();
+        // $given_title = $incomingFields['book_title1'];
+        
+        // $books= Book::where('title', 'LIKE', "%$given_title%")->orderBy('title')->get();
         
         return view('book',['books'=>$books, 'active_tab'=>'search']);
     }
@@ -31,7 +44,8 @@ class BookController extends Controller
         $given_code = $incomingFields['book_code3'];
         $validator = Validator::make($incomingFields, $rules);
         if($validator->fails()){
-            return view('book',['dberror'=>"Υπάρχει ήδη βιβλίο με κωδικό $given_code", 'old_data'=>$request,'active_tab'=>'insert']);
+            $existing_book = Book::where('code','=', $given_code)->first();
+            return view('book',['dberror'=>"Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, $existing_book->publisher", 'old_data'=>$request,'active_tab'=>'insert']);
         }
 
         //VALIDATION PASSED

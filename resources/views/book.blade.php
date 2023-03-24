@@ -1,7 +1,6 @@
 <x-layout>
 <body>
     <div class="container">
-    @auth
     @include('menu')
 <!--tabs-->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -27,22 +26,33 @@
                         <span class="input-group-text" id="basic-addon1"><strong>Εισάγετε μέρος του τίτλου</strong></span>
                     </div>
                     <div class="input-group">
-                        <input name="book_title1" type="text" value="" class="form-control" placeholder="Τίτλος Βιβλίου" aria-label="Τίτλος Βιβλίου" aria-describedby="basic-addon1" required><br>
+                        <input name="book_code1" type="text" value="" class="form-control" placeholder="Κωδικός Βιβλίου" aria-label="Κωδικός Βιβλίου" aria-describedby="basic-addon1"><br>
+                    </div>
+                    <div class="input-group">
+                        <input name="book_title1" type="text" value="" class="form-control" placeholder="Τίτλος Βιβλίου" aria-label="Τίτλος Βιβλίου" aria-describedby="basic-addon1"><br>
                     </div>
                     <button type="submit" class="btn btn-primary">Αναζήτηση</button>
                 </form>
             </nav>
-            @isset($books)
-                @if($books->isEmpty())
-                    <div class="alert alert-warning" role="alert">Δε βρέθηκε βιβλίο με τα στοιχεία που εισάγατε</div>
-                @else
-                    @foreach($books as $book)
-                        <div class="badge bg-warning text-wrap" style="width: 12rem;">
-                            <a href="/book_profile/{{$book->id}}" target="_blank">{{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}</a>
+            @isset($uierror)
+                <div class="alert alert-danger" role="alert"> {{$uierror}}</div>
+            @else
+                @isset($books)
+                    @if($books->isEmpty())
+                        <div class="alert alert-warning" role="alert">Δε βρέθηκε βιβλίο με τα στοιχεία που εισάγατε</div>
+                    @else
+                        <div class="col">
+                            @foreach($books as $book)
+                                <div class="row">
+                                    <div class="badge bg-warning text-wrap" style="width: 12rem;">
+                                        <a href="/book_profile/{{$book->id}}">{{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}</a>
+                                    </div>
+                                </div>
+                                <br>
+                            @endforeach
                         </div>
-                        <br>
-                    @endforeach
-                @endif
+                    @endif
+                @endisset
             @endisset
         </div>
 
@@ -109,13 +119,12 @@
                 @isset($record)
                     <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div>
                         <div class="badge bg-warning text-wrap" style="width: 12rem;">
-                            <a href="/book_profile/{{$record->id}}" target="_blank">{{$record->code}}, {{$record->writer}}, <i>{{$record->title}}</i>, {{$record->publisher}}</a>
+                            <a href="/book_profile/{{$record->id}}">{{$record->code}}, {{$record->writer}}, <i>{{$record->title}}</i>, {{$record->publisher}}</a>
                         </div>
                     </div>
                 @endisset
             @endisset
         </div>
     </div>
-    @endauth
     </div>
 </x-layout>

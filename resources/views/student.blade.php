@@ -1,7 +1,6 @@
 <x-layout>
 <body>
     <div class="container">
-    @auth
     @include('menu')
 <!--tabs-->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -36,12 +35,16 @@
                 @if($students->isEmpty())
                     <div class="alert alert-warning" role="alert">Δε βρέθηκε μαθητής με τα στοιχεία που εισάγατε</div>
                 @else
-                    @foreach($students as $student)
-                        <div class="badge bg-warning text-wrap" style="width: 12rem;">
-                            <a href="/profile/{{$student->id}}" target="_blank">{{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->class}}</a>
-                        </div>
-                        <br>
-                    @endforeach
+                    <div class="col">
+                        @foreach($students as $student)
+                            <div class="row">
+                                <div class="badge bg-warning text-wrap" style="width: 12rem;">
+                                    <a href="/profile/{{$student->id}}">{{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->class}}</a>
+                                </div>
+                            </div>
+                            <br>
+                        @endforeach
+                    </div>
                 @endif
             @endisset
         </div>
@@ -98,6 +101,5 @@
             @endisset
         </div>
     </div>
-    @endauth
     </div>
 </x-layout>

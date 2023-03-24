@@ -31,7 +31,8 @@ class StudentController extends Controller
         $given_am = $incomingFields['student_am3'];
         $validator = Validator::make($incomingFields, $rules);
         if($validator->fails()){
-            return view('student',['dberror'=>"Υπάρχει ήδη μαθητής με τον Α.Μ. $given_am", 'old_data'=>$request,'active_tab'=>'insert']);
+            $existing_student = Student::where('am','=',$given_am)->first();
+            return view('student',['dberror'=>"Υπάρχει ήδη μαθητής με αριθμό μητρώου $given_am: $existing_student->surname $existing_student->name, $existing_student->class", 'old_data'=>$request,'active_tab'=>'insert']);
         }
 
         //VALIDATION PASSED
@@ -70,20 +71,23 @@ class StudentController extends Controller
                 $given_am = $incomingFields['student_am'];
                 $validator = Validator::make($incomingFields, $rules);
                 if($validator->fails()){
-                    return view('edit-student',['dberror'=>"Υπάρχει ήδη μαθητής με τον Α.Μ. $given_am", 'student' => $student]);
+                    $existing_student = Student::where('am','=',$given_am)->first();
+                    return view('edit-student',['dberror'=>"Υπάρχει ήδη μαθητής με αριθμό μητρώου $given_am: $existing_student->surname $existing_student->name, $existing_student->class", 'student' => $student]);
                 }
             }
             $student->save();
             $saved = True;
         }
 
-       return view('edit-student',['saved' => $saved, 'student' => $student]);
+        // return view('student-profile',['student'=>$student, 'loans'=>$loans])->with(['success', 'Ο μαθητής αποθηκεύτηκε']);
+
+        return view('student-profile',['student'=>$student, 'success'=>'Επιτυχής αποθήκευση']);
     }
 
     public function show_profile(Student $student){
 
         $loans = Loan::where('student_id',$student->id)->orderBy('date_out')->get();
         
-        return view('student-profile',['student'=>$student, 'loans'=>$loans]);
+        return view('student-profile',['student'=>$student]);
     }
 }

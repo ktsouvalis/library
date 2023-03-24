@@ -1,24 +1,24 @@
 <x-layout>
-    <div class="container">
+    <div class="p-3 container">
+    @include('menu')
 <body>
-    <div class="badge bg-success text-wrap" style="width: 12rem;">
+    <div class="p-2 badge bg-success text-wrap" style="width: 12rem;">
         {{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}
     </div>
-    <p></p>
-    {{-- <div class="badge bg-warning text-wrap" style="width: 12rem;">
-        <a href="/edit_student/{{$student->id}}" target="_blank">Επεξεργασία στοιχείων μαθητή</a>
-    </div> --}}
-    @if($book->available)
-        <div class="badge bg-warning text-wrap" style="width: 12rem;">
-            <a href="">Καταχώρηση δανεισμού</a>
+    <div class="p-4 row">
+        <div class="col m-4 badge bg-warning text-wrap" style="width: 12rem;">
+            <a href="{{--#book--}}">Επεξεργασία στοιχείων βιβλίου</a>
         </div>
-    @else
-        <div class="alert alert-danger fade show" role="alert">
-            <strong>Το βιβλίο δεν είναι διαθέσιμο για δανεισμό</strong>
-        </div>
-    @endif
-    <br><br><br>
-    
+        @if($book->available)
+            <div class="col m-4 badge bg-warning text-wrap" style="width: 12rem;">
+                <a href="">Καταχώρηση δανεισμού</a>
+            </div>
+        @else
+            <div class="col m-4 badge bg-danger text-wrap" style="width: 12rem;">
+                Το βιβλίο δεν είναι διαθέσιμο για δανεισμό
+            </div>
+        @endif
+    </div>    
 
     @isset($loans)
         <table class="table table-striped table-hover table-light">
@@ -35,7 +35,7 @@
                 {{-- <input type="hidden" name="student_id" value={{$student->id}}> --}}
                 <input type="hidden" name="loan_id" value={{$loan->id}}>
                 <tr >  
-                    <td>{{$loan->student->surname}}</td>
+                    <td><a href ="/profile/{{$loan->student->id}}">{{$loan->student->surname}}</a></td>
                     <td>{{$loan->student->name}}</td>
                     <td>{{$loan->student->class}}</td>
                     <td>{{$loan->date_out}}</td>

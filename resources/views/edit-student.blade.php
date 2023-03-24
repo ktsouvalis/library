@@ -1,5 +1,6 @@
 <x-layout>
     <div class="container">
+        @include('menu')
         <nav class="navbar navbar-light bg-light">
                 <form action="/edit_student/{{$student->id}}" method="post" class="container-fluid">
                     @csrf

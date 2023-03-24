@@ -1,5 +1,7 @@
 <x-layout>
+
     <div class="container py-3">
+    @include('menu')
     {{-- <nav class="navbar navbar-light bg-light"> --}}
         <div class="badge bg-success text-wrap m-3">
                 {{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->f_name}}, {{$student->class}}
