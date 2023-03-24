@@ -85,7 +85,7 @@ class StudentController extends Controller
 
     public function show_profile(Student $student){
 
-        $loans = Loan::where('student_id',$student->id)->orderBy('date_out')->get();
+        // $loans = Loan::where('student_id',$student->id)->orderBy('date_out')->get();
         
         return view('student-profile',['student'=>$student]);
     }

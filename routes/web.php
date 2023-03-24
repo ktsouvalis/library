@@ -46,7 +46,7 @@ Route::get('/edit_student/{student}', function(Student $student){
 Route::post('/edit_student/{student}', [StudentController::class, 'save_profile'])->middleware('myauth');
 
 Route::get('/loans', function(){
-    $loans = Loan::all();
+    $loans = Loan::orderBy('date_in', 'asc')->get();
     return view('loans', ['loans' => $loans]);
 })->middleware('myauth');
 

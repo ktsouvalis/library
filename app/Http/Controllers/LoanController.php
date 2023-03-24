@@ -27,15 +27,23 @@ class LoanController extends Controller
 
     public function searchBook(Student $student, Request $request){
         $incomingFields = $request->all();
-        
-        //VALIDATION
-        $rules = [
-            'book_code' => Rule::exists('books', 'code')->where('available', 1)
-        ];
         $given_code = $incomingFields['book_code'];
-        $validator = Validator::make($incomingFields, $rules);
-        if($validator->fails()){
-            return view('add-loan-student',['dberror'=>"Το βιβλίο $given_code δεν υπάρχει ή δεν είναι διαθέσιμο προς δανεισμό", 'student' => $student]);
+
+        //VALIDATION
+        $rule1 = [
+            'book_code' => Rule::exists('books','code')
+        ];
+        if(Validator::make($incomingFields,$rule1)->fails()){
+            return view('add-loan-student',['dberror'=>"Δεν υπάρχει στη βάση σας βιβλίο με κωδικό $given_code", 'student' => $student]);
+        }
+        else{
+            $rule2 = [
+                'book_code' => Rule::exists('books', 'code')->where('available', 1)
+            ];
+            if(Validator::make($incomingFields,$rule2)->fails()){
+                $book = Book::where('code',$given_code)->first();
+                return view('add-loan-student',['dberror'=>"Το βιβλίο $given_code ($book->title, $book->writer, εκδόσεις $book->publisher) δεν είναι διαθέσιμο προς δανεισμό", 'student' => $student]);
+            }
         }
         // END VALIDATION
 
