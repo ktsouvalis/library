@@ -3,15 +3,14 @@
     @include('menu')
 <body>
     <div class="p-2 badge bg-success text-wrap" style="width: 12rem;">
-        {{$student->am}} {{$student->surname}} {{$student->name}} {{$student->f_name}} {{$student->class}}
+        {{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->f_name}}, {{$student->class}}
     </div>
     <div class="p-4 row">
         <div class="m-4 col badge bg-warning text-wrap" style="width: 12rem;">
             <a href="/edit_student/{{$student->id}}">Επεξεργασία στοιχείων μαθητή</a>
         </div>
         <div class="m-4 col badge bg-warning text-wrap" style="width: 12rem;">
-            {{-- <a href="/loans/add/{{$student->id}}">Καταχώρηση δανεισμού</a> --}}
-            <a href="{{route('search_loan',[$student->id])}} ">Καταχώρηση δανεισμού</a>
+            <a href="{{route('search_loan_s',[$student->id])}} ">Καταχώρηση δανεισμού</a>
         </div> 
     </div>
     

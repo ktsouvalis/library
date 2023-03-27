@@ -16,7 +16,7 @@ class StudentController extends Controller
         
         $given_surname = $incomingFields['student_surname1'];
         
-        $students= Student::Where('surname', 'LIKE', "%$given_surname%")->orderBy('surname')->orderBy('class')->get();
+        $students= Student::Where('surname', 'LIKE', "%$given_surname%")->orderBy('surname')->get();
         
         return view('student',['students'=>$students, 'active_tab'=>'search']);
     }
@@ -55,7 +55,6 @@ class StudentController extends Controller
     public function save_profile(Student $student, Request $request){
 
         $incomingFields = $request->all();
-        $saved = False;
 
         $student->am = $incomingFields['student_am'];
         $student->surname = $incomingFields['student_surname'];
@@ -76,17 +75,15 @@ class StudentController extends Controller
                 }
             }
             $student->save();
-            $saved = True;
+        }
+        else{
+            return view('edit-student',['dberror'=>"Δεν υπάρχουν αλλαγές προς αποθήκευση", 'student' => $student]);
         }
 
-        
         return redirect("/profile/$student->id")->with('success','Επιτυχής αποθήκευση');
     }
 
-    public function show_profile(Student $student){
-
-        // $loans = Loan::where('student_id',$student->id)->orderBy('date_out')->get();
-        
+    public function show_profile(Student $student){        
         return view('student-profile',['student'=>$student]);
     }
 }

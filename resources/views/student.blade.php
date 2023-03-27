@@ -47,6 +47,26 @@
                     </div>
                 @endif
             @endisset
+            @isset($all_students)
+                <table class="table table-striped table-hover table-light" >
+                    <tr>
+                        <th>Αριθμός Μητρώου</th>
+                        <th>Επώνυμο</th>
+                        <th>Όνομα</th>
+                        <th>Πατρώνυμο</th>
+                        <th>Τάξη</th>
+                    </tr>
+                    @foreach($all_students as $student)
+                        <tr>  
+                            <td>{{$student->am}}</td>
+                            <td><a href="/profile/{{$student->id}}">{{$student->surname}}</a></td>
+                            <td>{{$student->name}}</td>
+                            <td>{{$student->f_name}}</td>
+                            <td>{{$student->class}}</td>
+                        </tr>
+                    @endforeach
+                </table>
+            @endisset
         </div>
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='import') {{'show active'}} @endif @endisset" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">

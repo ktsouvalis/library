@@ -51,17 +51,58 @@ class LoanController extends Controller
     }
 
     public function lendBookFromStudent(Student $student, Request $request){
-        // $book = Book::where('code','=', $request['book_code'])->first();
         $book = Book::find($request['book_id']);
-        Loan::create([
+        
+        try{
+            Loan::create([
             'book_id' => $book->id,
             'student_id' => $student->id,
             'date_out' => date('y/m/d'),
         ]);
+        }
+        catch(QueryException $e){
+            return redirect("/profile/$student->id")->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
+        }
+
 
         $book->available = 0;
         $book->save();
 
         return redirect("/profile/$student->id")->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
+    }
+
+    public function searchStudent(Book $book, Request $request){
+        $incomingFields = $request->all();
+        
+        $given_surname = $incomingFields['student_surname'];
+        
+        $students= Student::Where('surname', 'LIKE', "%$given_surname%")->orderBy('surname')->get(); 
+        if(!$students->count()){
+            return redirect("/loans_b/$book->id")->with('failure','Δε βρέθηκε μαθητής με αυτά τα στοιχεία');
+        }
+
+        return view('add-loan-book',['students' => $students, 'book' => $book]);
+    }
+
+    public function lendBookFromBook(Book $book, Request $request){
+        $incomingFields = $request->all();
+        
+        $given_surname = $incomingFields['student_id'];
+
+        try{
+            Loan::create([
+            'book_id' => $book->id,
+            'student_id' => $incomingFields['student_id'],
+            'date_out' => date('y/m/d'),
+        ]);
+        }
+        catch(QueryException $e){
+            return redirect("/book_profile/$book->id")->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
+        }
+
+        $book->available = 0;
+        $book->save();
+        
+        return redirect("/book_profile/$book->id")->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
     }
 }

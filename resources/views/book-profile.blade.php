@@ -7,11 +7,11 @@
     </div>
     <div class="p-4 row">
         <div class="col m-4 badge bg-warning text-wrap" style="width: 12rem;">
-            <a href="{{--#book--}}">Επεξεργασία στοιχείων βιβλίου</a>
+            <a href="/edit_book/{{$book->id}}">Επεξεργασία στοιχείων βιβλίου</a>
         </div>
         @if($book->available)
             <div class="col m-4 badge bg-warning text-wrap" style="width: 12rem;">
-                <a href="">Καταχώρηση δανεισμού</a>
+                <a href="{{route('search_loan_b',[$book->id])}}">Καταχώρηση δανεισμού</a>
             </div>
         @else
             <div class="col m-4 badge bg-danger text-wrap" style="width: 12rem;">
@@ -19,8 +19,6 @@
             </div>
         @endif
     </div>    
-
-    @isset($loans)
         <table class="table table-striped table-hover table-light">
             <tr>
                 <th>Επίθετο</th>
@@ -29,10 +27,9 @@
                 <th>Ημερομηνία Δανεισμού</th>
                 <th>Ημερομηνία Επιστροφής</th>
             </tr>
-            @foreach($loans as $loan)
+            @foreach($book->loans as $loan)
             <form action="/loans/return" method="post">
                 @csrf
-                {{-- <input type="hidden" name="student_id" value={{$student->id}}> --}}
                 <input type="hidden" name="loan_id" value={{$loan->id}}>
                 <tr >  
                     <td><a href ="/profile/{{$loan->student->id}}">{{$loan->student->surname}}</a></td>
@@ -49,7 +46,6 @@
             @endforeach
         </table>
         <br>
-    σύνολο ενεργών δανεισμών: <strong>{{$loans->whereNull('date_in')->count()}}</strong> από <strong>{{$loans->count()}}</strong>
-    @endisset
+    σύνολο ενεργών δανεισμών: <strong>{{$book->loans->whereNull('date_in')->count()}}</strong> από <strong>{{$book->loans->count()}}</strong>
 </div>
 </x-layout>

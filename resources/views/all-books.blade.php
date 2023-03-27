@@ -16,7 +16,7 @@
     @foreach($books as $book)
         <tr>  
             <td>{{$book->code}}</td>
-            <td><a href="/book_profile/{{$book->id}}">{{$book->title}}</a></td>
+            <td>{{$book->title}}</td>
             <td>{{$book->writer}}</td>
             <td>{{$book->publisher}}</td>
             

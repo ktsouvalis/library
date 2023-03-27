@@ -1,8 +1,8 @@
 <x-layout>
 <body>
-    <div class="container">
+<div class="container">
     @include('menu')
-<!--tabs-->
+    <!--tabs-->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
           <button class="nav-link @isset($active_tab) @if($active_tab=='search') {{'active'}} @endif @else {{'active'}} @endisset" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="true">Αναζήτηση Βιβλίου με βάση τον τίτλο </button>
@@ -14,7 +14,7 @@
           <button class="nav-link @isset($active_tab) @if($active_tab=='insert') {{'active'}} @endif @endisset" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" aria-controls="tab3" aria-selected="false">Εισαγωγή βιβλίου</button>
         </li>
     </ul>
-<!--tab content-->
+    <!--tab content-->
     <div class="tab-content" id="myTabContent">
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='search') {{'show active'}}  @endif @else {{'show active'}} @endisset" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
@@ -54,14 +54,40 @@
                     @endif
                 @endisset
             @endisset
+            @isset($all_books)
+                <table class="table table-striped table-hover table-light" >
+                    <tr>
+                        <th>Κωδικός Βιβλίου</th>
+                        <th>Τίτλος</th>
+                        <th>Συγγραφέας</th>
+                        <th>Εκδότης</th>
+                        <th>Διαθέσιμο</th>
+                    </tr>
+                    @foreach($all_books as $book)
+                        <tr>  
+                            <td>{{$book->code}}</td>
+                            <td><a href="/book_profile/{{$book->id}}">{{$book->title}}</a></td>
+                            <td>{{$book->writer}}</td>
+                            <td>{{$book->publisher}}</td>
+                            
+                            @if($book->available)
+                                <td>Διαθέσιμο</td>
+                            @else
+                                <td>-</td>
+                            @endif
+                        </tr>
+                    @endforeach
+                </table>
+            @endisset
         </div>
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='import') {{'show active'}} @endif @endisset" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
             <nav class="navbar navbar-light bg-light">
                 <form action="" method="post" class="container-fluid">
                     @csrf
+                    
                     <input type="hidden" name="asks_to" value="import">
-                    <button type="submit" class="btn btn-primary">tab2</button>
+                    <button type="submit" class="btn btn-primary">Εισαγωγή αρχείου</button>
                 </form>
             </nav>
             @isset($result2)
@@ -90,25 +116,25 @@
                         <input name="book_publisher3" type="text" value="@isset($dberror) {{ $old_data['book_publisher3'] }} @endisset" class="form-control" placeholder="Εκδόσεις" aria-label="Εκδόσεις" aria-describedby="basic-addon1" required><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_subject3" type="text" value="@isset($dberror) {{ $old_data['book_subject3'] }} @endisset" class="form-control" placeholder="Θεματική" aria-label="Θεματική" aria-describedby="basic-addon1" required><br>
+                        <input name="book_subject3" type="text" value="@isset($dberror) {{ $old_data['book_subject3'] }} @endisset" class="form-control" placeholder="Θεματική" aria-label="Θεματική" aria-describedby="basic-addon1"><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_publish_place3" type="text" value="@isset($dberror) {{ $old_data['book_publish_place3'] }} @endisset" class="form-control" placeholder="Τόπος Έκδοσης" aria-label="Τόπος Έκδοσης" aria-describedby="basic-addon1" required><br>
+                        <input name="book_publish_place3" type="text" value="@isset($dberror) {{ $old_data['book_publish_place3'] }} @endisset" class="form-control" placeholder="Τόπος Έκδοσης" aria-label="Τόπος Έκδοσης" aria-describedby="basic-addon1"><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_publish_year3" type="text" value="@isset($dberror) {{ $old_data['book_publish_year3'] }} @endisset" class="form-control" placeholder="Χρονολογία Έκδοσης" aria-label="Χρονολογία Έκδοσης" aria-describedby="basic-addon1" required><br>
+                        <input name="book_publish_year3" type="text" value="@isset($dberror) {{ $old_data['book_publish_year3'] }} @endisset" class="form-control" placeholder="Χρονολογία Έκδοσης" aria-label="Χρονολογία Έκδοσης" aria-describedby="basic-addon1"><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_no_of_pages3" type="number" value="@isset($dberror) {{ $old_data['book_no_of_pages3'] }} @endisset" class="form-control" placeholder="Αρ. Σελίδων" aria-label="Αρ. Σελίδων" aria-describedby="basic-addon1" required><br>
+                        <input name="book_no_of_pages3" type="number"  class="form-control" placeholder="Αρ. Σελίδων" aria-label="Αρ. Σελίδων" aria-describedby="basic-addon1" value=@isset($dberror) {{ $old_data['book_no_of_pages3'] }} @endisset><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_acquired_by3" type="text" value="@isset($dberror) {{ $old_data['book_acquired_by3'] }} @endisset" class="form-control" placeholder="Τρόπος απόκτησης" aria-label="Τρόπος απόκτησης" aria-describedby="basic-addon1" required><br>
+                        <input name="book_acquired_by3" type="text" value="@isset($dberror) {{ $old_data['book_acquired_by3'] }} @endisset" class="form-control" placeholder="Τρόπος απόκτησης" aria-label="Τρόπος απόκτησης" aria-describedby="basic-addon1"><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_acquired_year3" type="text" value="@isset($dberror) {{ $old_data['book_acquired_year3'] }} @endisset" class="form-control" placeholder="Χρονολογία απόκτησης" aria-label="Χρονολογία απόκτησης" aria-describedby="basic-addon1" required><br>
+                        <input name="book_acquired_year3" type="text" value="@isset($dberror) {{ $old_data['book_acquired_year3'] }} @endisset" class="form-control" placeholder="Χρονολογία απόκτησης" aria-label="Χρονολογία απόκτησης" aria-describedby="basic-addon1" ><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_comments3" type="text" value="@isset($dberror) {{ $old_data['book_comments3'] }} @endisset" class="form-control" placeholder="Σχόλια" aria-label="Σχόλια" aria-describedby="basic-addon1" required><br>
+                        <input name="book_comments3" type="text" value="@isset($dberror) {{ $old_data['book_comments3'] }} @endisset" class="form-control" placeholder="Σχόλια" aria-label="Σχόλια" aria-describedby="basic-addon1"><br>
                     </div>
                     <button type="submit" class="btn btn-primary">Προσθήκη</button>
                 </form>
@@ -126,5 +152,5 @@
             @endisset
         </div>
     </div>
-    </div>
+</div>
 </x-layout>

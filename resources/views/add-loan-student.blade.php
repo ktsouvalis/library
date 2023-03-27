@@ -12,10 +12,10 @@
             <input type="hidden" name="student_id" value="{{$student->id}}">
             <input type="hidden" name="asks_to" value="search">
             <div class="input-group">
-                <span class="input-group-text" id="basic-addon1"><strong>Εισάγετε Κωδικό Βιβιλίου προς Δανεισμό</strong></span>
+                <span class="input-group-text" id="basic-addon1"><strong>Εισάγετε Κωδικό Βιβιλίου προς δανεισμό</strong></span>
             </div>
             <div class="input-group">
-                <input name="book_code" type="number" value="" class="form-control" placeholder="Κωδικός Βιβλίο" aria-label="Κωδικός Βιβιλίου" aria-describedby="basic-addon2">
+                <input name="book_code" type="number" value="" class="form-control" placeholder="Κωδικός Βιβλίου" aria-label="Κωδικός Βιβιλίου" aria-describedby="basic-addon2" required>
             </div>
             <button type="submit" class="btn btn-primary">Αναζήτηση</button>
         </form>

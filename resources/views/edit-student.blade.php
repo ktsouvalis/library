@@ -29,14 +29,6 @@
             </nav>
             @isset($dberror)
                 <div class="alert alert-danger" role="alert">{{$dberror}}</div>
-            @else
-                @isset($saved)
-                    @if($saved)
-                        <div class="alert alert-success" role="alert">Επιτυχής αποθήκευση. Μπορείτε να κλείσετε το παράθυρο</div>
-                    @else
-                        <div class="alert alert-warning" role="alert">Δεν υπάρχουν αλλαγές προς αποθήκευση</div>
-                    @endif
-                @endisset
             @endisset
     </div>
 </x-layout>

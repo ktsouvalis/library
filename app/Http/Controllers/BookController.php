@@ -27,10 +27,6 @@ class BookController extends Controller
         $given_code = isset($incomingFields['book_code1']) ? $incomingFields['book_code1'] : 0;
         $books= ($given_code <> 0) ? Book::where('code', $given_code)->get() : Book::Where('title', 'LIKE', "%$given_title%")->orderBy('title')->get();
         
-        // $given_title = $incomingFields['book_title1'];
-        
-        // $books= Book::where('title', 'LIKE', "%$given_title%")->orderBy('title')->get();
-        
         return view('book',['books'=>$books, 'active_tab'=>'search']);
     }
 
@@ -44,8 +40,8 @@ class BookController extends Controller
         $given_code = $incomingFields['book_code3'];
         $validator = Validator::make($incomingFields, $rules);
         if($validator->fails()){
-            $existing_book = Book::where('code','=', $given_code)->first();
-            return view('book',['dberror'=>"Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, $existing_book->publisher", 'old_data'=>$request,'active_tab'=>'insert']);
+            $existing_book = Book::where('code',$given_code)->first();
+            return view('book',['dberror'=>"Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, Εκδόσεις $existing_book->publisher", 'old_data'=>$request,'active_tab'=>'insert']);
         }
 
         //VALIDATION PASSED
@@ -72,39 +68,45 @@ class BookController extends Controller
         return view('book',['record'=>$record,'active_tab'=>'insert']);
     }
 
-    public function save_profile(Student $student, Request $request){
+    public function save_profile(Book $book, Request $request){
 
         $incomingFields = $request->all();
-        $saved = False;
 
-        $student->am = $incomingFields['student_am'];
-        $student->surname = $incomingFields['student_surname'];
-        $student->name = $incomingFields['student_name'];
-        $student->f_name = $incomingFields['student_fname'];
-        $student->class = $incomingFields['student_class'];
+        $book->code = $incomingFields['book_code'];
+        $book->writer= $incomingFields['book_writer'];
+        $book->title= $incomingFields['book_title'];
+        $book->publisher= $incomingFields['book_publisher'];
+        $book->subject= $incomingFields['book_subject'];
+        $book->publish_place= $incomingFields['book_publish_place'];
+        $book->publish_year= $incomingFields['book_publish_year'];
+        $book->no_of_pages= $incomingFields['book_no_of_pages'];
+        $book->acquired_by= $incomingFields['book_acquired_by'];
+        $book->acquired_year= $incomingFields['book_acquired_year'];
+        $book->comments= $incomingFields['book_comments'];
 
-        if($student->isDirty()){
-            if($student->isDirty('am')){
+        if($book->isDirty()){
+            if($book->isDirty('code')){
                 $rules = [
-                    'student_am'=>'unique:students,am'
+                    'book_code'=>'unique:books,code'
                 ];
-                $given_am = $incomingFields['student_am'];
+                $given_code = $incomingFields['book_code'];
                 $validator = Validator::make($incomingFields, $rules);
                 if($validator->fails()){
-                    return view('edit-student',['dberror'=>"Υπάρχει ήδη μαθητής με τον Α.Μ. $given_am", 'student' => $student]);
+                    $existing_book = Book::where('code',$given_code)->first();
+                    return view('edit-book',['dberror'=>"Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, Εκδόσεις $existing_book->publisher", 'book' => $book]);
                 }
             }
-            $student->save();
-            $saved = True;
+            $book->save();
+        }
+        else{
+            return view('edit-book',['dberror'=>"Δεν υπάρχουν αλλαγές προς αποθήκευση", 'book' => $book]);
         }
 
-       return view('edit-student',['saved' => $saved, 'student' => $student]);
+        return redirect("/book_profile/$book->id")->with('success','Επιτυχής αποθήκευση');
     }
 
     public function show_profile(Book $book){
-
-        $loans = Loan::where('book_id',$book->id)->orderBy('date_out')->get();
         
-        return view('book-profile',['book'=>$book, 'loans'=>$loans]);
+        return view('book-profile',['book'=>$book]);
     }
 }

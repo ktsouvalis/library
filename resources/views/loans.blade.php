@@ -17,7 +17,6 @@
             @foreach($loans as $loan)
             <form action="/loans/return" method="post">
                 @csrf
-                {{-- <input type="hidden" name="student_id" value={{$student->id}}> --}}
                 <input type="hidden" name="loan_id" value={{$loan->id}}>
                 <tr >  
                     <td>{{$loan->book->code}}</td>
@@ -26,7 +25,7 @@
                     <td>{{$loan->book->publisher}}</td>
                     <td><a href="/profile/{{$loan->student->id}}">{{$loan->student->surname}}</a></td>
                     <td>{{$loan->student->name}}</td>
-                    <td>{{$loan->student->class}}</td>
+                    <td><strong>{{$loan->student->class}}</strong></td>
                     <td>{{$loan->date_out}}</td>
                     @if($loan->date_in==null)
                         <td><input type="submit" value="Επιστροφή"></td>
