@@ -113,16 +113,16 @@ class BookController extends Controller
         return view('book-profile',['book'=>$book]);
     }
 
-    // public function importBooks(Request $request){
-    //     $incomingFields = $request->all();
-    //     $file = $incomingFields['import_books'];
+    public function importBooks(Request $request){
+        $incomingFields = $request->all();
+        $file = $incomingFields['import_books'];
         
-    //     $path = Storage::putFile('files', $file);
-    //     echo $p
-    //     $mime = Storage::mimeType($path);
-    //     $spreadsheet = IOFactory::load("../storage/app/$path");
-    //     echo $spreadsheet->getActiveSheet()->getCell('B1');
-    // }
+        $path = Storage::putFile('files', $file);
+    
+        // $mime = Storage::mimeType($path);
+        $spreadsheet = IOFactory::load("../storage/app/$path");
+        // echo $spreadsheet->getActiveSheet()->getCell('A2');
+    }
 
     public function deleteBook(Book $book){
 
