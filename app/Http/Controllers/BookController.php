@@ -6,6 +6,9 @@ use App\Models\Book;
 use App\Models\Loan;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use Illuminate\Support\Facades\Validator;
 
 class BookController extends Controller
@@ -108,5 +111,15 @@ class BookController extends Controller
     public function show_profile(Book $book){
         
         return view('book-profile',['book'=>$book]);
+    }
+
+    public function importBooks(Request $request){
+        $incomingFields = $request->all();
+        $file = $incomingFields['import_books'];
+        
+        $path = Storage::putFile('files', $file);
+        $mime = Storage::mimeType($path);
+        $spreadsheet = IOFactory::load("../storage/app/$path");
+        // echo $spreadsheet->getActiveSheet()->getCell('B2');
     }
 }

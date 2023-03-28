@@ -83,10 +83,12 @@
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='import') {{'show active'}} @endif @endisset" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
             <nav class="navbar navbar-light bg-light">
-                <form action="" method="post" class="container-fluid">
+                <a href="/books.xlsx" class="link-info">Πρότυπο αρχείο για συμπλήρωση</a>
+                <form action="/book_upload" method="post" class="container-fluid">
                     @csrf
                     
                     <input type="hidden" name="asks_to" value="import">
+                    <input type="file" name="import_books"> 
                     <button type="submit" class="btn btn-primary">Εισαγωγή αρχείου</button>
                 </form>
             </nav>
