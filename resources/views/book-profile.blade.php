@@ -1,23 +1,19 @@
 <x-layout>
-    <div class="p-3 container">
+<div class="p-3 container">
     @include('menu')
 <body>
-    <div class="p-2 badge bg-success text-wrap" style="width: 12rem;">
-        {{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}
-    </div>
-    <div class="p-4 row">
-        <div class="col m-4 badge bg-warning text-wrap" style="width: 12rem;">
-            <a href="/edit_book/{{$book->id}}">Επεξεργασία στοιχείων βιβλίου</a>
-        </div>
-        @if($book->available)
-            <div class="col m-4 badge bg-warning text-wrap" style="width: 12rem;">
-                <a href="{{route('search_loan_b',[$book->id])}}">Καταχώρηση δανεισμού</a>
+    <div class="p-3 row" >
+            <div class="col-sm-2 btn btn-success text-wrap">
+                {{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}
             </div>
-        @else
-            <div class="col m-4 badge bg-danger text-wrap" style="width: 12rem;">
-                Το βιβλίο δεν είναι διαθέσιμο για δανεισμό
-            </div>
-        @endif
+            @if($book->available)
+                <div class="col-sm-2"><a href="{{route('search_loan_b',[$book->id])}}" class="btn btn-primary bi bi-book-fill">  Καταχώρηση δανεισμού</a></div>
+            @else
+                <div class="col-sm-2 m-4 badge bg-danger text-wrap " style="width: 12rem;">
+                    Το βιβλίο δεν είναι διαθέσιμο για δανεισμό
+                </div>
+            @endif
+            <div class="col-sm-2"><a href="/edit_book/{{$book->id}}" class="btn btn-primary bi bi-tools">  Επεξεργασία στοιχείων βιβλίου</a></div>  
     </div>    
         <table class="table table-striped table-hover table-light">
             <tr>

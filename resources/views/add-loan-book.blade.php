@@ -3,11 +3,11 @@
     <div class="container py-3">
     @include('menu')
     {{-- <nav class="navbar navbar-light bg-light"> --}}
-        <div class="badge bg-success text-wrap m-3">
-                {{$book->code}}, {{$book->title}}, {{$book->writer}}, {{$book->publisher}}
+        <div class="m-3 col-sm-2 btn btn-success text-wrap ">
+                {{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}
         </div>
         <div class="m-3">
-        <form action="{{route('loans_search_book', [$book->id])}}" method="post" class="container-fluid">
+        <form action="{{route('loans_search_book', [$book->id])}}" method="post" class="">
             @csrf
             <input type="hidden" name="student_id" value="{{$book->id}}">
             <input type="hidden" name="asks_to" value="search">

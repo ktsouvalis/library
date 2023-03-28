@@ -35,16 +35,11 @@
                 @if($students->isEmpty())
                     <div class="alert alert-warning" role="alert">Δε βρέθηκε μαθητής με τα στοιχεία που εισάγατε</div>
                 @else
-                    <div class="col">
-                        @foreach($students as $student)
-                            <div class="row">
-                                <div class="badge bg-warning text-wrap" style="width: 12rem;">
-                                    <a href="/profile/{{$student->id}}">{{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->class}}</a>
-                                </div>
-                            </div>
-                            <br>
-                        @endforeach
-                    </div>
+                    @foreach($students as $student)
+                        <div class="m-2 col-sm-2 btn btn-warning text-wrap">
+                            <a href="/profile/{{$student->id}}">{{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->class}}</a>
+                        </div>
+                    @endforeach
                 @endif
             @endisset
             @isset($all_students)
@@ -113,9 +108,8 @@
             @else
                 @isset($record)
                     <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div>
-                        <div class="badge bg-warning text-wrap" style="width: 12rem;">
-                            <a href="/profile/{{$record->id}}">{{$record->am}}, {{$record->surname}} {{$record->name}}, {{$record->class}}</a>
-                        </div>
+                    <div class="m-2 col-sm-2 btn btn-warning text-wrap">
+                        <a href="/profile/{{$record->id}}">{{$record->am}}, {{$record->surname}} {{$record->name}}, {{$record->class}}</a>
                     </div>
                 @endisset
             @endisset
