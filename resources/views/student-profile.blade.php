@@ -2,18 +2,17 @@
     <div class="p-3 container">
     @include('menu')
 <body>
-    <div class="p-2 badge bg-success text-wrap" style="width: 12rem;">
-        {{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->f_name}}, {{$student->class}}
-    </div>
-    <div class="p-4 row">
-        <div class="m-4 col badge bg-warning text-wrap" style="width: 12rem;">
-            <a href="/edit_student/{{$student->id}}">Επεξεργασία στοιχείων μαθητή</a>
+    <div class="p-3 row">
+        <div class="col-sm-2 btn btn-success text-wrap" >
+            {{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->f_name}}, {{$student->class}}
         </div>
-        <div class="m-4 col badge bg-warning text-wrap" style="width: 12rem;">
-            <a href="{{route('search_loan_s',[$student->id])}} ">Καταχώρηση δανεισμού</a>
+        <div class="col-sm-2 " >
+            <a href="/edit_student/{{$student->id}}" class="btn btn-primary bi bi-journal-text">  Επεξεργασία στοιχείων μαθητή</a>
+        </div>
+        <div class="col-sm-2" >
+            <a href="{{route('search_loan_s',[$student->id])}} " class="btn btn-primary bi bi-journal-arrow-up">  Καταχώρηση δανεισμού</a>
         </div> 
     </div>
-    
     <table class="table table-striped table-hover table-light">
         <tr>
             <th>Κωδικός Βιβλίου</th>
@@ -26,7 +25,6 @@
         @foreach($student->loans as $loan)
         <form action="/loans/return" method="post">
             @csrf
-            {{-- <input type="hidden" name="student_id" value={{$student->id}}> --}}
             <input type="hidden" name="loan_id" value={{$loan->id}}>
             <tr >  
                 <td>{{$loan->book->code}}</td>

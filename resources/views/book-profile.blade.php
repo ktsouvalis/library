@@ -3,23 +3,25 @@
     @include('menu')
 <body>
     <div class="p-3 row" >
-            <div class="col-sm-2 btn btn-success text-wrap">
-                {{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}
+        <div class="col-sm-2 btn btn-success text-wrap">
+            {{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}
+        </div>
+        @if($book->available)
+            <div class="col-sm-2"><a href="{{route('search_loan_b',[$book->id])}}" class="btn btn-primary bi bi-journal-arrow-up">  Καταχώρηση δανεισμού</a></div>
+        @else
+            <div class="col-sm-2 m-2 btn btn-danger">
+                Το βιβλίο δεν είναι διαθέσιμο για δανεισμό
             </div>
-            @if($book->available)
-                <div class="col-sm-2"><a href="{{route('search_loan_b',[$book->id])}}" class="btn btn-primary bi bi-journal-arrow-up">  Καταχώρηση δανεισμού</a></div>
-            @else
-                <div class="col-sm-2 m-4 badge bg-danger text-wrap " style="width: 12rem;">
-                    Το βιβλίο δεν είναι διαθέσιμο για δανεισμό
-                </div>
-            @endif
-            <div class="col-sm-2"><a href="/edit_book/{{$book->id}}" class="btn btn-primary bi bi-journal-text">  Επεξεργασία στοιχείων βιβλίου</a></div>
+        @endif
+        <div class="col-sm-2"><a href="/edit_book/{{$book->id}}" class="btn btn-primary bi bi-journal-text">  Επεξεργασία στοιχείων βιβλίου</a></div>
+        @if($book->available)
             <div class=col-sm-2>
                 <form action="/delete_book/{{$book->id}}" method="post">
                     @csrf
-                    <button type="submit" class="btn btn-danger bi bi-journal-x">  Διαγραφή βιβλίου</button>
+                    <button type="submit" class="btn btn-danger bi bi-journal-x"> Διαγραφή βιβλίου</button>
                 </form>    
             </div>  
+        @endif
     </div>    
         <table class="table table-striped table-hover table-light">
             <tr>
