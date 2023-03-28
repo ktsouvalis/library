@@ -113,20 +113,22 @@ class BookController extends Controller
         return view('book-profile',['book'=>$book]);
     }
 
-    public function importBooks(Request $request){
-        $incomingFields = $request->all();
-        $file = $incomingFields['import_books'];
+    // public function importBooks(Request $request){
+    //     $incomingFields = $request->all();
+    //     $file = $incomingFields['import_books'];
         
-        $path = Storage::putFile('files', $file);
-        $mime = Storage::mimeType($path);
-        $spreadsheet = IOFactory::load("../storage/app/$path");
-        // echo $spreadsheet->getActiveSheet()->getCell('B2');
-    }
+    //     $path = Storage::putFile('files', $file);
+    //     echo $p
+    //     $mime = Storage::mimeType($path);
+    //     $spreadsheet = IOFactory::load("../storage/app/$path");
+    //     echo $spreadsheet->getActiveSheet()->getCell('B1');
+    // }
 
     public function deleteBook(Book $book){
 
-        Book::find($book->id)->delete();
-        return redirect('/book')->with('success', "Το βιβλίο $book->code, $book->title, $book->writer, Εκδόσεις $book->publisher, διαγράφηκε");
-
+        if($book->available){
+            Book::find($book->id)->delete();
+            return redirect('/book')->with('success', "Το βιβλίο $book->code, $book->title, $book->writer, Εκδόσεις $book->publisher, διαγράφηκε");
+        }
     }
 }

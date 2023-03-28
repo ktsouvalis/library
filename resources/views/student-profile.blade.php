@@ -3,11 +3,11 @@
     @include('menu')
 <body>
     <div class="p-3 row">
-        <div class="col-sm-2 btn btn-success text-wrap" >
+        <div class="col-sm-2 btn btn-warning text-wrap" style="color:black" >
             {{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->f_name}}, {{$student->class}}
         </div>
         <div class="col-sm-2 " >
-            <a href="/edit_student/{{$student->id}}" class="btn btn-primary bi bi-journal-text">  Επεξεργασία στοιχείων μαθητή</a>
+            <a href="/edit_student/{{$student->id}}" class="btn btn-primary bi bi-journal-text" >  Επεξεργασία στοιχείων μαθητή</a>
         </div>
         <div class="col-sm-2" >
             <a href="{{route('search_loan_s',[$student->id])}} " class="btn btn-primary bi bi-journal-arrow-up">  Καταχώρηση δανεισμού</a>
