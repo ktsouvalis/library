@@ -112,11 +112,14 @@
                 @endforeach
             </table>
             Να προχωρήσει η εισαγωγή αυτών των στοιχείων;
-            <form action="/book_upload" method="post" class="container-fluid" enctype="multipart/form-data">
-                <input type="hidden" name="asks_to" value="save">
-                <button type="submit" class="btn btn-primary">Εισαγωγή</button>
-            </form>
-            <a href="/book" class="">Ακύρωση</a>
+            <div class="row">
+                
+                <form action="/books_insertion" method="post" class="col container-fluid" enctype="multipart/form-data">
+                @csrf
+                    <button type="submit" class="btn btn-primary">Εισαγωγή</button>
+                </form>
+                <a href="/book" class="col">Ακύρωση</a>
+            </div>
             @endif
             @isset($result2)
                 {{$result2}}
