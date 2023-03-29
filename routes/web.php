@@ -42,17 +42,18 @@ Route::get('/edit_student/{student}', function(Student $student){
 
 Route::post('/edit_student/{student}', [StudentController::class, 'save_profile'])->middleware('myauth');
 
-// Route::get('/loans', function(){
-//     $loans = Loan::orderBy('date_in', 'asc')->get();
-//     return view('loans', ['loans' => $loans]);
-// })->middleware('myauth');
-
-Route::get('/loans', function(){ 
-    $loans = Loan::join('students', 'loans.student_id', '=', 'students.id')
-        ->orderBy('students.class', 'asc')
-        ->get(); 
-    return view('loans', ['loans' => $loans]); 
+Route::get('/loans', function(){
+    $loans = Loan::orderBy('date_in', 'asc')->get();
+    return view('loans', ['loans' => $loans]);
 })->middleware('myauth');
+
+// Route::get('/loans', function(){ 
+//     $loans = Loan::join('students', 'loans.student_id', '=', 'students.id')
+//         ->join('books', 'loans.book_id', '=', 'books.id')
+//         ->orderBy('students.class', 'asc')
+//         ->get(); 
+//     return view('loans', ['loans' => $loans]); 
+// })->middleware('myauth');
 
 Route::post('/loans/return',[LoanController::class, 'returnBook'])->middleware('myauth');
 
