@@ -124,18 +124,44 @@ class BookController extends Controller
             for($col=1;$col<=11;$col++){
                 $rowSumValue .= $spreadsheet->getActiveSheet()->getCellByColumnAndRow($col, $row)->getValue();
             }
-            $book = new Book();
-            $book->code = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue();
-            $book->title= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue();
-            $book->writer= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue();
-            $book->publisher= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(4, $row)->getValue();
-            $book->subject= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(5, $row)->getValue();
-            $book->publish_place= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(6, $row)->getValue();
-            $book->publish_year= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(7, $row)->getValue();
-            $book->no_of_pages= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(8, $row)->getValue();
-            $book->acquired_by= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(9, $row)->getValue();
-            $book->acquired_year= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(10, $row)->getValue();
-            $book->comments= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(11, $row)->getValue();
+            $check=array();
+            $check['code'] = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue();
+            $check['title']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue();
+            $check['writer']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue();
+            $check['publisher']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(4, $row)->getValue();
+            $check['subject']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(5, $row)->getValue();
+            $check['publish_place']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(6, $row)->getValue();
+            $check['publish_year']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(7, $row)->getValue();
+            $check['no_of_pages']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(8, $row)->getValue();
+            $check['acquired_by']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(9, $row)->getValue();
+            $check['acquired_year']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(10, $row)->getValue();
+            $check['comments']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(11, $row)->getValue();
+            $rule = [
+                'code' => 'required|unique:books,code'
+            ];
+            $validator = Validator::make($check, $rule);
+            if($validator->fails()){
+                echo "failed code"; exit;
+            }
+            $rule = [
+                'title' => 'required',
+                'writer' => 'required',
+                'publisher'=>'required'
+            ];
+            $validator = Validator::make($check, $rule);
+            if($validator->fails()){
+                echo "failed required"; exit;
+            }
+            $rule = [
+                'no_of_pages' => 'numeric',
+                'publish_year'=>'numeric',
+                'acquired_year'=>'numeric'
+            ];
+            $validator = Validator::make($check, $rule);
+            if($validator->fails()){
+                echo "failed numerics"; exit;
+            }
+            echo "passed"; exit;
             array_push($books_array, $book);
             $row++;
         } while ($rowSumValue != "" || $row>10000);
