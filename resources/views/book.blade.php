@@ -104,34 +104,34 @@
                         <input name="book_code3" type="number" value="" class="form-control" placeholder="Κωδικός Βιβλίου" aria-label="Κωδικός Βιβλίου" aria-describedby="basic-addon2" required>
                     </div>
                     <div class="input-group">
-                        <input name="book_writer3" type="text" value="@isset($dberror) {{ $old_data['book_writer3'] }} @endisset"  class="form-control" placeholder="Συγγραφέας" aria-label="Συγγραφέας" aria-describedby="basic-addon1" required><br>
+                        <input name="book_writer3" type="text" class="form-control" placeholder="Συγγραφέας" aria-label="Συγγραφέας" aria-describedby="basic-addon1" required value=@isset($dberror) {{$old_data['book_writer3']}} @endisset><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_title3" type="text" value="@isset($dberror) {{ $old_data['book_title3'] }} @endisset" class="form-control" placeholder="Τίτλος" aria-label="Τίτλος" aria-describedby="basic-addon1" required><br>
+                        <input name="book_title3" type="text" class="form-control" placeholder="Τίτλος" aria-label="Τίτλος" aria-describedby="basic-addon1" required value=@isset($dberror) {{$old_data['book_title3']}} @endisset><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_publisher3" type="text" value="@isset($dberror) {{ $old_data['book_publisher3'] }} @endisset" class="form-control" placeholder="Εκδόσεις" aria-label="Εκδόσεις" aria-describedby="basic-addon1" required><br>
+                        <input name="book_publisher3" type="text" class="form-control" placeholder="Εκδόσεις" aria-label="Εκδόσεις" aria-describedby="basic-addon1" required value=@isset($dberror) {{$old_data['book_publisher3']}} @endisset><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_subject3" type="text" value="@isset($dberror) {{ $old_data['book_subject3'] }} @endisset" class="form-control" placeholder="Θεματική" aria-label="Θεματική" aria-describedby="basic-addon1"><br>
+                        <input name="book_subject3" type="text" class="form-control" placeholder="Θεματική" aria-label="Θεματική" aria-describedby="basic-addon1" value=@isset($dberror) {{$old_data['book_subject3']}} @endisset><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_publish_place3" type="text" value="@isset($dberror) {{ $old_data['book_publish_place3'] }} @endisset" class="form-control" placeholder="Τόπος Έκδοσης" aria-label="Τόπος Έκδοσης" aria-describedby="basic-addon1"><br>
+                        <input name="book_publish_place3" type="text" class="form-control" placeholder="Τόπος Έκδοσης" aria-label="Τόπος Έκδοσης" aria-describedby="basic-addon1" value=@isset($dberror) {{$old_data['book_publish_place3']}} @endisset><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_publish_year3" type="text" value="@isset($dberror) {{ $old_data['book_publish_year3'] }} @endisset" class="form-control" placeholder="Χρονολογία Έκδοσης" aria-label="Χρονολογία Έκδοσης" aria-describedby="basic-addon1"><br>
+                        <input name="book_publish_year3" type="text" class="form-control" placeholder="Χρονολογία Έκδοσης" aria-label="Χρονολογία Έκδοσης" aria-describedby="basic-addon1" value=@isset($dberror) {{$old_data['book_publish_year3']}} @endisset><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_no_of_pages3" type="number"  class="form-control" placeholder="Αρ. Σελίδων" aria-label="Αρ. Σελίδων" aria-describedby="basic-addon1" value=@isset($dberror) {{ $old_data['book_no_of_pages3'] }} @endisset><br>
+                        <input name="book_no_of_pages3" type="number"  class="form-control" placeholder="Αρ. Σελίδων" aria-label="Αρ. Σελίδων" aria-describedby="basic-addon1" value=@isset($dberror) {{$old_data['book_no_of_pages3']}} @endisset><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_acquired_by3" type="text" value="@isset($dberror) {{ $old_data['book_acquired_by3'] }} @endisset" class="form-control" placeholder="Τρόπος απόκτησης" aria-label="Τρόπος απόκτησης" aria-describedby="basic-addon1"><br>
+                        <input name="book_acquired_by3" type="text" class="form-control" placeholder="Τρόπος απόκτησης" aria-label="Τρόπος απόκτησης" aria-describedby="basic-addon1" value=@isset($dberror) {{$old_data['book_acquired_by3']}} @endisset><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_acquired_year3" type="text" value="@isset($dberror) {{ $old_data['book_acquired_year3'] }} @endisset" class="form-control" placeholder="Χρονολογία απόκτησης" aria-label="Χρονολογία απόκτησης" aria-describedby="basic-addon1" ><br>
+                        <input name="book_acquired_year3" type="text" class="form-control" placeholder="Χρονολογία απόκτησης" aria-label="Χρονολογία απόκτησης" aria-describedby="basic-addon1" value=@isset($dberror) {{$old_data['book_acquired_year3']}} @endisset><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_comments3" type="text" value="@isset($dberror) {{ $old_data['book_comments3'] }} @endisset" class="form-control" placeholder="Σχόλια" aria-label="Σχόλια" aria-describedby="basic-addon1"><br>
+                        <input name="book_comments3" type="text" class="form-control" placeholder="Σχόλια" aria-label="Σχόλια" aria-describedby="basic-addon1" value=@isset($dberror) {{$old_data['book_comments3']}} @endisset><br>
                     </div>
                     <button type="submit" class="btn btn-primary">Προσθήκη</button>
                 </form>
