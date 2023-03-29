@@ -22,7 +22,6 @@ class LoanController extends Controller
         $student = Student::find($loan->student->id);
 
         return back()->with('success','Η επιστροφή καταχωρήθηκε επιτυχώς');
-        //return redirect("/profile/$student->id")->with('success','Η επιστροφή καταχωρήθηκε επιτυχώς');
     }
 
     public function searchBook(Student $student, Request $request){
@@ -86,8 +85,6 @@ class LoanController extends Controller
 
     public function lendBookFromBook(Book $book, Request $request){
         $incomingFields = $request->all();
-        
-        $given_surname = $incomingFields['student_id'];
 
         try{
             Loan::create([

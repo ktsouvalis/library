@@ -12,8 +12,6 @@
         <div class="row p-2 justify-content-evenly">
             
         @auth
-            {{-- <h2><a href="#" target="_blank">Εισαγωγή βιβλίων από αρχείο</a></h2>
-            <h2><a href="#" target="_blank">Εισαγωγή βιβλίων μέσω φόρμας</a></h2> --}}
             <a class="col-lg-3 card text-bg-success mb-3" style="max-width: 20rem; opacity: 0.9;" href="/book">
                 <div class="card-body" style="text-align: center; padding: 5rem">
                 <h5 class="card-title">Βιβλία</h5>
@@ -38,11 +36,6 @@
                 <p class="card-text"></p>
                 </div> 
             </a>
-            
-            {{-- <h2><a href="/show_who_books_out" target="_blank">Αναζήτηση δανεισμών ανά τμήμα</a></h2>
-            <h2><a href="/number_of_total_outs_per_class" target="_blank">Αριθμός συνολικών δανεισμών ανά τάξη</a></h2>
-            <h2><a href="/all_books_to_xlsx" target="_blank">Εξαγωγή Βάσης σε αρχείο xlsx</a></h2> --}}
-            {{-- <h2><a href="#" target="_blank">Επεξεργασία βιβλίου</a></h2> --}}
         @else
         <a class="col-lg-3 card text-bg-primary mb-3" style="max-width: 20rem; opacity: 0.9;" href="/all-books">
                 <div class="card-body" style="text-align: center; padding: 5rem">

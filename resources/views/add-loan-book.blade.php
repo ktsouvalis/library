@@ -2,7 +2,6 @@
 
     <div class="container py-3">
     @include('menu')
-    {{-- <nav class="navbar navbar-light bg-light"> --}}
         <div class="col-sm-2 btn btn-success text-wrap">
                 {{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}
         </div>
@@ -20,7 +19,6 @@
             <button type="submit" class="btn btn-primary">Αναζήτηση</button>
         </form>
         </div>
-    {{-- </nav> --}}
     @isset($dberror)
                 <div class="alert alert-danger" role="alert">{{$dberror}}</div>
     @else
@@ -33,14 +31,6 @@
                         <div class="row py-2">
                         <input type="radio" class="btn-check" name="student_id" id="{{$student->id}}" value="{{$student->id}}" autocomplete="off">
                         <label style="color:black" class="btn btn-outline-warning" for="{{$student->id}}">{{$student->surname}} {{$student->name}}, {{$student->f_name}}, {{$student->class}}</label>
-                        {{-- <div class="custom-control custom-radio">
-                            <input type="radio" name="student_id" value="{{$student->id}}" class="custom-control-input">
-                            <label class="custom-control-label" for="student_id">
-                                <div class="col-2 badge bg-warning text-wrap" style="width: 12rem; color: black">
-                                    {{$student->surname}} {{$student->name}}, {{$student->f_name}}, {{$student->class}}
-                                </div>
-                            </label>
-                        </div> --}}
                         </div>
                     @endforeach
                 </div>

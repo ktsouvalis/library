@@ -4,9 +4,6 @@
     <div class="badge bg-light text-wrap py-2 m-1" style="width: 12rem;">
         <a href="/" style="color:black;">Αρχική</a>
     </div>
-    {{-- <div class="badge bg-primary text-wrap py-2 m-1" style="width: 12rem; opacity: 0.9;">
-        <a href="/all-books" style="color:white;">Κατάλογος Βιβλίων</a>
-    </div> --}}
     <div class="badge bg-success text-wrap py-2 m-1" style="width: 12rem; opacity: 0.9;">
         <a href="/book" style="color:white;">Βιβλία</a>
     </div>

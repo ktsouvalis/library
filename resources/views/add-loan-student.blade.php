@@ -2,7 +2,6 @@
 
     <div class="container py-3">
     @include('menu')
-    {{-- <nav class="navbar navbar-light bg-light"> --}}
         <div class="col-sm-2 btn btn-warning text-wrap">
                 {{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->f_name}}, {{$student->class}}
         </div>
@@ -20,7 +19,6 @@
             <button type="submit" class="btn btn-primary">Αναζήτηση</button>
         </form>
         </div>
-    {{-- </nav> --}}
     @isset($dberror)
                 <div class="alert alert-danger" role="alert">{{$dberror}}</div>
     @else
