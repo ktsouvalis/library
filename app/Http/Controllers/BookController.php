@@ -114,12 +114,35 @@ class BookController extends Controller
     }
 
     public function importBooks(Request $request){
-        $incomingFields = $request->all();
-        $file = $incomingFields['import_books'];
-        
-        $path = Storage::putFile('files', $file);
+        $path = $request->file('import_books')->store('files');
         $mime = Storage::mimeType($path);
         $spreadsheet = IOFactory::load("../storage/app/$path");
-        // echo $spreadsheet->getActiveSheet()->getCell('B2');
+        $books_array=array();
+        $row=2;
+        do{
+            $rowSumValue="";
+            for($col=1;$col<=11;$col++){
+                $rowSumValue .= $spreadsheet->getActiveSheet()->getCellByColumnAndRow($col, $row)->getValue();
+            }
+            $book = new Book();
+            $book->code = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue();
+            $book->title= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue();
+            $book->writer= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue();
+            $book->publisher= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(4, $row)->getValue();
+            $book->subject= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(5, $row)->getValue();
+            $book->publish_place= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(6, $row)->getValue();
+            $book->publish_year= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(7, $row)->getValue();
+            $book->no_of_pages= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(8, $row)->getValue();
+            $book->acquired_by= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(9, $row)->getValue();
+            $book->acquired_year= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(10, $row)->getValue();
+            $book->comments= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(11, $row)->getValue();
+            array_push($books_array, $book);
+            $row++;
+        } while ($rowSumValue != "" || $row>10000);
+        return view('book',['books_array'=>$books_array,'active_tab'=>'import', 'asks_to'=>'save']);
+    }
+
+    public function insertBooks(Request $request){
+        print_r($request['books_array']);
     }
 }
