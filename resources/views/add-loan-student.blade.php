@@ -3,7 +3,7 @@
     <div class="container py-3">
     @include('menu')
     {{-- <nav class="navbar navbar-light bg-light"> --}}
-        <div class="badge bg-success text-wrap m-3">
+        <div class="col-sm-2 btn btn-warning text-wrap">
                 {{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->f_name}}, {{$student->class}}
         </div>
         <div class="m-3">
@@ -27,7 +27,7 @@
         @isset($book)
         
         <div class="row py-3 m-3">
-            <div class="col-2 badge bg-warning text-wrap">
+            <div class="col-sm-2 btn btn-success text-wrap" style="color:white">
                 {{$book->title}}, <i>{{$book->writer}}</i>, Εκδόσεις {{$book->publisher}}
             </div>
         

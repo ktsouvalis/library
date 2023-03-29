@@ -61,7 +61,7 @@
                     @foreach($all_books as $book)
                         <tr>  
                             <td>{{$book->code}}</td>
-                            <td><a href="/book_profile/{{$book->id}}">{{$book->title}}</a></td>
+                            <td><div class="badge bg-success text-wrap"><a href="/book_profile/{{$book->id}}" style="color:white">{{$book->title}}</a><div></div></td>
                             <td>{{$book->writer}}</td>
                             <td>{{$book->publisher}}</td>
                             

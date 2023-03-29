@@ -54,7 +54,7 @@
                     @foreach($all_students as $student)
                         <tr>  
                             <td>{{$student->am}}</td>
-                            <td><a href="/profile/{{$student->id}}">{{$student->surname}}</a></td>
+                            <td><div class="badge bg-warning text-wrap"><a href="/profile/{{$student->id}}" style="color:black">{{$student->surname}}</a></div></td>
                             <td>{{$student->name}}</td>
                             <td>{{$student->f_name}}</td>
                             <td>{{$student->class}}</td>

@@ -3,7 +3,7 @@
     <div class="container py-3">
     @include('menu')
     {{-- <nav class="navbar navbar-light bg-light"> --}}
-        <div class="m-3 col-sm-2 btn btn-success text-wrap ">
+        <div class="col-sm-2 btn btn-success text-wrap">
                 {{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}
         </div>
         <div class="m-3">

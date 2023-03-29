@@ -6,12 +6,12 @@
         <div class="col-sm-2 btn btn-warning text-wrap" style="color:black" >
             {{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->f_name}}, {{$student->class}}
         </div>
-        <div class="col-sm-2 " >
-            <a href="/edit_student/{{$student->id}}" class="btn btn-primary bi bi-journal-text" >  Επεξεργασία στοιχείων μαθητή</a>
-        </div>
         <div class="col-sm-2" >
             <a href="{{route('search_loan_s',[$student->id])}} " class="btn btn-primary bi bi-journal-arrow-up">  Καταχώρηση δανεισμού</a>
         </div> 
+        <div class="col-sm-2 " >
+            <a href="/edit_student/{{$student->id}}" class="btn btn-primary bi bi-journal-text" >  Επεξεργασία στοιχείων μαθητή</a>
+        </div>
     </div>
     <table class="table table-striped table-hover table-light">
         <tr>
@@ -28,12 +28,12 @@
             <input type="hidden" name="loan_id" value={{$loan->id}}>
             <tr >  
                 <td>{{$loan->book->code}}</td>
-                <td><a href='/book_profile/{{$loan->book->id}}'>{{$loan->book->title}}</a></td>
+                <td><div class="badge bg-success text-wrap"><a href='/book_profile/{{$loan->book->id}}' style="color:white">{{$loan->book->title}}</a></div></td>
                 <td>{{$loan->book->writer}}</td>
                 <td>{{$loan->book->publisher}}</td>
                 <td>{{$loan->date_out}}</td>
                 @if($loan->date_in==null)
-                    <td><input type="submit" value="Επιστροφή"></td>
+                    <td><button class="bi bi-journal-arrow-down bg-primary" type="submit"> Επιστροφή</button></td>
                 @else
                     <td>{{$loan->date_in}}</td>
                 @endif

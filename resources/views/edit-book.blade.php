@@ -5,7 +5,7 @@
             <form action="/edit_book/{{$book->id}}" method="post" class="container-fluid">
                 @csrf
                 <div class="input-group">
-                    <span class="input-group-text" id="basic-addon1"><strong>Στοιχεία Βιβλίου</strong></span>
+                    <span class="input-group-text" id="basic-addon1"><strong>{{$book->code}}, {{$book->title}}, {{$book->writer}}, Εκδόσεις {{$book->publisher}} </strong></span>
                 </div>
                 <div class="input-group">
                     <input name="book_code" type="number" value="{{$book->code}}" class="form-control" placeholder="Κωδικός Βιβλίου" aria-label="Κωδικός Βιβλίου" aria-describedby="basic-addon2" required>

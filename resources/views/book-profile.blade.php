@@ -25,6 +25,7 @@
     </div>    
         <table class="table table-striped table-hover table-light">
             <tr>
+                <th>Αριθμός Μητρώου</th>
                 <th>Επίθετο</th>
                 <th>Όνομα</th>
                 <th>Τάξη</th>
@@ -35,13 +36,14 @@
             <form action="/loans/return" method="post">
                 @csrf
                 <input type="hidden" name="loan_id" value={{$loan->id}}>
-                <tr >  
-                    <td><a href ="/profile/{{$loan->student->id}}">{{$loan->student->surname}}</a></td>
+                <tr >
+                    <td>{{$loan->student->am}}</td>  
+                    <td><div class="badge bg-warning text-wrap"><a href ="/profile/{{$loan->student->id}}" style="color:black">{{$loan->student->surname}}</a></div></td>
                     <td>{{$loan->student->name}}</td>
                     <td>{{$loan->student->class}}</td>
                     <td>{{$loan->date_out}}</td>
                     @if($loan->date_in==null)
-                        <td><input type="submit" value="Επιστροφή"></td>
+                        <td><button class="bi bi-journal-arrow-down bg-primary" type="submit"> Επιστροφή</button></td>
                     @else
                         <td>{{$loan->date_in}}</td>
                     @endif

@@ -20,15 +20,15 @@
                 <input type="hidden" name="loan_id" value={{$loan->id}}>
                 <tr >  
                     <td>{{$loan->book->code}}</td>
-                    <td><a href="/book_profile/{{$loan->book->id}}">{{$loan->book->title}}</a></td>
+                    <td><div class="badge bg-success text-wrap"><a href="/book_profile/{{$loan->book->id}}" style="color:white">{{$loan->book->title}}</a></div></td>
                     <td>{{$loan->book->writer}}</td>
                     <td>{{$loan->book->publisher}}</td>
-                    <td><a href="/profile/{{$loan->student->id}}">{{$loan->student->surname}}</a></td>
+                    <td><div class="badge bg-warning text-wrap"><a href="/profile/{{$loan->student->id}}" style="color:black">{{$loan->student->surname}}</a></div></td>
                     <td>{{$loan->student->name}}</td>
                     <td><strong>{{$loan->student->class}}</strong></td>
                     <td>{{$loan->date_out}}</td>
                     @if($loan->date_in==null)
-                        <td><input type="submit" value="Επιστροφή"></td>
+                        <td><button class="bi bi-journal-arrow-down bg-primary" type="submit"> Επιστροφή</button></td>
                     @else
                         <td>{{$loan->date_in}}</td>
                     @endif
