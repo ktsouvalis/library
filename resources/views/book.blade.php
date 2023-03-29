@@ -77,16 +77,44 @@
         </div>
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='import') {{'show active'}} @endif @endisset" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+            @if(empty($asks_to))
             <nav class="navbar navbar-light bg-light">
                 <a href="/books.xlsx" class="link-info">Πρότυπο αρχείο για συμπλήρωση</a>
                 <form action="/book_upload" method="post" class="container-fluid" enctype="multipart/form-data">
                     @csrf
                     
-                    <input type="hidden" name="asks_to" value="import">
-                    <input type="file" name="import_books"> 
+                    <input type="file" name="import_books" > 
                     <button type="submit" class="btn btn-primary">Εισαγωγή αρχείου</button>
                 </form>
             </nav>
+            @else
+            <table class="table table-striped table-hover table-light" >
+                Διαβάστηκαν τα ακόλουθα βιβλία από το αρχείο:
+                <tr>
+                    <th>Κωδικός Βιβλίου</th>
+                    <th>Τίτλος</th>
+                    <th>Συγγραφέας</th>
+                    <th>Εκδότης</th>
+                </tr>
+                @foreach($books_array as $book)
+                    <tr>  
+                        <td>{{$book->code}}</td>
+                        <td>{{$book->title}}</td>
+                        <td>{{$book->writer}}</td>
+                        <td>{{$book->publisher}}</td>
+                    </tr>
+                @endforeach
+            </table>
+            Να προχωρήσει η εισαγωγή αυτών των στοιχείων;
+            <div class="row">
+                
+                <form action="/books_insertion" method="post" class="col container-fluid" enctype="multipart/form-data">
+                @csrf
+                    <button type="submit" class="btn btn-primary">Εισαγωγή</button>
+                </form>
+                <a href="/book" class="col">Ακύρωση</a>
+            </div>
+            @endif
             @isset($result2)
                 {{$result2}}
             @endisset

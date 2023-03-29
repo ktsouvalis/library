@@ -55,7 +55,6 @@ class StudentController extends Controller
     public function save_profile(Student $student, Request $request){
 
         $incomingFields = $request->all();
-
         $student->am = $incomingFields['student_am'];
         $student->surname = $incomingFields['student_surname'];
         $student->name = $incomingFields['student_name'];

@@ -94,6 +94,7 @@ Route::get('/edit_book/{book}', function(Book $book){
 
 Route::post('/edit_book/{book}', [BookController::class, 'save_profile'])->middleware('myauth');
 
-Route::post('/delete_book/{book}', [BookController::class, 'deleteBook'])->middleware('myauth');
-
 Route::post('/book_upload', [BookController::class, 'importBooks'])->middleware('myauth');
+
+Route::post('/books_insertion', [BookController::class, 'insertBooks'])->middleware('myauth');
+Route::post('/delete_book/{book}', [BookController::class, 'deleteBook'])->middleware('myauth');
