@@ -37,7 +37,7 @@
                 @else
                     @foreach($students as $student)
                         <div class="m-2 col-sm-2 btn btn-warning text-wrap">
-                            <a href="/profile/{{$student->id}}">{{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->class}}</a>
+                            <a href="/profile/{{$student->id}}" style="color:black">{{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->class}}</a>
                         </div>
                     @endforeach
                 @endif
@@ -109,7 +109,7 @@
                 @isset($record)
                     <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div>
                     <div class="m-2 col-sm-2 btn btn-warning text-wrap">
-                        <a href="/profile/{{$record->id}}">{{$record->am}}, {{$record->surname}} {{$record->name}}, {{$record->class}}</a>
+                        <a href="/profile/{{$record->id}}" style="color:black">{{$record->am}}, {{$record->surname}} {{$record->name}}, {{$record->class}}</a>
                     </div>
                 @endisset
             @endisset

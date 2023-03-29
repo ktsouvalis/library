@@ -41,16 +41,11 @@
                     @if($books->isEmpty())
                         <div class="alert alert-warning" role="alert">Δε βρέθηκε βιβλίο με τα στοιχεία που εισάγατε</div>
                     @else
-                        <div class="col">
-                            @foreach($books as $book)
-                                <div class="row">
-                                    <div class="m-3 col-sm-2 btn btn-success text-wrap">
-                                        <a href="/book_profile/{{$book->id}}" style="color:white">{{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}</a>
-                                    </div>
-                                </div>
-                                <br>
-                            @endforeach
-                        </div>
+                        @foreach($books as $book)
+                            <div class="m-3 col-sm-2 btn btn-success text-wrap">
+                                <a href="/book_profile/{{$book->id}}" style="color:white">{{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}</a>
+                            </div>
+                        @endforeach
                     @endif
                 @endisset
             @endisset
@@ -100,7 +95,6 @@
                     <th>Τίτλος</th>
                     <th>Συγγραφέας</th>
                     <th>Εκδότης</th>
-                    <th>Διαθέσιμο</th>
                 </tr>
                 @foreach($books_array as $book)
                     <tr>  
@@ -175,8 +169,8 @@
             @else
                 @isset($record)
                     <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div>
-                        <div class="badge bg-warning text-wrap" style="width: 12rem;">
-                            <a href="/book_profile/{{$record->id}}">{{$record->code}}, {{$record->writer}}, <i>{{$record->title}}</i>, {{$record->publisher}}</a>
+                        <div class="col-sm-2 btn btn-success text-wrap">
+                            <a href="/book_profile/{{$record->id}}" style="color:white">{{$record->code}}, {{$record->writer}}, <i>{{$record->title}}</i>, {{$record->publisher}}</a>
                         </div>
                     </div>
                 @endisset

@@ -167,9 +167,7 @@ class BookController extends Controller
             $row++;
         } while ($rowSumValue != "" || $row>10000);
         array_pop($books_array);
-        //print_r($books_array);
         foreach($books_array as $book){
-            echo $book->code."<br>";
             try{
                 Book::create([
                     'code' => $book->code,
@@ -187,9 +185,16 @@ class BookController extends Controller
                 ]);
             } 
             catch(QueryException $e){
-                echo $e; exit;
                 return view('book',['dberror'=>"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.", 'active_tab'=>'insert']);
             }
+        }
+        return redirect('/book')->with('success', "Η εισαγωγή ολοκληρώθηκε");
+    }
+    public function deleteBook(Book $book){
+
+        if($book->available){
+            Book::find($book->id)->delete();
+            return redirect('/book')->with('success', "Το βιβλίο $book->code, $book->title, $book->writer, Εκδόσεις $book->publisher, διαγράφηκε");
         }
     }
 }
