@@ -25,49 +25,82 @@ class LoanController extends Controller
     }
 
     public function searchBook(Student $student, Request $request){
-        $incomingFields = $request->all();
-        $given_code = $incomingFields['book_code'];
+        // $incomingFields = $request->all();
+        // $given_code = $incomingFields['book_code'];
 
-        //VALIDATION
-        $rule1 = [
-            'book_code' => Rule::exists('books','code')
+        // //VALIDATION
+        // $rule1 = [
+        //     'book_code' => Rule::exists('books','code')
+        // ];
+        // if(Validator::make($incomingFields,$rule1)->fails()){
+        //     return view('add-loan-student',['dberror'=>"Δεν υπάρχει στη βάση σας βιβλίο με κωδικό $given_code", 'student' => $student]);
+        // }
+        // else{
+        //     $rule2 = [
+        //         'book_code' => Rule::exists('books', 'code')->where('available', 1)
+        //     ];
+        //     if(Validator::make($incomingFields,$rule2)->fails()){
+        //         $book = Book::where('code',$given_code)->first();
+        //         return view('add-loan-student',['dberror'=>"Το βιβλίο $given_code ($book->title, $book->writer, εκδόσεις $book->publisher) δεν είναι διαθέσιμο προς δανεισμό", 'student' => $student]);
+        //     }
+        // }
+        // // END VALIDATION
+
+        $incomingFields = $request->all();
+
+        $rules = [
+            'book_code'=>'required_without:book_title',
+            'book_title'=>'required_without:book_code'
         ];
-        if(Validator::make($incomingFields,$rule1)->fails()){
-            return view('add-loan-student',['dberror'=>"Δεν υπάρχει στη βάση σας βιβλίο με κωδικό $given_code", 'student' => $student]);
+        $validator = Validator::make($incomingFields, $rules);
+        if($validator->fails()){
+            return view('add-loan-student',['dberror'=>"Πρέπει να συμπληρώσετε τουλάχιστον ένα από τα δύο πεδία", 'student' => $student]);
+        }
+        $given_title = isset($incomingFields['book_title']) ? $incomingFields['book_title'] : '';
+        $given_code = isset($incomingFields['book_code']) ? $incomingFields['book_code'] : 0;
+        if($given_code<>0){
+            $rule1 = [
+                'book_code' => Rule::exists('books','code')
+            ];
+            if(Validator::make($incomingFields,$rule1)->fails()){
+                return view('add-loan-student',['dberror'=>"Δεν υπάρχει στη βάση σας βιβλίο με κωδικό $given_code", 'student' => $student]);
+            }
+            $books = Book::where('code', $given_code)->get();
         }
         else{
-            $rule2 = [
-                'book_code' => Rule::exists('books', 'code')->where('available', 1)
-            ];
-            if(Validator::make($incomingFields,$rule2)->fails()){
-                $book = Book::where('code',$given_code)->first();
-                return view('add-loan-student',['dberror'=>"Το βιβλίο $given_code ($book->title, $book->writer, εκδόσεις $book->publisher) δεν είναι διαθέσιμο προς δανεισμό", 'student' => $student]);
+            $books = Book::where('title', 'LIKE', "%$given_title%")->orderBy('title')->get();
+            if(!$books->count()){
+                return view('add-loan-student',['dberror'=>"Δεν υπάρχει στη βάση σας βιβλίο με παρόμοιο τίτλο", 'student' => $student]);
             }
         }
-        // END VALIDATION
 
-        return view('add-loan-student',['book' => Book::where('code','=',$incomingFields['book_code'])->first(), 'student' => $student]);
+        return view('add-loan-student',['books' => $books, 'student' => $student]);
     }
 
     public function lendBookFromStudent(Student $student, Request $request){
-        $book = Book::find($request['book_id']);
-        
-        try{
-            Loan::create([
-            'book_id' => $book->id,
-            'student_id' => $student->id,
-            'date_out' => date('y/m/d'),
-        ]);
+        if(isset($request['book_id'])){
+            $book = Book::find($request['book_id']);
+            
+            try{
+                Loan::create([
+                'book_id' => $book->id,
+                'student_id' => $student->id,
+                'date_out' => date('y/m/d'),
+            ]);
+            }
+            catch(QueryException $e){
+                return redirect("/profile/$student->id")->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
+            }
+
+
+            $book->available = 0;
+            $book->save();
+
+            return redirect("/profile/$student->id")->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
         }
-        catch(QueryException $e){
-            return redirect("/profile/$student->id")->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
+        else{
+            return view('add-loan-student',['dberror'=>"Δεν επιλέξατε κάποιο βιβλίο", 'student' => $student]);
         }
-
-
-        $book->available = 0;
-        $book->save();
-
-        return redirect("/profile/$student->id")->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
     }
 
     public function searchStudent(Book $book, Request $request){
