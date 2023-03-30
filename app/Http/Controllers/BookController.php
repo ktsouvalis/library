@@ -143,27 +143,59 @@ class BookController extends Controller
                 $check['code']="Υπάρχει ήδη ο κωδικός";
             }
             $rule = [
-                'title' => 'required',
-                'writer' => 'required',
-                'publisher'=>'required'
+                'title' => 'required'
             ];
             $validator = Validator::make($check, $rule);
-            if($validator->fails()){ $error=1;
-                $check['title']="Κάποιο είναι κενό";
-                $check['writer']="Κάποιο είναι κενό";
-                $check['publisher']="Κάποιο είναι κενό";
+            if($validator->fails()){ 
+                $error=1;
+                $check['title']="Κενό πεδίο τίτλου";
+                
             }
             $rule = [
-                'no_of_pages' => 'numeric',
-                'publish_year'=>'numeric',
-                'acquired_year'=>'numeric'
+                'writer' => 'required'
             ];
             $validator = Validator::make($check, $rule);
-            if($validator->fails()){$error=1;
+            if($validator->fails()){ 
+                $error=1;
+                $check['writer']="Κενό πεδίο συγγραφέα";
+                
+            }
+            $rule = [
+                'publisher' => 'required'
+            ];
+            $validator = Validator::make($check, $rule);
+            if($validator->fails()){ 
+                $error=1;
+                $check['publisher']="Κενό πεδίο εκδότη";
+                
+            }
+            $rule = [
+                'no_of_pages' => 'numeric'
+            ];
+            $validator = Validator::make($check, $rule);
+            if($validator->fails()){ 
+                $error=1;
                 $check['no_of_pages']="Πρέπει να είναι αριθμός";
+                
+            }
+            $rule = [
+                'publish_year' => 'numeric'
+            ];
+            $validator = Validator::make($check, $rule);
+            if($validator->fails()){ 
+                $error=1;
                 $check['publish_year']="Πρέπει να είναι αριθμός";
+                
+            }
+            $rule = [
+                'acquired_year' => 'numeric'
+            ];
+            $validator = Validator::make($check, $rule);
+            if($validator->fails()){ 
+                $error=1;
                 $check['acquired_year']="Πρέπει να είναι αριθμός";
-            } 
+                
+            }
             array_push($books_array, $check);
             $row++;
             $rowSumValue="";
@@ -172,7 +204,7 @@ class BookController extends Controller
             }
         }
         
-        if($error==1){
+        if($error){
             return view('book',['books_array'=>$books_array,'active_tab'=>'import', 'asks_to'=>'error']);
         }else{
             return view('book',['books_array'=>$books_array,'active_tab'=>'import', 'asks_to'=>'save']);
