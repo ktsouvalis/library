@@ -42,6 +42,10 @@ Route::get('/edit_student/{student}', function(Student $student){
 
 Route::post('/edit_student/{student}', [StudentController::class, 'save_profile'])->middleware('myauth');
 
+Route::post('/student_template_upload', [StudentController::class, 'importStudents'])->name('student_template_upload')->middleware('myauth');
+
+Route::post('/students_insertion', [StudentController::class, 'insertStudents'])->name('insert_students_from_template')->middleware('myauth');
+
 // Route::get('/loans', function(){
 //     $loans = Loan::orderBy('date_in', 'asc')->get();
 //     return view('loans', ['loans' => $loans]);

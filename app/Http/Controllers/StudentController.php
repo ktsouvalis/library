@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Loan;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
@@ -78,11 +81,115 @@ class StudentController extends Controller
         else{
             return view('edit-student',['dberror'=>"Δεν υπάρχουν αλλαγές προς αποθήκευση", 'student' => $student]);
         }
-
         return redirect("/profile/$student->id")->with('success','Επιτυχής αποθήκευση');
     }
 
     public function show_profile(Student $student){        
         return view('student-profile',['student'=>$student]);
+    }
+
+    public function importStudents(Request $request){
+        $path = $request->file('import_students')->storeAs('files', 'students_file.xlsx');
+        $mime = Storage::mimeType($path);
+        $spreadsheet = IOFactory::load("../storage/app/$path");
+        $students_array=array();
+        $row=2;
+        $error=0;
+        $rowSumValue="1";
+        while ($rowSumValue != "" && $row<10000){
+            $check=array();
+            $check['am'] = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue();
+            $check['surname']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue();
+            $check['name']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue();
+            $check['f_name']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(4, $row)->getValue();
+            $check['class']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(5, $row)->getValue();
+            $rule = [
+                'am' => 'required'
+            ];
+            $validator = Validator::make($check, $rule);
+            if($validator->fails()){
+                $error=1;                
+                $check['am']="Κενό πεδίο";
+            }
+            $rule = [
+                'surname' => 'required'
+            ];
+            $validator = Validator::make($check, $rule);
+            if($validator->fails()){ 
+                $error=1;
+                $check['surname']="Κενό πεδίο";
+            }
+            $rule = [
+                'name' => 'required',
+            ];
+            $validator = Validator::make($check, $rule);
+            if($validator->fails()){ 
+                $error=1;
+                $check['name']="Κενό πεδίο";
+            }
+            $rule = [
+                'f_name' => 'required'
+            ];
+            $validator = Validator::make($check, $rule);
+            if($validator->fails()){ 
+                $error=1;
+                $check['f_name']="Κενό πεδίο";
+            }
+            $rule = [
+                'class' => 'required',
+            ];
+            $validator = Validator::make($check, $rule);
+            if($validator->fails()){ 
+                $error=1;
+                $check['class']="Πρέπει να είναι αριθμός";               
+            }
+            array_push($students_array, $check);
+            $row++;
+            $rowSumValue="";
+            for($col=1;$col<=5;$col++){
+                $rowSumValue .= $spreadsheet->getActiveSheet()->getCellByColumnAndRow($col, $row)->getValue();   
+            }
+        }
+        
+        if($error){
+            return view('student',['students_array'=>$students_array,'active_tab'=>'import', 'asks_to'=>'error']);
+        }
+        else{
+            return view('student',['students_array'=>$students_array,'active_tab'=>'import', 'asks_to'=>'save']);
+        }
+    }
+
+    public function insertStudents(){
+        $spreadsheet = IOFactory::load("../storage/app/files/students_file.xlsx");
+        $students_array=array();
+        $row=2;
+        do{
+            $rowSumValue="";
+            for($col=1;$col<=5;$col++){
+                $rowSumValue .= $spreadsheet->getActiveSheet()->getCellByColumnAndRow($col, $row)->getValue();
+            }
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+            Loan::truncate();
+            Student::truncate();
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+            $student = new Student();
+            $student->am = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue();
+            $student->surname= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue();
+            $student->name= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue();
+            $student->f_name= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(4, $row)->getValue();
+            $student->class= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(5, $row)->getValue();
+            array_push($students_array, $student);
+            $row++;
+        } while ($rowSumValue != "" || $row>10000);
+        array_pop($students_array);
+        foreach($students_array as $student){
+            try{
+                $student->save();
+            } 
+            catch(QueryException $e){
+                return view('student',['dberror'=>"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.", 'active_tab'=>'import']);
+            }
+        }
+        return redirect('/student')->with('success', "Η εισαγωγή ολοκληρώθηκε");
     }
 }

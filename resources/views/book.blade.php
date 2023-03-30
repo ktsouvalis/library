@@ -132,9 +132,6 @@
                 </div>
                 @endif
             @endif
-            @isset($result2)
-                {{$result2}}
-            @endisset
         </div>
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='insert') {{'show active'}} @endif @endisset" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">

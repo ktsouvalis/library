@@ -65,16 +65,59 @@
         </div>
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='import') {{'show active'}} @endif @endisset" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+            @if(empty($asks_to))
             <nav class="navbar navbar-light bg-light">
-                <form action="" method="post" class="container-fluid">
+                <a href="/students.xlsx" class="link-info">Πρότυπο αρχείο για συμπλήρωση</a>
+                <form action="{{route('student_template_upload')}}" method="post" class="container-fluid" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="asks_to" value="import">
-                    <button type="submit" class="btn btn-primary">tab2</button>
+                    
+                    <input type="file" name="import_students" > 
+                    <button type="submit" class="btn btn-primary">Εισαγωγή αρχείου</button>
                 </form>
             </nav>
-            @isset($result2)
-                {{$result2}}
-            @endisset
+            @else
+            <div style="p-3 mb-2 bg-info text-dark">
+                Διαβάστηκαν οι ακόλουθοι μαθητές από το αρχείο:
+            </div>
+            
+            <table class="table table-striped table-hover table-light">
+                <tr>
+                    <th>Αριθμός Μητρώου</th>
+                    <th>Επίθετο</th>
+                    <th>Όνομα</th>
+                    <th>Πατρώυνμο</th>
+                    <th>Τάξη</th>
+                    
+                </tr>
+                @foreach($students_array as $student)
+                    <tr>  
+                        <td @if ($student['am']=="Κενό πεδίο") style='color:red;' @endif>{{$student['am']}}</td>
+                        <td @if ($student['surname']=='Κενό πεδίο') style='color:red;' @endif>{{$student['surname']}}</td>
+                        <td @if ($student['name']=='Κενό πεδίο') style='color:red;' @endif>{{$student['name']}}</td>
+                        <td @if ($student['f_name']=='Κενό πεδίο') style='color:red;' @endif>{{$student['f_name']}}</td>
+                        <td @if ($student['class']=='Κενό πεδίο') style='color:red;' @endif>{{$student['class']}}</td>
+                        
+                    </tr>
+                @endforeach
+            </table>
+                @if($asks_to=='save')
+                Να προχωρήσει η εισαγωγή αυτών των στοιχείων;
+                <div class="row">
+                    <form action="/students_insertion" method="post" class="col container-fluid" enctype="multipart/form-data">
+                    @csrf
+                        <button type="submit" class="btn btn-primary">Εισαγωγή</button>
+                    </form>
+                    <a href="/student" class="col">Ακύρωση</a>
+                </div>
+                @else
+                <div class="row">
+                    <div>
+                        Διορθώστε τα σημειωμένα σφάλματα και υποβάλετε εκ νέου το αρχείο.
+                    </div>
+                    <a href="/student" class="col">Ακύρωση</a>
+                </div>
+                @endif
+            @endif
         </div>
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='insert') {{'show active'}} @endif @endisset" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">

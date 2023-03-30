@@ -239,20 +239,7 @@ class BookController extends Controller
         array_pop($books_array);
         foreach($books_array as $book){
             try{
-                Book::create([
-                    'code' => $book->code,
-                    'writer' => $book->writer,
-                    'title' => $book->title,
-                    'publisher' => $book->publisher,
-                    'subject' => $book->subject,
-                    'publish_place' => $book->publish_place,
-                    'publish_year' => $book->publish_year,
-                    'no_of_pages' => $book->no_of_pages,
-                    'acquired_by' => $book->acquired_by,
-                    'acquired_year' => $book->acquired_year,
-                    'comments' => $book->comments,
-                    'available' => 1
-                ]);
+                $book->save();
             } 
             catch(QueryException $e){
                 return view('book',['dberror'=>"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.", 'active_tab'=>'insert']);
