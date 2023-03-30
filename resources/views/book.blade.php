@@ -104,7 +104,7 @@
                 </tr>
                 @foreach($books_array as $book)
                     <tr>  
-                        <td @if ($book['code']=="Υπάρχει ήδη ο κωδικός") style='color:red;' @endif>{{$book['code']}}</td>
+                        <td @if ($book['code']=="Υπάρχει ήδη ή κενός κωδικός") style='color:red;' @endif>{{$book['code']}}</td>
                         <td @if ($book['title']=='Κενό πεδίο τίτλου') style='color:red;' @endif>{{$book['title']}}</td>
                         <td @if ($book['writer']=='Κενό πεδίο συγγραφέα') style='color:red;' @endif>{{$book['writer']}}</td>
                         <td @if ($book['publisher']=='Κενό πεδίο εκδότη') style='color:red;' @endif>{{$book['publisher']}}</td>

@@ -140,7 +140,7 @@ class BookController extends Controller
             $validator = Validator::make($check, $rule);
             if($validator->fails()){$error=1;
                 
-                $check['code']="Υπάρχει ήδη ο κωδικός";
+                $check['code']="Υπάρχει ήδη ή κενός κωδικός";
             }
             $rule = [
                 'title' => 'required'
