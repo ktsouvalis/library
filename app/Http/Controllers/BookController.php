@@ -119,11 +119,9 @@ class BookController extends Controller
         $spreadsheet = IOFactory::load("../storage/app/$path");
         $books_array=array();
         $row=2;
-        do{
-            $rowSumValue="";
-            for($col=1;$col<=11;$col++){
-                $rowSumValue .= $spreadsheet->getActiveSheet()->getCellByColumnAndRow($col, $row)->getValue();
-            }
+        $error=0;
+        $rowSumValue="1";
+        while ($rowSumValue != "" && $row<10000){
             $check=array();
             $check['code'] = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue();
             $check['title']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue();
@@ -140,8 +138,9 @@ class BookController extends Controller
                 'code' => 'required|unique:books,code'
             ];
             $validator = Validator::make($check, $rule);
-            if($validator->fails()){
-                echo "failed code"; exit;
+            if($validator->fails()){$error=1;
+                
+                $check['code']="Υπάρχει ήδη ο κωδικός";
             }
             $rule = [
                 'title' => 'required',
@@ -149,8 +148,10 @@ class BookController extends Controller
                 'publisher'=>'required'
             ];
             $validator = Validator::make($check, $rule);
-            if($validator->fails()){
-                echo "failed required"; exit;
+            if($validator->fails()){ $error=1;
+                $check['title']="Κάποιο είναι κενό";
+                $check['writer']="Κάποιο είναι κενό";
+                $check['publisher']="Κάποιο είναι κενό";
             }
             $rule = [
                 'no_of_pages' => 'numeric',
@@ -158,14 +159,25 @@ class BookController extends Controller
                 'acquired_year'=>'numeric'
             ];
             $validator = Validator::make($check, $rule);
-            if($validator->fails()){
-                echo "failed numerics"; exit;
-            }
-            echo "passed"; exit;
-            array_push($books_array, $book);
+            if($validator->fails()){$error=1;
+                $check['no_of_pages']="Πρέπει να είναι αριθμός";
+                $check['publish_year']="Πρέπει να είναι αριθμός";
+                $check['acquired_year']="Πρέπει να είναι αριθμός";
+            } 
+            array_push($books_array, $check);
             $row++;
-        } while ($rowSumValue != "" || $row>10000);
-        return view('book',['books_array'=>$books_array,'active_tab'=>'import', 'asks_to'=>'save']);
+            $rowSumValue="";
+            for($col=1;$col<=11;$col++){
+                $rowSumValue .= $spreadsheet->getActiveSheet()->getCellByColumnAndRow($col, $row)->getValue();   
+            }
+        }
+        
+        if($error==1){
+            return view('book',['books_array'=>$books_array,'active_tab'=>'import', 'asks_to'=>'error']);
+        }else{
+            return view('book',['books_array'=>$books_array,'active_tab'=>'import', 'asks_to'=>'save']);
+        }
+       
     }
 
     public function insertBooks(){

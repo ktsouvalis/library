@@ -88,32 +88,49 @@
                 </form>
             </nav>
             @else
-            <table class="table table-striped table-hover table-light" >
+            <div style="p-3 mb-2 bg-info text-dark">
                 Διαβάστηκαν τα ακόλουθα βιβλία από το αρχείο:
+            </div>
+            
+            <table class="table table-striped table-hover table-light">
                 <tr>
                     <th>Κωδικός Βιβλίου</th>
                     <th>Τίτλος</th>
                     <th>Συγγραφέας</th>
                     <th>Εκδότης</th>
+                    <th>Χρονολογία έκδοσης</th>
+                    <th>Αριθμός σελίδων</th>
+                    <th>Χρονολογία απόκτησης</th>
                 </tr>
                 @foreach($books_array as $book)
                     <tr>  
-                        <td>{{$book->code}}</td>
-                        <td>{{$book->title}}</td>
-                        <td>{{$book->writer}}</td>
-                        <td>{{$book->publisher}}</td>
+                        <td @if ($book['code']=="Υπάρχει ήδη ο κωδικός") style='color:red;' @endif>{{$book['code']}}</td>
+                        <td @if ($book['title']=='Κάποιο είναι κενό') style='color:red;' @endif>{{$book['title']}}</td>
+                        <td @if ($book['writer']=='Κάποιο είναι κενό') style='color:red;' @endif>{{$book['writer']}}</td>
+                        <td @if ($book['publisher']=='Κάποιο είναι κενό') style='color:red;' @endif>{{$book['publisher']}}</td>
+                        <td @if ($book['publish_year']=='Πρέπει να είναι αριθμός') style='color:red;' @endif>{{$book['publish_year']}}</td>
+                        <td @if ($book['no_of_pages']=='Πρέπει να είναι αριθμός') style='color:red;' @endif>{{$book['no_of_pages']}}</td>
+                        <td @if ($book['acquired_year']=='Πρέπει να είναι αριθμός') style='color:red;' @endif>{{$book['acquired_year']}}</td>
                     </tr>
                 @endforeach
             </table>
-            Να προχωρήσει η εισαγωγή αυτών των στοιχείων;
-            <div class="row">
-                
-                <form action="/books_insertion" method="post" class="col container-fluid" enctype="multipart/form-data">
-                @csrf
-                    <button type="submit" class="btn btn-primary">Εισαγωγή</button>
-                </form>
-                <a href="/book" class="col">Ακύρωση</a>
-            </div>
+                @if($asks_to=='save')
+                Να προχωρήσει η εισαγωγή αυτών των στοιχείων;
+                <div class="row">
+                    <form action="/books_insertion" method="post" class="col container-fluid" enctype="multipart/form-data">
+                    @csrf
+                        <button type="submit" class="btn btn-primary">Εισαγωγή</button>
+                    </form>
+                    <a href="/book" class="col">Ακύρωση</a>
+                </div>
+                @else
+                <div class="row">
+                    <div>
+                        Διορθώστε τα σημειωμένα σφάλματα και υποβάλετε εκ νέου το αρχείο.
+                    </div>
+                    <a href="/book" class="col">Ακύρωση</a>
+                </div>
+                @endif
             @endif
             @isset($result2)
                 {{$result2}}
