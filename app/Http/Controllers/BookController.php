@@ -233,6 +233,7 @@ class BookController extends Controller
             $book->acquired_by= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(9, $row)->getValue();
             $book->acquired_year= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(10, $row)->getValue();
             $book->comments= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(11, $row)->getValue();
+            $book->available = 1;
             array_push($books_array, $book);
             $row++;
         } while ($rowSumValue != "" || $row>10000);
@@ -242,7 +243,7 @@ class BookController extends Controller
                 $book->save();
             } 
             catch(QueryException $e){
-                return view('book',['dberror'=>"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.", 'active_tab'=>'insert']);
+                return view('book',['dberror'=>"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.", 'active_tab'=>'import']);
             }
         }
         return redirect('/book')->with('success', "Η εισαγωγή ολοκληρώθηκε");
