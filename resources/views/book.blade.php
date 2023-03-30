@@ -26,7 +26,7 @@
                         <span class="input-group-text" id="basic-addon1"><strong>Εισάγετε μέρος του τίτλου</strong></span>
                     </div>
                     <div class="input-group">
-                        <input name="book_code1" type="text" value="" class="form-control" placeholder="Κωδικός Βιβλίου" aria-label="Κωδικός Βιβλίου" aria-describedby="basic-addon1"><br>
+                        <input name="book_code1" type="number" value="" class="form-control" placeholder="Κωδικός Βιβλίου" aria-label="Κωδικός Βιβλίου" aria-describedby="basic-addon1"><br>
                     </div>
                     <div class="input-group">
                         <input name="book_title1" type="text" value="" class="form-control" placeholder="Τίτλος Βιβλίου" aria-label="Τίτλος Βιβλίου" aria-describedby="basic-addon1"><br>
@@ -80,7 +80,7 @@
             @if(empty($asks_to))
             <nav class="navbar navbar-light bg-light">
                 <a href="/books.xlsx" class="link-info">Πρότυπο αρχείο για συμπλήρωση</a>
-                <form action="/book_upload" method="post" class="container-fluid" enctype="multipart/form-data">
+                <form action="{{route('book_template_upload')}}" method="post" class="container-fluid" enctype="multipart/form-data">
                     @csrf
                     
                     <input type="file" name="import_books" > 

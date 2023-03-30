@@ -15,16 +15,16 @@ class UserController extends Controller
         ]);
         if(auth()->attempt(['name'=>$incomingFields['name'], 'password'=>$incomingFields['password']])){
             $request->session()->regenerate();
-            return redirect('/')->with('success','You have successfully logged in!');
+            return redirect('/')->with('success','Συνδεθήκατε επιτυχώς');
         }
         else{
-            return redirect('/')->with('failure', 'Invalid username or password');
+            return redirect('/')->with('failure', 'Λάθος όνομα χρήστη ή κωδικός πρόσβασης');
         }
     }
 
     public function logout(Request $request){
         // $request->session()->flush(); OR
         auth()->logout();
-        return redirect('/')->with('success','You have logged out...');
+        return redirect('/')->with('success','Αποσυνδεθήκατε...');
     }
 }

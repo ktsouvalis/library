@@ -50,6 +50,7 @@ Route::post('/edit_student/{student}', [StudentController::class, 'save_profile'
 Route::get('/loans', function(){ 
     $loans = Loan::join('students', 'loans.student_id', '=', 'students.id')
         ->orderBy('students.class', 'asc')
+        ->select('loans.*')
         ->get(); 
     return view('loans', ['loans' => $loans]); 
 })->middleware('myauth');
@@ -94,7 +95,7 @@ Route::get('/edit_book/{book}', function(Book $book){
 
 Route::post('/edit_book/{book}', [BookController::class, 'save_profile'])->middleware('myauth');
 
-Route::post('/book_upload', [BookController::class, 'importBooks'])->middleware('myauth');
+Route::post('/book_template_upload', [BookController::class, 'importBooks'])->name('book_template_upload')->middleware('myauth');
 
-Route::post('/books_insertion', [BookController::class, 'insertBooks'])->middleware('myauth');
+Route::post('/books_insertion', [BookController::class, 'insertBooks'])->name('insert_books_from_template')->middleware('myauth');
 Route::post('/delete_book/{book}', [BookController::class, 'deleteBook'])->middleware('myauth');
