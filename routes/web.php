@@ -34,14 +34,13 @@ Route::post('/student/search', [StudentController::class,'searchStudent'])->name
 
 Route::post('/student/insert', [StudentController::class,'insertStudent'])->name('insert_student')->middleware('myauth');
 
-Route::get('/profile/{student}',[StudentController::class, 'show_profile'])->middleware('myauth');
+Route::get('/student_profile/{student}',[StudentController::class, 'show_profile'])->middleware('myauth');
 
 Route::get('/edit_student/{student}', function(Student $student){
     return view('edit-student',['student' => $student]);
 })->middleware('myauth');
 
 Route::post('/edit_student/{student}', [StudentController::class, 'save_profile'])->middleware('myauth');
-
 Route::post('/student_template_upload', [StudentController::class, 'importStudents'])->name('student_template_upload')->middleware('myauth');
 
 Route::post('/students_insertion', [StudentController::class, 'insertStudents'])->name('insert_students_from_template')->middleware('myauth');
@@ -76,8 +75,6 @@ Route::get('/loans_b/{book}', function(Book $book){
 Route::post('/loans/search_b/{book}',[LoanController::class, 'searchStudent'])->name('loans_search_book')->middleware('myauth');
 
 Route::post('/loans/save_b/{book}',[LoanController::class, 'lendBookFromBook'])->name('loans_save_book')->middleware('myauth');
-
-Route::get('/loans_dl', [LoanController::class, 'loansDl'])->middleware('myauth');
 
 Route::get('/all-books', function(){
     $books = Book::orderBy('title')->get();

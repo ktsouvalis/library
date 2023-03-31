@@ -81,7 +81,7 @@ class StudentController extends Controller
         else{
             return view('edit-student',['dberror'=>"Δεν υπάρχουν αλλαγές προς αποθήκευση", 'student' => $student]);
         }
-        return redirect("/profile/$student->id")->with('success','Επιτυχής αποθήκευση');
+        return redirect("/student_profile/$student->id")->with('success','Επιτυχής αποθήκευση');
     }
 
     public function show_profile(Student $student){        

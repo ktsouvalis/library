@@ -140,42 +140,58 @@
                     @csrf
                     <input type="hidden" name="asks_to" value="insert">
                     <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><strong>Στοιχεία Βιβλίου</strong></span>
+                        <span class="input-group-text w-25"></span>
+                        <span class="input-group-text w-75"><strong>Εισαγωγή νέου Βιβλίου</strong></span>
                     </div>
                     <div class="input-group">
-                        <input name="book_code3" type="number" value="" class="form-control" placeholder="Κωδικός Βιβλίου" aria-label="Κωδικός Βιβλίου" aria-describedby="basic-addon2" required>
+                        <span class="input-group-text w-25" id="basic-addon1">Κωδικός</span>
+                        <input name="book_code3" type="number" value="" class="form-control" placeholder="Κωδικός Βιβλίου" aria-label="Κωδικός Βιβλίου" aria-describedby="basic-addon1" required>
                     </div>
                     <div class="input-group">
-                        <input name="book_writer3" type="text" class="form-control" placeholder="Συγγραφέας" aria-label="Συγγραφέας" aria-describedby="basic-addon1" required value=@isset($dberror) {{$old_data['book_writer3']}} @endisset><br>
+                        <span class="input-group-text w-25" id="basic-addon2">Συγγραφέας</span>
+                        <input name="book_writer3" type="text" class="form-control" placeholder="Συγγραφέας" aria-label="Συγγραφέας" aria-describedby="basic-addon2" required value=@isset($dberror) {{$old_data['book_writer3']}} @endisset><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_title3" type="text" class="form-control" placeholder="Τίτλος" aria-label="Τίτλος" aria-describedby="basic-addon1" required value=@isset($dberror) {{$old_data['book_title3']}} @endisset><br>
+                        <span class="input-group-text w-25" id="basic-addon3">Τίτλος</span>
+                        <input name="book_title3" type="text" class="form-control" placeholder="Τίτλος" aria-label="Τίτλος" aria-describedby="basic-addon3" required value=@isset($dberror) {{$old_data['book_title3']}} @endisset><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_publisher3" type="text" class="form-control" placeholder="Εκδόσεις" aria-label="Εκδόσεις" aria-describedby="basic-addon1" required value=@isset($dberror) {{$old_data['book_publisher3']}} @endisset><br>
+                        <span class="input-group-text w-25" id="basic-addon4">Εκδόσεις</span>
+                        <input name="book_publisher3" type="text" class="form-control" placeholder="Εκδόσεις" aria-label="Εκδόσεις" aria-describedby="basic-addon4" required value=@isset($dberror) {{$old_data['book_publisher3']}} @endisset><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_subject3" type="text" class="form-control" placeholder="Θεματική" aria-label="Θεματική" aria-describedby="basic-addon1" value=@isset($dberror) {{$old_data['book_subject3']}} @endisset><br>
+                        <span class="input-group-text w-25" id="basic-addon5">Θεματική</span>
+                        <input name="book_subject3" type="text" class="form-control" placeholder="Θεματική" aria-label="Θεματική" aria-describedby="basic-addon5" value=@isset($dberror) {{$old_data['book_subject3']}} @endisset><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_publish_place3" type="text" class="form-control" placeholder="Τόπος Έκδοσης" aria-label="Τόπος Έκδοσης" aria-describedby="basic-addon1" value=@isset($dberror) {{$old_data['book_publish_place3']}} @endisset><br>
+                        <span class="input-group-text w-25" id="basic-addon6">Τόπος Έκδοσης</span>
+                        <input name="book_publish_place3" type="text" class="form-control" placeholder="Τόπος Έκδοσης" aria-label="Τόπος Έκδοσης" aria-describedby="basic-addon6" value=@isset($dberror) {{$old_data['book_publish_place3']}} @endisset><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_publish_year3" type="text" class="form-control" placeholder="Χρονολογία Έκδοσης" aria-label="Χρονολογία Έκδοσης" aria-describedby="basic-addon1" value=@isset($dberror) {{$old_data['book_publish_year3']}} @endisset><br>
+                        <span class="input-group-text w-25" id="basic-addon7">Χρονολογία Έκδοσης</span>
+                        <input name="book_publish_year3" type="text" class="form-control" placeholder="Χρονολογία Έκδοσης" aria-label="Χρονολογία Έκδοσης" aria-describedby="basic-addon7" value=@isset($dberror) {{$old_data['book_publish_year3']}} @endisset><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_no_of_pages3" type="number"  class="form-control" placeholder="Αρ. Σελίδων" aria-label="Αρ. Σελίδων" aria-describedby="basic-addon1" value=@isset($dberror) {{$old_data['book_no_of_pages3']}} @endisset><br>
+                        <span class="input-group-text w-25" id="basic-addon8">Αριθμός Σελίδων</span>
+                        <input name="book_no_of_pages3" type="number"  class="form-control" placeholder="Αρ. Σελίδων" aria-label="Αρ. Σελίδων" aria-describedby="basic-addon8" value=@isset($dberror) {{$old_data['book_no_of_pages3']}} @endisset><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_acquired_by3" type="text" class="form-control" placeholder="Τρόπος απόκτησης" aria-label="Τρόπος απόκτησης" aria-describedby="basic-addon1" value=@isset($dberror) {{$old_data['book_acquired_by3']}} @endisset><br>
+                        <span class="input-group-text w-25" id="basic-addon9">Τρόπος απόκτησης</span>
+                        <input name="book_acquired_by3" type="text" class="form-control" placeholder="Τρόπος απόκτησης" aria-label="Τρόπος απόκτησης" aria-describedby="basic-addon9" value=@isset($dberror) {{$old_data['book_acquired_by3']}} @endisset><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_acquired_year3" type="text" class="form-control" placeholder="Χρονολογία απόκτησης" aria-label="Χρονολογία απόκτησης" aria-describedby="basic-addon1" value=@isset($dberror) {{$old_data['book_acquired_year3']}} @endisset><br>
+                        <span class="input-group-text w-25" id="basic-addon10">Χρονολογία απόκτησης</span>
+                        <input name="book_acquired_year3" type="text" class="form-control" placeholder="Χρονολογία απόκτησης" aria-label="Χρονολογία απόκτησης" aria-describedby="basic-addon10" value=@isset($dberror) {{$old_data['book_acquired_year3']}} @endisset><br>
                     </div>
                     <div class="input-group">
-                        <input name="book_comments3" type="text" class="form-control" placeholder="Σχόλια" aria-label="Σχόλια" aria-describedby="basic-addon1" value=@isset($dberror) {{$old_data['book_comments3']}} @endisset><br>
+                        <span class="input-group-text w-25" id="basic-addon11">Σχόλια</span>
+                        <input name="book_comments3" type="text" class="form-control" placeholder="Σχόλια" aria-label="Σχόλια" aria-describedby="basic-addon11" value=@isset($dberror) {{$old_data['book_comments3']}} @endisset><br>
                     </div>
-                    <button type="submit" class="btn btn-primary">Προσθήκη</button>
+                    <div class="input-group">
+                        <span class="w-25"></span>
+                        <button type="submit" class="btn btn-primary m-2">Προσθήκη</button>
+                        <a href="/book" class="btn btn-outline-secondary m-2">Ακύρωση</a>
+                    </div>
                 </form>
             </nav>
             @isset($dberror)
