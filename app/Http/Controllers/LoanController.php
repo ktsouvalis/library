@@ -8,6 +8,8 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class LoanController extends Controller
 {
@@ -134,5 +136,50 @@ class LoanController extends Controller
         $book->save();
         
         return redirect("/book_profile/$book->id")->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
+    }
+
+    public function loansDl(){
+        
+        $loans = Loan::all();
+        $spreadsheet = new Spreadsheet();
+        $activeWorksheet = $spreadsheet->getActiveSheet();
+        
+        $activeWorksheet->setCellValue('A1', 'Κωδικός Βιβλίου');
+        $activeWorksheet->setCellValue('B1', 'Τίτλος Βιβλίου');
+        $activeWorksheet->setCellValue('C1', 'Συγγραφέας');
+        $activeWorksheet->setCellValue('D1', 'Εκδόσεις');
+        $activeWorksheet->setCellValue('E1', 'Επίθετο μαθητή');
+        $activeWorksheet->setCellValue('F1', 'Όνομα μαθητή');
+        $activeWorksheet->setCellValue('G1', 'Τάξη');
+        $activeWorksheet->setCellValue('H1', 'Ημερομηνία δανεισμού');
+        $activeWorksheet->setCellValue('I1', 'Ημερομηνία επιστροφής');
+        $row = 2;
+        foreach($loans as $loan){
+            $code = $loan->book->code;
+            $title = $loan->book->title;
+            $writer = $loan->book->writer;
+            $publisher = $loan->book->publisher;
+            $surname = $loan->student->surname;
+            $name = $loan->student->name;
+            $class = $loan->student->class;
+            $date_out = $loan->date_out;
+            $date_in = ($loan->date_in == null) ? "Δεν έχει επιστραφεί έως ".date('d/M/Y') : $loan->date_in;
+            $activeWorksheet->setCellValue("A".$row, $code);
+            $activeWorksheet->setCellValue("B".$row, $title);
+            $activeWorksheet->setCellValue("C".$row, $writer);
+            $activeWorksheet->setCellValue("D".$row, $publisher);
+            $activeWorksheet->setCellValue("E".$row, $surname);
+            $activeWorksheet->setCellValue("F".$row, $name);
+            $activeWorksheet->setCellValue("G".$row, $class);
+            $activeWorksheet->setCellValue("H".$row, $date_out);
+            $activeWorksheet->setCellValue("I".$row, $date_in);
+            $row++;
+        }
+        
+        $writer = new Xlsx($spreadsheet);
+        $filename = "loansTo".date('YMd').".xlsx";
+        $writer->save($filename);
+
+        return response()->download("$filename");
     }
 }

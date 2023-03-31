@@ -1,6 +1,9 @@
 <x-layout>
     <div class="container">
     @include('menu')
+    <div class="d-flex justify-content-end">
+        <a href="/loans_dl" class="btn btn-danger bi bi-download"> Λήψη αρχείου δανεισμών </a>
+    </div>
     @isset($loans)
         <table class="table table-striped table-hover table-light">
             <tr>
