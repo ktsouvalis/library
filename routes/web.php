@@ -34,6 +34,8 @@ Route::post('/student/search', [StudentController::class,'searchStudent'])->name
 
 Route::post('/student/insert', [StudentController::class,'insertStudent'])->name('insert_student')->middleware('myauth');
 
+Route::get('/students_dl', [StudentController::class, 'studentsDl'])->middleware('myauth');
+
 Route::get('/profile/{student}',[StudentController::class, 'show_profile'])->middleware('myauth');
 
 Route::get('/edit_student/{student}', function(Student $student){
@@ -92,6 +94,8 @@ Route::get('/book', function(){
 Route::post('/book/search', [BookController::class,'searchBook'])->name('search_book')->middleware('myauth');
 
 Route::post('/book/insert', [BookController::class,'insertBook'])->name('insert_book')->middleware('myauth');
+
+Route::get('/books_dl', [BookController::class, 'booksDl'])->middleware('myauth');
 
 Route::get('/book_profile/{book}',[BookController::class, 'show_profile'])->middleware('myauth');
 

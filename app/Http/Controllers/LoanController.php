@@ -155,23 +155,17 @@ class LoanController extends Controller
         $activeWorksheet->setCellValue('I1', 'Ημερομηνία επιστροφής');
         $row = 2;
         foreach($loans as $loan){
-            $code = $loan->book->code;
-            $title = $loan->book->title;
-            $writer = $loan->book->writer;
-            $publisher = $loan->book->publisher;
-            $surname = $loan->student->surname;
-            $name = $loan->student->name;
-            $class = $loan->student->class;
-            $date_out = $loan->date_out;
+            
             $date_in = ($loan->date_in == null) ? "Δεν έχει επιστραφεί έως ".date('d/M/Y') : $loan->date_in;
-            $activeWorksheet->setCellValue("A".$row, $code);
-            $activeWorksheet->setCellValue("B".$row, $title);
-            $activeWorksheet->setCellValue("C".$row, $writer);
-            $activeWorksheet->setCellValue("D".$row, $publisher);
-            $activeWorksheet->setCellValue("E".$row, $surname);
-            $activeWorksheet->setCellValue("F".$row, $name);
-            $activeWorksheet->setCellValue("G".$row, $class);
-            $activeWorksheet->setCellValue("H".$row, $date_out);
+            
+            $activeWorksheet->setCellValue("A".$row,$loan->book->code);
+            $activeWorksheet->setCellValue("B".$row, $loan->book->title);
+            $activeWorksheet->setCellValue("C".$row, $loan->book->writer);
+            $activeWorksheet->setCellValue("D".$row, $loan->book->publisher);
+            $activeWorksheet->setCellValue("E".$row, $loan->student->surname);
+            $activeWorksheet->setCellValue("F".$row, $loan->student->name);
+            $activeWorksheet->setCellValue("G".$row, $loan->student->class);
+            $activeWorksheet->setCellValue("H".$row, $loan->date_out);
             $activeWorksheet->setCellValue("I".$row, $date_in);
             $row++;
         }

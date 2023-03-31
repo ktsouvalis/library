@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use Illuminate\Support\Facades\Validator;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class BookController extends Controller
 {
@@ -248,11 +250,57 @@ class BookController extends Controller
         }
         return redirect('/book')->with('success', "Η εισαγωγή ολοκληρώθηκε");
     }
+
     public function deleteBook(Book $book){
 
         if($book->available){
             Book::find($book->id)->delete();
             return redirect('/book')->with('success', "Το βιβλίο $book->code, $book->title, $book->writer, Εκδόσεις $book->publisher, διαγράφηκε");
         }
+    }
+
+    public function booksDl(){
+        
+        $books = Book::all();
+        $spreadsheet = new Spreadsheet();
+        $activeWorksheet = $spreadsheet->getActiveSheet();
+
+        $activeWorksheet->setCellValue('A1', 'Κωδικός Βιβλίου');
+        $activeWorksheet->setCellValue('B1', 'Τίτλος Βιβλίου');
+        $activeWorksheet->setCellValue('C1', 'Συγγραφέας');
+        $activeWorksheet->setCellValue('D1', 'Εκδόσεις');
+        $activeWorksheet->setCellValue('E1', 'Θεματική');
+        $activeWorksheet->setCellValue('F1', 'Τόπος Έκδοσης');
+        $activeWorksheet->setCellValue('G1', 'Χρονολογία Έκδοσης');
+        $activeWorksheet->setCellValue('H1', 'Αριθμός Σελίδων');
+        $activeWorksheet->setCellValue('I1', 'Τρόπος απόκτησης');
+        $activeWorksheet->setCellValue('J1', 'Χρονολογία απόκτησης');
+        $activeWorksheet->setCellValue('K1', 'Σχόλια');
+        $activeWorksheet->setCellValue('L1', 'Διαθέσιμα την '.date('d/M/Y'));
+        $row = 2;
+        foreach($books as $book){
+            
+            $available = ($book->available) ? "Διαθέσιμο" : "Μη Διαθέσιμο";
+            
+            $activeWorksheet->setCellValue("A".$row,$book->code);
+            $activeWorksheet->setCellValue("B".$row, $book->title);
+            $activeWorksheet->setCellValue("C".$row, $book->writer);
+            $activeWorksheet->setCellValue("D".$row, $book->publisher);
+            $activeWorksheet->setCellValue("E".$row, $book->subject);
+            $activeWorksheet->setCellValue("F".$row, $book->publish_place);
+            $activeWorksheet->setCellValue("G".$row, $book->publish_year);
+            $activeWorksheet->setCellValue("H".$row, $book->no_of_pages);
+            $activeWorksheet->setCellValue("I".$row, $book->acquired_by);
+            $activeWorksheet->setCellValue("J".$row, $book->acquired_date);
+            $activeWorksheet->setCellValue("K".$row, $book->comments);
+            $activeWorksheet->setCellValue("L".$row, $available);
+            $row++;
+        }
+        
+        $writer = new Xlsx($spreadsheet);
+        $filename = "booksTo".date('YMd').".xlsx";
+        $writer->save($filename);
+
+        return response()->download("$filename");
     }
 }

@@ -2,6 +2,9 @@
 <body>
 <div class="container">
     @include('menu')
+    <div class="d-flex justify-content-end">
+        <a href="/books_dl" class="btn btn-success bi bi-download" style="color:white"> Λήψη αρχείου βιβλίων </a>
+    </div>
     <!--tabs-->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
