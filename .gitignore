@@ -17,4 +17,6 @@ yarn-error.log
 /.idea
 /.vscode
 /public/loansTo*
+/public/booksTo*
+/public/studentsTo*
 /*.xlsx
