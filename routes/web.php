@@ -78,6 +78,8 @@ Route::post('/loans/search_b/{book}',[LoanController::class, 'searchStudent'])->
 
 Route::post('/loans/save_b/{book}',[LoanController::class, 'lendBookFromBook'])->name('loans_save_book')->middleware('myauth');
 
+Route::get('/loans_dl', [LoanController::class, 'loansDl'])->middleware('myauth');
+
 Route::get('/all-books', function(){
     $books = Book::orderBy('title')->get();
     return view('all-books',['books' => $books]);
