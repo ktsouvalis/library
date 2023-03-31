@@ -10,6 +10,8 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\Validator;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class StudentController extends Controller
 {
@@ -191,5 +193,34 @@ class StudentController extends Controller
             }
         }
         return redirect('/student')->with('success', "Η εισαγωγή ολοκληρώθηκε");
+    }
+
+    public function studentsDl(){
+        
+        $students = Student::all();
+        $spreadsheet = new Spreadsheet();
+        $activeWorksheet = $spreadsheet->getActiveSheet();
+        
+        $activeWorksheet->setCellValue('A1', 'Αριθμός Μητρώου');
+        $activeWorksheet->setCellValue('B1', 'Επώνυμο');
+        $activeWorksheet->setCellValue('C1', 'Όνομα');
+        $activeWorksheet->setCellValue('D1', 'Πατρώνυμο');
+        $activeWorksheet->setCellValue('E1', 'Τάξη');
+        $row = 2;
+        foreach($students as $student){
+            
+            $activeWorksheet->setCellValue("A".$row,$student->am);
+            $activeWorksheet->setCellValue("B".$row, $student->surname);
+            $activeWorksheet->setCellValue("C".$row, $student->name);
+            $activeWorksheet->setCellValue("D".$row, $student->f_name);
+            $activeWorksheet->setCellValue("E".$row, $student->class);
+            $row++;
+        }
+        
+        $writer = new Xlsx($spreadsheet);
+        $filename = "studentsTo".date('YMd').".xlsx";
+        $writer->save($filename);
+
+        return response()->download("$filename");
     }
 }
