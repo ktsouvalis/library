@@ -53,7 +53,7 @@
                 @endisset
             @endisset
             @isset($all_books)
-                <table class="table table-striped table-hover table-light" >
+                <table class="table table-striped table-hover table-light">
                     <tr>
                         <th>Κωδικός Βιβλίου</th>
                         <th>Τίτλος</th>

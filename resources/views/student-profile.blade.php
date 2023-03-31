@@ -3,19 +3,21 @@
     @include('menu')
 <body>
     <div class="p-3 row">
-        <div class="row rounded-top bg-warning bg-gradient text-light  text-wrap">
+        <div class="container-md">
+        <div class="row rounded-top bg-warning bg-gradient  text-wrap">
             <div class="col">Κωδικός</div>
             <div class="col">Επώνυμο</div>
             <div class="col">Όνομα</div>
             <div class="col">Όνομα πατρός</div>
             <div class="col">Τάξη/Τμήμα</div>
         </div>
-        <div class="row rounded-bottom bg-warning text-white p-3 text-wrap" style="opacity:0.8">
+        <div class="row rounded-bottom bg-warning p-3 text-wrap" style="">
             <div class="col"><strong>{{$student->am}}</strong></div>
             <div class="col"><strong>{{$student->surname}}</strong></div>
             <div class="col"><strong>{{$student->name}}</strong></div>
             <div class="col">{{$student->f_name}}</div>
             <div class="col">{{$student->class}}</div>
+        </div>
         </div>
     </div>
     <div class="p-3 row">
