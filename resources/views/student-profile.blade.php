@@ -3,9 +3,22 @@
     @include('menu')
 <body>
     <div class="p-3 row">
-        <div class="col-sm-2 btn btn-warning text-wrap" style="color:black" >
-            {{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->f_name}}, {{$student->class}}
+        <div class="row rounded-top bg-warning bg-gradient text-light  text-wrap">
+            <div class="col">Κωδικός</div>
+            <div class="col">Επώνυμο</div>
+            <div class="col">Όνομα</div>
+            <div class="col">Όνομα πατρός</div>
+            <div class="col">Τάξη/Τμήμα</div>
         </div>
+        <div class="row rounded-bottom bg-warning text-white p-3 text-wrap" style="opacity:0.8">
+            <div class="col"><strong>{{$student->am}}</strong></div>
+            <div class="col"><strong>{{$student->surname}}</strong></div>
+            <div class="col"><strong>{{$student->name}}</strong></div>
+            <div class="col">{{$student->f_name}}</div>
+            <div class="col">{{$student->class}}</div>
+        </div>
+    </div>
+    <div class="p-3 row">
         <div class="col-sm-2" >
             <a href="{{route('search_loan_s',[$student->id])}} " class="btn btn-primary bi bi-journal-arrow-up">  Καταχώρηση δανεισμού</a>
         </div> 
