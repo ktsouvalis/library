@@ -26,7 +26,7 @@
                     <td><div class="badge bg-success text-wrap"><a href="/book_profile/{{$loan->book->id}}" style="color:white">{{$loan->book->title}}</a></div></td>
                     <td>{{$loan->book->writer}}</td>
                     <td>{{$loan->book->publisher}}</td>
-                    <td><div class="badge bg-warning text-wrap"><a href="/profile/{{$loan->student->id}}" style="color:black">{{$loan->student->surname}}</a></div></td>
+                    <td><div class="badge bg-warning text-wrap"><a href="/student_profile/{{$loan->student->id}}" style="color:black">{{$loan->student->surname}}</a></div></td>
                     <td>{{$loan->student->name}}</td>
                     <td><strong>{{$loan->student->class}}</strong></td>
                     <td>{{$loan->date_out}}</td>

@@ -91,14 +91,14 @@ class LoanController extends Controller
             ]);
             }
             catch(QueryException $e){
-                return redirect("/profile/$student->id")->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
+                return redirect("/student_profile/$student->id")->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
             }
 
 
             $book->available = 0;
             $book->save();
 
-            return redirect("/profile/$student->id")->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
+            return redirect("/student_profile/$student->id")->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
         }
         else{
             return view('add-loan-student',['dberror'=>"Δεν επιλέξατε κάποιο βιβλίο", 'student' => $student]);
