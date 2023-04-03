@@ -3,13 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Loan extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'book_id',
+    protected $fillable = [ 'user_id',
+                            'book_id',
                             'student_id',
                             'date_out',
                             'date_in'

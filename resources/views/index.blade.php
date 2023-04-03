@@ -12,6 +12,7 @@
         <div class="row p-2 justify-content-evenly">
             
         @auth
+            {{-- {{Auth::id()}} --}}
             <a class="col-lg-3 card text-bg-success mb-3" style="max-width: 20rem; opacity: 0.9;" href="/book">
                 <div class="card-body" style="text-align: center; padding: 5rem">
                 <h5 class="card-title">Βιβλία</h5>

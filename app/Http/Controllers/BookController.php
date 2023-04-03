@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Loan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -39,19 +40,18 @@ class BookController extends Controller
         
         //VALIDATION
         $incomingFields = $request->all();
-        $rules = [
-            'book_code3'=>'unique:books,code'
-        ];
+        
         $given_code = $incomingFields['book_code3'];
-        $validator = Validator::make($incomingFields, $rules);
-        if($validator->fails()){
-            $existing_book = Book::where('code',$given_code)->first();
+
+        if(Book::where('user_id',Auth::id())->where('code',$given_code)->count()){
+            $existing_book = Book::where('user_id',Auth::id())->where('code',$given_code)->first();
             return view('book',['dberror'=>"Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, Εκδόσεις $existing_book->publisher", 'old_data'=>$request,'active_tab'=>'insert']);
         }
 
         //VALIDATION PASSED
         try{
             $record = Book::create([
+                'user_id' => Auth::id(),
                 'code' => $incomingFields['book_code3'],
                 'writer' => $incomingFields['book_writer3'],
                 'title' => $incomingFields['book_title3'],
