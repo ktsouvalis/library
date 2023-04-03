@@ -3,13 +3,45 @@
     @include('menu')
 <body>
     <div class="p-3 row" >
-        <div class="col-sm-2 btn btn-success text-wrap">
-            {{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}
+        <div class="container-md">
+            
+            <div class="row rounded-top bg-success bg-gradient text-light  text-wrap">
+                <div class="col">Κωδικός</div>
+                <div class="col">Τίτλος</div>
+                <div class="col">Συγγραφέας</div>
+                <div class="col">Εκδόσεις</div>
+                <div class="col">Θεματική</div>
+                <div class="col">Αρ. Σελίδων</div>
+                <div class="col">Σχόλια</div>
+            </div>
+            <div class="row rounded-bottom bg-success text-white p-3 text-wrap" style="opacity:0.9">
+                <div class="col"><strong>{{$book->code}}</strong></div>
+                <div class="col"><strong>{{$book->title}}</strong></div>
+                <div class="col"><i>{{$book->writer}}</i></div>
+                <div class="col">{{$book->publisher}}</div>
+                <div class="col">{{$book->subject}}</div>
+                <div class="col">{{$book->no_of_pages}}</div>
+                <div class="col">{{$book->comments}}</div>
+                <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMoreElements" aria-expanded="false" aria-controls="collapseMoreElements">
+                    Περισσότερα στοιχεία...
+                </button>
+                <div class="collapse" id="collapseMoreElements">
+                    <div class="card card-body bg-success text-white">
+                        Έτος έκδοσης: {{$book->publish_year}}<br>
+                        Τόπος έκδοσης: {{$book->publish_place}}<br>
+                        Τρόπος απόκτησης: {{$book->acquired_by}}<br>
+                        Χρονολογία απόκτησης: {{$book->acquired_year}}<br>
+                    </div>
+                </div>
+            </div>
+
         </div>
+    </div>
+    <div class="p-3 row" >
         @if($book->available)
             <div class="col-sm-2"><a href="{{route('search_loan_b',[$book->id])}}" class="btn btn-primary bi bi-journal-arrow-up">  Καταχώρηση δανεισμού</a></div>
         @else
-            <div class="col-sm-2 m-2 btn btn-danger">
+            <div class="col-sm-2 bg-danger rounded text-light">
                 Το βιβλίο δεν είναι διαθέσιμο για δανεισμό
             </div>
         @endif
