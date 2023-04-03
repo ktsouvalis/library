@@ -94,7 +94,7 @@ class BookController extends Controller
             if($book->isDirty('code')){
                 $given_code = $incomingFields['book_code'];
                 if(Book::where('user_id', Auth::id())->where('code',$given_code)->count()){
-                        $existing_book = Book::where('code',$given_code)->first();
+                        $existing_book = Book::where('user_id', Auth::id())->where('code',$given_code)->first();
                         return view('edit-book',['dberror'=>"Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, Εκδόσεις $existing_book->publisher", 'book' => $book]);
                 }
             }
