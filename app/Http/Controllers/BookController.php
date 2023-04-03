@@ -77,6 +77,7 @@ class BookController extends Controller
 
         $incomingFields = $request->all();
 
+        $book->user_id = Auth::id();
         $book->code = $incomingFields['book_code'];
         $book->writer= $incomingFields['book_writer'];
         $book->title= $incomingFields['book_title'];
@@ -91,14 +92,10 @@ class BookController extends Controller
 
         if($book->isDirty()){
             if($book->isDirty('code')){
-                $rules = [
-                    'book_code'=>'unique:books,code'
-                ];
                 $given_code = $incomingFields['book_code'];
-                $validator = Validator::make($incomingFields, $rules);
-                if($validator->fails()){
-                    $existing_book = Book::where('code',$given_code)->first();
-                    return view('edit-book',['dberror'=>"Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, Εκδόσεις $existing_book->publisher", 'book' => $book]);
+                if(Book::where('user_id', Auth::id())->where('code',$given_code)->count()){
+                        $existing_book = Book::where('code',$given_code)->first();
+                        return view('edit-book',['dberror'=>"Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, Εκδόσεις $existing_book->publisher", 'book' => $book]);
                 }
             }
             $book->save();
@@ -111,12 +108,17 @@ class BookController extends Controller
     }
 
     public function show_profile(Book $book){
-        
-        return view('book-profile',['book'=>$book]);
+        if($book->user_id == Auth::id()){
+            return view('book-profile',['book'=>$book]);
+        }
+        else{
+            return redirect('/')->with('failure', 'Δεν έχετε πρόσβαση σε αυτόν τον πόρο');
+        }
     }
 
     public function importBooks(Request $request){
-        $path = $request->file('import_books')->storeAs('files', 'books_file.xlsx');
+        $filename = "books_file".Auth::id().".xlsx";
+        $path = $request->file('import_books')->storeAs('files', $filename);
         $mime = Storage::mimeType($path);
         $spreadsheet = IOFactory::load("../storage/app/$path");
         $books_array=array();
@@ -136,13 +138,14 @@ class BookController extends Controller
             $check['acquired_by']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(9, $row)->getValue();
             $check['acquired_year']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(10, $row)->getValue();
             $check['comments']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(11, $row)->getValue();
-            $rule = [
-                'code' => 'required|unique:books,code'
-            ];
-            $validator = Validator::make($check, $rule);
-            if($validator->fails()){$error=1;
-                
-                $check['code']="Υπάρχει ήδη ή κενός κωδικός";
+            
+            if($check['code']=='' or $check['code']==null){ 
+                $check['code']="Κενός κωδικός";
+            }
+            else{
+                if(Book::where('user_id', Auth::id())->where('code', $check['code'])->count()){
+                    $check['code']="Υπάρχει ήδη ο κωδικός";
+                }
             }
             $rule = [
                 'title' => 'required'
@@ -215,7 +218,8 @@ class BookController extends Controller
     }
 
     public function insertBooks(){
-        $spreadsheet = IOFactory::load("../storage/app/files/books_file.xlsx");
+        $filename = "books_file".Auth::id().".xlsx";
+        $spreadsheet = IOFactory::load("../storage/app/files/".$filename);
         $books_array=array();
         $row=2;
         do{
@@ -224,6 +228,7 @@ class BookController extends Controller
                 $rowSumValue .= $spreadsheet->getActiveSheet()->getCellByColumnAndRow($col, $row)->getValue();
             }
             $book = new Book();
+            $book->user_id = Auth::id();
             $book->code = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue();
             $book->title= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue();
             $book->writer= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue();
@@ -261,7 +266,7 @@ class BookController extends Controller
 
     public function booksDl(){
         
-        $books = Book::all();
+        $books = Book::where('user_id',Auth::id())->get();
         $spreadsheet = new Spreadsheet();
         $activeWorksheet = $spreadsheet->getActiveSheet();
 
@@ -298,7 +303,7 @@ class BookController extends Controller
         }
         
         $writer = new Xlsx($spreadsheet);
-        $filename = "booksTo".date('YMd').".xlsx";
+        $filename = "booksTo_".date('YMd')."_".Auth::id().".xlsx";
         $writer->save($filename);
 
         return response()->download("$filename");

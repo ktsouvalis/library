@@ -100,7 +100,12 @@ Route::get('/books_dl', [BookController::class, 'booksDl'])->middleware('myauth'
 Route::get('/book_profile/{book}',[BookController::class, 'show_profile'])->middleware('myauth');
 
 Route::get('/edit_book/{book}', function(Book $book){
-    return view('edit-book',['book' => $book]);
+    if($book->user_id == Auth::id()){
+        return view('edit-book',['book' => $book]);
+    }
+    else{
+        return redirect('/')->with('failure', 'Δεν έχετε πρόσβαση σε αυτόν τον πόρο');
+    }
 })->middleware('myauth');
 
 Route::post('/edit_book/{book}', [BookController::class, 'save_profile'])->middleware('myauth');

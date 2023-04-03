@@ -7,6 +7,7 @@
     
     <table class="table table-striped table-hover table-light" >
         <tr>
+            <th>Βιβλιοθήκη</th>
             <th>Κωδικός Βιβλίου</th>
             <th>Τίτλος</th>
             <th>Συγγραφέας</th>
@@ -14,7 +15,8 @@
             <th>Διαθέσιμο</th>
         </tr>
     @foreach($books as $book)
-        <tr>  
+        <tr>
+            <td>{{$book->user->email}}</td> 
             <td>{{$book->code}}</td>
             <td>{{$book->title}}</td>
             <td>{{$book->writer}}</td>

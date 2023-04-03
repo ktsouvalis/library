@@ -29,4 +29,8 @@ class Book extends Model
     {
         return $this->hasMany(Loan::class);
     }
+
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
 }
