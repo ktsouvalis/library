@@ -31,24 +31,24 @@ class BookController extends Controller
         
         $given_title = isset($incomingFields['book_title1']) ? $incomingFields['book_title1'] : '';
         $given_code = isset($incomingFields['book_code1']) ? $incomingFields['book_code1'] : 0;
-        $books= ($given_code <> 0) ? Book::where('code', $given_code)->get() : Book::Where('title', 'LIKE', "%$given_title%")->orderBy('title')->get();
+        $books= ($given_code <> 0) ? Book::where('user_id',Auth::id())->where('code', $given_code)->get() : Book::where('user_id',Auth::id())->where('title', 'LIKE', "%$given_title%")->orderBy('title')->get();
         
         return view('book',['books'=>$books, 'active_tab'=>'search']);
     }
 
     public function insertBook(Request $request){
-        
-        //VALIDATION
+      
         $incomingFields = $request->all();
         
         $given_code = $incomingFields['book_code3'];
-
+          
+        //VALIDATION
         if(Book::where('user_id',Auth::id())->where('code',$given_code)->count()){
             $existing_book = Book::where('user_id',Auth::id())->where('code',$given_code)->first();
             return view('book',['dberror'=>"Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, Εκδόσεις $existing_book->publisher", 'old_data'=>$request,'active_tab'=>'insert']);
         }
-
         //VALIDATION PASSED
+        
         try{
             $record = Book::create([
                 'user_id' => Auth::id(),

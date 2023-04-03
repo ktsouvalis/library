@@ -3,6 +3,7 @@
 use App\Models\Book;
 use App\Models\Loan;
 use App\Models\Student;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\LoanController;
@@ -86,7 +87,7 @@ Route::get('/all-books', function(){
 })->middleware('guest');
 
 Route::get('/book', function(){
-    $books = Book::orderBy('title')->get();
+    $books = Book::where('user_id',Auth::id())->orderBy('title')->get();
     return view('book', ['all_books' => $books]);
 })->name('book')->middleware('myauth');
 
