@@ -38,12 +38,12 @@
                 </div> 
             </a>
         @else
-        <a class="col-lg-3 card text-bg-primary mb-3" style="max-width: 20rem; opacity: 0.9;" href="/all-books">
+        {{-- <a class="col-lg-3 card text-bg-primary mb-3" style="max-width: 20rem; opacity: 0.9;" href="/all-books">
                 <div class="card-body" style="text-align: center; padding: 5rem">
                   <h5 class="card-title">Κατάλογος Βιβλίων</h5>
                   <p class="card-text"></p>
                 </div> 
-        </a>
+        </a> --}}
         <div class="col-lg-3 p-3">
             <form action="/login" method="post">
                 @csrf
