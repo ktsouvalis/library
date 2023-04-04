@@ -27,7 +27,7 @@ Route::post('/login', [UserController::class,'login']);
 Route::get('/logout',[UserController::class, 'logout']);
 
 Route::get('/student', function(){
-    $students = Student::orderBy('surname')->get();
+    $students = Student::where('user_id',Auth::id())->orderBy('surname')->get();
     return view('student', ['all_students' => $students]);
 })->name('student')->middleware('myauth');
 
@@ -40,7 +40,12 @@ Route::get('/students_dl', [StudentController::class, 'studentsDl'])->middleware
 Route::get('/student_profile/{student}',[StudentController::class, 'show_profile'])->middleware('myauth');
 
 Route::get('/edit_student/{student}', function(Student $student){
-    return view('edit-student',['student' => $student]);
+    if($student->user_id == Auth::id()){
+        return view('edit-student',['student' => $student]);
+    }
+    else{
+        return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
+    }
 })->middleware('myauth');
 
 Route::post('/edit_student/{student}', [StudentController::class, 'save_profile'])->middleware('myauth');
@@ -57,6 +62,7 @@ Route::get('/loans', function(){
     $loans = Loan::join('students', 'loans.student_id', '=', 'students.id')
         ->orderBy('students.class', 'asc')
         ->select('loans.*')
+        ->where('loans.user_id', Auth::id())
         ->get(); 
     return view('loans', ['loans' => $loans]); 
 })->middleware('myauth');
@@ -64,7 +70,12 @@ Route::get('/loans', function(){
 Route::post('/loans/return',[LoanController::class, 'returnBook'])->middleware('myauth');
 
 Route::get('/loans_s/{student}', function(Student $student){
-    return view('add-loan-student', ['student' => $student]);
+    if($student->user_id == Auth::id()){
+        return view('add-loan-student', ['student' => $student]);
+    }
+    else{
+        return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');  
+    }
 })->name('search_loan_s')->middleware('myauth');
 
 Route::post('/loans/search_s/{student}',[LoanController::class, 'searchBook'])->name('loans_search_student')->middleware('myauth');
@@ -72,7 +83,12 @@ Route::post('/loans/search_s/{student}',[LoanController::class, 'searchBook'])->
 Route::post('/loans/save_s/{student}',[LoanController::class, 'lendBookFromStudent'])->name('loans_save_student')->middleware('myauth');
 
 Route::get('/loans_b/{book}', function(Book $book){
-    return view('add-loan-book', ['book' => $book]);
+    if($book->user_id == Auth::id()){
+        return view('add-loan-book', ['book' => $book]);
+    }
+    else{
+        return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
+    }
 })->name('search_loan_b')->middleware('myauth');
 
 Route::post('/loans/search_b/{book}',[LoanController::class, 'searchStudent'])->name('loans_search_book')->middleware('myauth');
@@ -104,7 +120,7 @@ Route::get('/edit_book/{book}', function(Book $book){
         return view('edit-book',['book' => $book]);
     }
     else{
-        return redirect('/')->with('failure', 'Δεν έχετε πρόσβαση σε αυτόν τον πόρο');
+        return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
     }
 })->middleware('myauth');
 

@@ -39,7 +39,6 @@ class BookController extends Controller
     public function insertBook(Request $request){
       
         $incomingFields = $request->all();
-        
         $given_code = $incomingFields['book_code3'];
           
         //VALIDATION
@@ -112,7 +111,7 @@ class BookController extends Controller
             return view('book-profile',['book'=>$book]);
         }
         else{
-            return redirect('/')->with('failure', 'Δεν έχετε πρόσβαση σε αυτόν τον πόρο');
+            return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
         }
     }
 

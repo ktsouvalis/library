@@ -6,6 +6,7 @@ use App\Models\Loan;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -21,7 +22,7 @@ class StudentController extends Controller
         
         $given_surname = $incomingFields['student_surname1'];
         
-        $students= Student::Where('surname', 'LIKE', "%$given_surname%")->orderBy('surname')->get();
+        $students= Student::where('user_id', Auth::id())->where('surname', 'LIKE', "%$given_surname%")->orderBy('surname')->get();
         
         return view('student',['students'=>$students, 'active_tab'=>'search']);
     }
@@ -30,19 +31,16 @@ class StudentController extends Controller
         
         //VALIDATION
         $incomingFields = $request->all();
-        $rules = [
-            'student_am3'=>'unique:students,am'
-        ];
         $given_am = $incomingFields['student_am3'];
-        $validator = Validator::make($incomingFields, $rules);
-        if($validator->fails()){
-            $existing_student = Student::where('am','=',$given_am)->first();
+
+        if(Student::where('user_id', Auth::id())->where('am', $given_am)->count()){
+            $existing_student = Student::where('user_id', Auth::id())->where('am',$given_am)->first();
             return view('student',['dberror'=>"Υπάρχει ήδη μαθητής με αριθμό μητρώου $given_am: $existing_student->surname $existing_student->name, $existing_student->class", 'old_data'=>$request,'active_tab'=>'insert']);
         }
-
         //VALIDATION PASSED
         try{
             $record = Student::create([
+                'user_id' => Auth::id(),
                 'am' => $incomingFields['student_am3'],
                 'surname' => $incomingFields['student_surname3'],
                 'name' => $incomingFields['student_name3'],
@@ -60,6 +58,7 @@ class StudentController extends Controller
     public function save_profile(Student $student, Request $request){
 
         $incomingFields = $request->all();
+        $student->user_id = Auth::id();
         $student->am = $incomingFields['student_am'];
         $student->surname = $incomingFields['student_surname'];
         $student->name = $incomingFields['student_name'];
@@ -68,14 +67,12 @@ class StudentController extends Controller
 
         if($student->isDirty()){
             if($student->isDirty('am')){
-                $rules = [
-                    'student_am'=>'unique:students,am'
-                ];
                 $given_am = $incomingFields['student_am'];
-                $validator = Validator::make($incomingFields, $rules);
-                if($validator->fails()){
-                    $existing_student = Student::where('am','=',$given_am)->first();
+
+                if(Student::where('user_id', Auth::id())->where('am', $given_am)->count()){
+                    $existing_student = Student::where('user_id', Auth::id())->where('am','=',$given_am)->first();
                     return view('edit-student',['dberror'=>"Υπάρχει ήδη μαθητής με αριθμό μητρώου $given_am: $existing_student->surname $existing_student->name, $existing_student->class", 'student' => $student]);
+
                 }
             }
             $student->save();
@@ -86,12 +83,18 @@ class StudentController extends Controller
         return redirect("/student_profile/$student->id")->with('success','Επιτυχής αποθήκευση');
     }
 
-    public function show_profile(Student $student){        
-        return view('student-profile',['student'=>$student]);
+    public function show_profile(Student $student){
+        if($student->user_id == Auth::id()){        
+            return view('student-profile',['student'=>$student]);
+        }
+        else{
+            return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
+        }
     }
 
     public function importStudents(Request $request){
-        $path = $request->file('import_students')->storeAs('files', 'students_file.xlsx');
+        $filename = "students_file_".Auth::id().".xlsx"; 
+        $path = $request->file('import_students')->storeAs('files', $filename);
         $mime = Storage::mimeType($path);
         $spreadsheet = IOFactory::load("../storage/app/$path");
         $students_array=array();
@@ -171,10 +174,11 @@ class StudentController extends Controller
                 $rowSumValue .= $spreadsheet->getActiveSheet()->getCellByColumnAndRow($col, $row)->getValue();
             }
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-            Loan::truncate();
-            Student::truncate();
+            Loan::where('user_id', Auth::id())->delete();
+            Student::where('user_id', Auth::id())->delete();
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
             $student = new Student();
+            $student->user_id = Auth::id();
             $student->am = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue();
             $student->surname= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue();
             $student->name= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue();
@@ -197,7 +201,7 @@ class StudentController extends Controller
 
     public function studentsDl(){
         
-        $students = Student::all();
+        $students = Student::where('user_id', Auth::id())->get();
         $spreadsheet = new Spreadsheet();
         $activeWorksheet = $spreadsheet->getActiveSheet();
         
@@ -218,7 +222,7 @@ class StudentController extends Controller
         }
         
         $writer = new Xlsx($spreadsheet);
-        $filename = "studentsTo".date('YMd').".xlsx";
+        $filename = "studentsTo_".date('YMd')."_".Auth::id().".xlsx";
         $writer->save($filename);
 
         return response()->download("$filename");

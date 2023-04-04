@@ -7,6 +7,7 @@ use App\Models\Loan;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -27,26 +28,6 @@ class LoanController extends Controller
     }
 
     public function searchBook(Student $student, Request $request){
-        // $incomingFields = $request->all();
-        // $given_code = $incomingFields['book_code'];
-
-        // //VALIDATION
-        // $rule1 = [
-        //     'book_code' => Rule::exists('books','code')
-        // ];
-        // if(Validator::make($incomingFields,$rule1)->fails()){
-        //     return view('add-loan-student',['dberror'=>"Δεν υπάρχει στη βάση σας βιβλίο με κωδικό $given_code", 'student' => $student]);
-        // }
-        // else{
-        //     $rule2 = [
-        //         'book_code' => Rule::exists('books', 'code')->where('available', 1)
-        //     ];
-        //     if(Validator::make($incomingFields,$rule2)->fails()){
-        //         $book = Book::where('code',$given_code)->first();
-        //         return view('add-loan-student',['dberror'=>"Το βιβλίο $given_code ($book->title, $book->writer, εκδόσεις $book->publisher) δεν είναι διαθέσιμο προς δανεισμό", 'student' => $student]);
-        //     }
-        // }
-        // // END VALIDATION
 
         $incomingFields = $request->all();
 
@@ -61,16 +42,13 @@ class LoanController extends Controller
         $given_title = isset($incomingFields['book_title']) ? $incomingFields['book_title'] : '';
         $given_code = isset($incomingFields['book_code']) ? $incomingFields['book_code'] : 0;
         if($given_code<>0){
-            $rule1 = [
-                'book_code' => Rule::exists('books','code')
-            ];
-            if(Validator::make($incomingFields,$rule1)->fails()){
+            if(!Book::where('user_id', Auth::id())->where('code',$given_code)->count()){
                 return view('add-loan-student',['dberror'=>"Δεν υπάρχει στη βάση σας βιβλίο με κωδικό $given_code", 'student' => $student]);
             }
-            $books = Book::where('code', $given_code)->get();
+            $books = Book::where('user_id', Auth::id())->where('code', $given_code)->get();
         }
         else{
-            $books = Book::where('title', 'LIKE', "%$given_title%")->orderBy('title')->get();
+            $books = Book::where('user_id', Auth::id())->where('title', 'LIKE', "%$given_title%")->orderBy('title')->get();
             if(!$books->count()){
                 return view('add-loan-student',['dberror'=>"Δεν υπάρχει στη βάση σας βιβλίο με παρόμοιο τίτλο", 'student' => $student]);
             }
@@ -85,6 +63,7 @@ class LoanController extends Controller
             
             try{
                 Loan::create([
+                'user_id' => Auth::id(),
                 'book_id' => $book->id,
                 'student_id' => $student->id,
                 'date_out' => date('y/m/d'),
@@ -93,7 +72,6 @@ class LoanController extends Controller
             catch(QueryException $e){
                 return redirect("/student_profile/$student->id")->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
             }
-
 
             $book->available = 0;
             $book->save();
@@ -107,10 +85,8 @@ class LoanController extends Controller
 
     public function searchStudent(Book $book, Request $request){
         $incomingFields = $request->all();
-        
         $given_surname = $incomingFields['student_surname'];
-        
-        $students= Student::Where('surname', 'LIKE', "%$given_surname%")->orderBy('surname')->get(); 
+        $students= Student::where('user_id', Auth::id())->Where('surname', 'LIKE', "%$given_surname%")->orderBy('surname')->get(); 
         if(!$students->count()){
             return redirect("/loans_b/$book->id")->with('failure','Δε βρέθηκε μαθητής με αυτά τα στοιχεία');
         }
@@ -123,9 +99,10 @@ class LoanController extends Controller
 
         try{
             Loan::create([
-            'book_id' => $book->id,
-            'student_id' => $incomingFields['student_id'],
-            'date_out' => date('y/m/d'),
+                'user_id' => Auth::id(),
+                'book_id' => $book->id,
+                'student_id' => $incomingFields['student_id'],
+                'date_out' => date('y/m/d')
         ]);
         }
         catch(QueryException $e){
@@ -140,7 +117,7 @@ class LoanController extends Controller
 
     public function loansDl(){
         
-        $loans = Loan::all();
+        $loans = Loan::where('user_id', Auth::id())->get();
         $spreadsheet = new Spreadsheet();
         $activeWorksheet = $spreadsheet->getActiveSheet();
         
@@ -171,7 +148,7 @@ class LoanController extends Controller
         }
         
         $writer = new Xlsx($spreadsheet);
-        $filename = "loansTo".date('YMd').".xlsx";
+        $filename = "loansTo_".date('YMd')."_".Auth::id().".xlsx";
         $writer->save($filename);
 
         return response()->download("$filename");
