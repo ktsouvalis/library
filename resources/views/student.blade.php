@@ -40,7 +40,7 @@
                 @else
                     @foreach($students as $student)
                         <div class="m-2 col-sm-2 btn btn-warning text-wrap">
-                            <a href="/student_profile/{{$student->id}}" style="color:black">{{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->class}}</a>
+                            <a href="/student_profile/{{$student->id}}" style="color:black; text-decoration:none;">{{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->class}}</a>
                         </div>
                     @endforeach
                 @endif
@@ -57,7 +57,7 @@
                     @foreach($all_students as $student)
                         <tr>  
                             <td>{{$student->am}}</td>
-                            <td><div class="badge bg-warning text-wrap"><a href="/student_profile/{{$student->id}}" style="color:black">{{$student->surname}}</a></div></td>
+                            <td><div class="badge bg-warning text-wrap"><a href="/student_profile/{{$student->id}}" style="color:black; text-decoration:none;">{{$student->surname}}</a></div></td>
                             <td>{{$student->name}}</td>
                             <td>{{$student->f_name}}</td>
                             <td>{{$student->class}}</td>
@@ -165,7 +165,7 @@
                 @isset($record)
                     <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div>
                     <div class="m-2 col-sm-2 btn btn-warning text-wrap">
-                        <a href="/student_profile/{{$record->id}}" style="color:black">{{$record->am}}, {{$record->surname}} {{$record->name}}, {{$record->class}}</a>
+                        <a href="/student_profile/{{$record->id}}" style="color:black; text-decoration:none;">{{$record->am}}, {{$record->surname}} {{$record->name}}, {{$record->class}}</a>
                     </div>
                 @endisset
             @endisset

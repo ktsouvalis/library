@@ -252,7 +252,9 @@ class BookController extends Controller
                 return view('book',['dberror'=>"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.", 'active_tab'=>'import']);
             }
         }
-        return redirect('/book')->with('success', "Η εισαγωγή ολοκληρώθηκε");
+
+        $imported = $row - 3;
+        return redirect('/book')->with('success', "Η εισαγωγή $imported βιβλίων ολοκληρώθηκε");
     }
 
     public function deleteBook(Book $book){

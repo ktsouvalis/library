@@ -39,13 +39,13 @@
     </div>
     <div class="p-3 row" >
         @if($book->available)
-            <div class="col-sm-2"><a href="{{route('search_loan_b',[$book->id])}}" class="btn btn-primary bi bi-journal-arrow-up">  Καταχώρηση δανεισμού</a></div>
+            <div class="col-sm-2"><a href="{{route('search_loan_b',[$book->id])}}" class="btn btn-primary bi bi-journal-arrow-up" style="text-decoration:none;">  Καταχώρηση δανεισμού</a></div>
         @else
             <div class="col-sm-2 bg-danger rounded text-light">
                 Το βιβλίο δεν είναι διαθέσιμο για δανεισμό
             </div>
         @endif
-        <div class="col-sm-2"><a href="/edit_book/{{$book->id}}" class="btn btn-primary bi bi-journal-text">  Επεξεργασία στοιχείων βιβλίου</a></div>
+        <div class="col-sm-2"><a href="/edit_book/{{$book->id}}" class="btn btn-primary bi bi-journal-text" style="text-decoration:none;">  Επεξεργασία στοιχείων βιβλίου</a></div>
         @if($book->available)
             <div class=col-sm-2>
                 <form action="/delete_book/{{$book->id}}" method="post">
@@ -70,7 +70,7 @@
                 <input type="hidden" name="loan_id" value={{$loan->id}}>
                 <tr >
                     <td>{{$loan->student->am}}</td>  
-                    <td><div class="badge bg-warning text-wrap"><a href ="/profile/{{$loan->student->id}}" style="color:black">{{$loan->student->surname}}</a></div></td>
+                    <td><div class="badge bg-warning text-wrap"><a href ="/student_profile/{{$loan->student->id}}" style="color:black; text-decoration:none;">{{$loan->student->surname}}</a></div></td>
                     <td>{{$loan->student->name}}</td>
                     <td>{{$loan->student->class}}</td>
                     <td>{{$loan->date_out}}</td>

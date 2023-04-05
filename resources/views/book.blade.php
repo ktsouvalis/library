@@ -3,7 +3,7 @@
 <div class="container">
     @include('menu')
     <div class="d-flex justify-content-end">
-        <a href="/books_dl" class="btn btn-success bi bi-download" style="color:white"> Λήψη αρχείου βιβλίων </a>
+        <a href="/books_dl" class="btn btn-success bi bi-download" style="color:white; text-decoration:none;"> Λήψη αρχείου βιβλίων </a>
     </div>
     <!--tabs-->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -46,7 +46,7 @@
                     @else
                         @foreach($books as $book)
                             <div class="m-3 col-sm-2 btn btn-success text-wrap">
-                                <a href="/book_profile/{{$book->id}}" style="color:white">{{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}</a>
+                                <a href="/book_profile/{{$book->id}}" style="color:white; text-decoration:none;">{{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}</a>
                             </div>
                         @endforeach
                     @endif
@@ -64,7 +64,7 @@
                     @foreach($all_books as $book)
                         <tr>  
                             <td>{{$book->code}}</td>
-                            <td><div class="badge bg-success text-wrap"><a href="/book_profile/{{$book->id}}" style="color:white">{{$book->title}}</a><div></div></td>
+                            <td><div class="badge bg-success text-wrap"><a href="/book_profile/{{$book->id}}" style="color:white;text-decoration:none;">{{$book->title}}</a><div></div></td>
                             <td>{{$book->writer}}</td>
                             <td>{{$book->publisher}}</td>
                             
@@ -203,7 +203,7 @@
                 @isset($record)
                     <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div>
                         <div class="col-sm-2 btn btn-success text-wrap">
-                            <a href="/book_profile/{{$record->id}}" style="color:white">{{$record->code}}, {{$record->writer}}, <i>{{$record->title}}</i>, {{$record->publisher}}</a>
+                            <a href="/book_profile/{{$record->id}}" style="color:white; text-decoration:none;">{{$record->code}}, {{$record->writer}}, <i>{{$record->title}}</i>, {{$record->publisher}}</a>
                         </div>
                     </div>
                 @endisset

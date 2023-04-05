@@ -165,7 +165,8 @@ class StudentController extends Controller
     }
 
     public function insertStudents(){
-        $spreadsheet = IOFactory::load("../storage/app/files/students_file.xlsx");
+        $filename = "students_file_".Auth::id().".xlsx";
+        $spreadsheet = IOFactory::load("../storage/app/files/$filename");
         $students_array=array();
         $row=2;
         do{
@@ -196,7 +197,9 @@ class StudentController extends Controller
                 return view('student',['dberror'=>"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.", 'active_tab'=>'import']);
             }
         }
-        return redirect('/student')->with('success', "Η εισαγωγή ολοκληρώθηκε");
+
+        $imported = $row -3;
+        return redirect('/student')->with('success', "Η εισαγωγή $imported μαθητών ολοκληρώθηκε");
     }
 
     public function studentsDl(){

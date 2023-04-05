@@ -22,10 +22,10 @@
     </div>
     <div class="p-3 row">
         <div class="col-sm-2" >
-            <a href="{{route('search_loan_s',[$student->id])}} " class="btn btn-primary bi bi-journal-arrow-up">  Καταχώρηση δανεισμού</a>
+            <a href="{{route('search_loan_s',[$student->id])}} " class="btn btn-primary bi bi-journal-arrow-up" style="text-decoration:none;">  Καταχώρηση δανεισμού</a>
         </div> 
         <div class="col-sm-2 " >
-            <a href="/edit_student/{{$student->id}}" class="btn btn-primary bi bi-journal-text" >  Επεξεργασία στοιχείων μαθητή</a>
+            <a href="/edit_student/{{$student->id}}" class="btn btn-primary bi bi-journal-text" style="text-decoration:none;">  Επεξεργασία στοιχείων μαθητή</a>
         </div>
     </div>
     <table class="table table-striped table-hover table-light">
@@ -43,7 +43,7 @@
             <input type="hidden" name="loan_id" value={{$loan->id}}>
             <tr >  
                 <td>{{$loan->book->code}}</td>
-                <td><div class="badge bg-success text-wrap"><a href='/book_profile/{{$loan->book->id}}' style="color:white">{{$loan->book->title}}</a></div></td>
+                <td><div class="badge bg-success text-wrap"><a href='/book_profile/{{$loan->book->id}}' style="color:white; text-decoration:none;">{{$loan->book->title}}</a></div></td>
                 <td>{{$loan->book->writer}}</td>
                 <td>{{$loan->book->publisher}}</td>
                 <td>{{$loan->date_out}}</td>
