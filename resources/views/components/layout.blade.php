@@ -14,7 +14,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="main.css" />
   </head> 
-
+  @auth
+    <div class="d-flex justify-content-center"> <div class="h4 bi bi-book text-black-50"> <a href='/password_reset'>{{Auth::user()->display_name}}</a></div></div>
+  @endauth
   {{$slot}}
         @if (session()->has('success'))
         <div class='container container--narrow'>
