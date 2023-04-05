@@ -27,4 +27,17 @@ class UserController extends Controller
         auth()->logout();
         return redirect('/')->with('success','Αποσυνδεθήκατε...');
     }
+
+    public function passwordReset(Request $request){
+        $incomingFields = $request->all();
+        $incomingFields->validate([
+            'pass1' => 'min:6|required_with:pass1_confirmation|same:pass1_confirmation',
+            'pass1_confirmation' => 'min:6'
+        ]);
+
+        $user = User::find(Auth::id());
+
+        $user->password = bcrypt($incomingFields['pass1']);
+        $user->save();
+    }
 }

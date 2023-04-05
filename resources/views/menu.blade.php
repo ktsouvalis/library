@@ -1,5 +1,5 @@
 
-<div class="d-flex justify-content-center"> <div class="h4 bi bi-book text-black-50"> {{Auth::user()->display_name}}</div></div>
+<div class="d-flex justify-content-center"> <div class="h4 bi bi-book text-black-50"> <a href='/password_reset'>{{Auth::user()->display_name}}</a></div></div>
 <nav class="navbar navbar-light justify-content-auto py-3 p-3" style="background-color: #e3f2fd;">
     <!-- Navbar content -->
     <div class="badge bg-light text-wrap py-2 m-1" style="width: 12rem;">

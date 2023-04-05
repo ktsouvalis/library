@@ -24,7 +24,14 @@ use App\Http\Controllers\StudentController;
 Route::view('/','index');
 
 Route::post('/login', [UserController::class,'login']);
+
 Route::get('/logout',[UserController::class, 'logout']);
+
+Route::get('/password_reset', function(){
+    return view('password_reset_form');
+})->middleware('myauth');
+
+Route::post('/password_reset', [UserController::class, 'passwordReset'])->middleware('myauth');
 
 Route::get('/student', function(){
     $students = Student::where('user_id',Auth::id())->orderBy('surname')->get();
@@ -52,11 +59,6 @@ Route::post('/edit_student/{student}', [StudentController::class, 'save_profile'
 Route::post('/student_template_upload', [StudentController::class, 'importStudents'])->name('student_template_upload')->middleware('myauth');
 
 Route::post('/students_insertion', [StudentController::class, 'insertStudents'])->name('insert_students_from_template')->middleware('myauth');
-
-// Route::get('/loans', function(){
-//     $loans = Loan::orderBy('date_in', 'asc')->get();
-//     return view('loans', ['loans' => $loans]);
-// })->middleware('myauth');
 
 Route::get('/loans', function(){ 
     $loans = Loan::join('students', 'loans.student_id', '=', 'students.id')
