@@ -26,37 +26,33 @@
                 <div class="alert alert-danger" role="alert">{{$dberror}}</div>
     @else
         @isset($books)
-            <form action="{{route('loans_save_student', [$student->id])}}" method="post" class="container-fluid">
-            @csrf
-            <div class="row py-3 m-3">
-                <div class="col">
-                    @foreach($books as $book)
-                        @if($book->available)
-                        <div class="row py-2">
-                            <input type="radio" class="btn-check" name="book_id" id="{{$book->id}}" value="{{$book->id}}" autocomplete="off">
-                            <label style="color:black" class="btn btn-outline-success" for="{{$book->id}}">{{$book->code}}, {{$book->title}}, {{$book->writer}}, {{$book->publisher}}</label>
-                        </div>
-                        @else
-                        <div class="row py-2">
-                            <input type="radio" class="btn-check" name="book_id" id="{{$book->id}}" value="{{$book->id}}" autocomplete="off" disabled>
-                            <label style="color:black" class="btn btn-outline-danger" for="{{$book->id}}">{{$book->code}}, {{$book->title}}, {{$book->writer}}, {{$book->publisher}}: <strong>ΜΗ ΔΙΑΘΕΣΙΜΟ</strong></label>
-                        </div>
-                        @endif
-                    @endforeach
-                </div>
-                <div class="col">
-                        <input type="hidden" name="student_id" value={{$student->id}}>
-                        <div class="input-group">
-                            <button type="submit" class="btn btn-primary" style="">Καταχώρηση Δανεισμού</button>
-                        </div>
-                </div>
-            </div>
-            </form>
+            <table class="table table-striped table-hover table-light">
+                <tr>
+                <th>Κωδικός Βιβλίου</th>
+                <th>Τίτλος</th>
+                <th>Συγγραφέας</th>
+                <th>Εκδότης</th>
+                <th>Καταχώρηση Δανεισμού</th>
+                </tr>
+            @foreach($books as $book)
+                <tr>  
+                <td>{{$book->code}}</td>
+                <td><div class="badge bg-success text-wrap" style="color:white">{{$book->title}}</div></td>
+                <td>{{$book->writer}}</td>
+                <td>{{$book->publisher}}</td>
+                @if($book->available)
+                    <form action="{{route('loans_save_student', [$student->id])}}" method="post" class="container-fluid">
+                    @csrf
+                        <input type="hidden" name="book_id" id="{{$book->id}}" value="{{$book->id}}">
+                        <td><button type="submit" class="bi bi-journal-arrow-up bg-primary" style="color:white" data-toggle="tooltip" data-placement="top" title="Καταχώρηση δανεισμού" >   </button></td>
+                    </form>
+                @else
+                    <td style="color:red">Μη διαθέσιμο</td>
+                @endif
+                </tr>
+            @endforeach
+            </table>
         @endisset
     @endisset
     </div>
-    
-    {{-- @isset($saved)
-        <div class="alert alert-success" role="alert">Ο Δανεισμός καταχωρήθηκε</div>
-    @endisset --}}
 </x-layout>

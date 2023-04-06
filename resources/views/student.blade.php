@@ -38,11 +38,29 @@
                 @if($students->isEmpty())
                     <div class="alert alert-warning" role="alert">Δε βρέθηκε μαθητής με τα στοιχεία που εισάγατε</div>
                 @else
+                    <table class="table table-striped table-hover table-light" >
+                    <tr>
+                        <th>Αριθμός Μητρώου</th>
+                        <th>Επώνυμο</th>
+                        <th>Όνομα</th>
+                        <th>Πατρώνυμο</th>
+                        <th>Τάξη</th>
+                        <th>Ενέργεια</th>
+                    </tr>
                     @foreach($students as $student)
-                        <div class="m-2 col-sm-2 btn btn-warning text-wrap">
-                            <a href="/student_profile/{{$student->id}}" style="color:black; text-decoration:none;">{{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->class}}</a>
-                        </div>
+                        <tr>  
+                            <td>{{$student->am}}</td>
+                            <td><div class="badge bg-warning text-wrap"><a href="/student_profile/{{$student->id}}" style="color:black; text-decoration:none;">{{$student->surname}}</a></div></td>
+                            <td>{{$student->name}}</td>
+                            <td>{{$student->f_name}}</td>
+                            <td>{{$student->class}}</td>
+                            <form action="{{route('search_loan_s',[$student->id])}}" method="get">
+                                @csrf
+                                <td><button class="bi bi-journal-arrow-up bg-primary" type="submit" data-toggle="tooltip" title = "Δανεισμός" style="color: white">    </button></td>
+                            </form>
+                        </tr>
                     @endforeach
+                </table>
                 @endif
             @endisset
             @isset($all_students)
@@ -53,6 +71,7 @@
                         <th>Όνομα</th>
                         <th>Πατρώνυμο</th>
                         <th>Τάξη</th>
+                        <th>Δανεισμός</th>
                     </tr>
                     @foreach($all_students as $student)
                         <tr>  
@@ -61,6 +80,10 @@
                             <td>{{$student->name}}</td>
                             <td>{{$student->f_name}}</td>
                             <td>{{$student->class}}</td>
+                            <form action="{{route('search_loan_s',[$student->id])}}" method="get">
+                                @csrf
+                                <td><button class="bi bi-journal-arrow-up bg-primary" type="submit" data-toggle="tooltip" title = "Δανεισμός" style="color: white">    </button></td>
+                            </form>
                         </tr>
                     @endforeach
                 </table>

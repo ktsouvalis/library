@@ -23,27 +23,30 @@
                 <div class="alert alert-danger" role="alert">{{$dberror}}</div>
     @else
         @isset($students)
-        <form action="{{route('loans_save_book', [$book->id])}}" method="post" class="container-fluid">
-            @csrf
-            <div class="row py-3 m-3">
-                <div class="col">
-                    @foreach($students as $student)
-                        <div class="row py-2">
-                        <input type="radio" class="btn-check" name="student_id" id="{{$student->id}}" value="{{$student->id}}" autocomplete="off">
-                        <label style="color:black" class="btn btn-outline-warning" for="{{$student->id}}">{{$student->surname}} {{$student->name}}, {{$student->f_name}}, {{$student->class}}</label>
-                        </div>
-                    @endforeach
-                </div>
-                <div class="col">
-                        <input type="hidden" name="asks_to" value="save">
-                        <input type="hidden" name="book_id" value={{$book->id}}>
-                        
-                        <div class="input-group">
-                            <button type="submit" class="btn btn-primary" style="">Καταχώρηση Δανεισμού</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <table class="table table-striped table-hover table-light">
+                <tr>
+                <th>Αριθμός Μητρώου</th>
+                <th>Επώνυμο</th>
+                <th>Όνομα</th>
+                <th>Πατρώνυμο</th>
+                <th>Τάξη</th>
+                <th>Καταχώρηση Δανεισμού</th>
+                </tr>
+            @foreach($students as $student)
+                <tr>     
+                <td>{{$student->am}}</td>
+                <td><div class="badge bg-warning text-wrap" style="color:black">{{$student->surname}}</div></td>
+                <td>{{$student->name}}</td>
+                <td>{{$student->f_name}}</td>
+                <td>{{$student->class}}</td>
+                <form action="{{route('loans_save_book', [$book->id])}}" method="post" class="container-fluid">
+                @csrf
+                    <input type="hidden" name="student_id"  value="{{$student->id}}">
+                    <td><button type="submit" class="bi bi-journal-arrow-up bg-primary" style="color:white" data-toggle="tooltip" data-placement="top" title="Καταχώρηση δανεισμού" >   </button></td>
+                </form>
+                </tr>
+            @endforeach
+            </table>
         @endisset
         @isset($saved)
             <div class="alert alert-success" role="alert">Ο Δανεισμός καταχωρήθηκε</div>

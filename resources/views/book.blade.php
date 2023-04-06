@@ -44,11 +44,36 @@
                     @if($books->isEmpty())
                         <div class="alert alert-warning" role="alert">Δε βρέθηκε βιβλίο με τα στοιχεία που εισάγατε</div>
                     @else
+                        <table class="table table-striped table-hover table-light">
+                            <tr>
+                            <th>Κωδικός Βιβλίου</th>
+                            <th>Τίτλος</th>
+                            <th>Συγγραφέας</th>
+                            <th>Εκδότης</th>
+                            <th>Δανεισμός / Επιστροφή</th>
+                        </tr>
                         @foreach($books as $book)
-                            <div class="m-3 col-sm-2 btn btn-success text-wrap">
-                                <a href="/book_profile/{{$book->id}}" style="color:white; text-decoration:none;">{{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}</a>
-                            </div>
+                            <tr>  
+                            <td>{{$book->code}}</td>
+                            <td><div class="badge bg-success text-wrap"><a href="/book_profile/{{$book->id}}" style="color:white;text-decoration:none;">{{$book->title}}</a><div></div></td>
+                            <td>{{$book->writer}}</td>
+                            <td>{{$book->publisher}}</td>
+                            
+                            @if($book->available)
+                                <form action="{{route('search_loan_b',[$book->id])}}" method="get">
+                                @csrf
+                                    <td><button class="bi bi-journal-arrow-up bg-primary" type="submit" data-toggle="tooltip" title = "Δανεισμός" style="color: white">    </button></td>
+                                </form>
+                            @else
+                                <form action="/loans/return" method="post">
+                                    @csrf
+                                    <input type="hidden" name="loan_id" value={{ $book->loans()->where('book_id', $book->id)->whereNull('date_in')->first()->id}}>
+                                    <td><button class="bi bi-journal-arrow-down bg-secondary" type="submit" data-toggle="tooltip" title = "Επιστροφή" style="color: white">    </button></td>
+                                </form>
+                            @endif
+                        </tr>
                         @endforeach
+                    </table>
                     @endif
                 @endisset
             @endisset
@@ -59,7 +84,7 @@
                         <th>Τίτλος</th>
                         <th>Συγγραφέας</th>
                         <th>Εκδότης</th>
-                        <th>Διαθέσιμο</th>
+                        <th>Δανεισμός / Επιστροφή</th>
                     </tr>
                     @foreach($all_books as $book)
                         <tr>  
@@ -69,11 +94,19 @@
                             <td>{{$book->publisher}}</td>
                             
                             @if($book->available)
-                                <td>Διαθέσιμο</td>
+                                <form action="{{route('search_loan_b',[$book->id])}}" method="get">
+                                    @csrf
+                                    <td><button class="bi bi-journal-arrow-up bg-primary" type="submit" data-toggle="tooltip" title = "Δανεισμός" style="color: white">   </button></td>
+                                </form>
                             @else
-                                <td>-</td>
+                                <form action="/loans/return" method="post">
+                                    @csrf
+                                    <input type="hidden" name="loan_id" value={{ $book->loans()->where('book_id', $book->id)->whereNull('date_in')->first()->id}}>
+                                    <td><button class="bi bi-journal-arrow-down bg-secondary" type="submit" data-toggle="tooltip" title = "Επιστροφή" style="color: white">    </button></td>
+                                </form>
                             @endif
                         </tr>
+                    </form>
                     @endforeach
                 </table>
             @endisset

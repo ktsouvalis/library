@@ -15,25 +15,25 @@
         @auth
             <a class="col-lg-3 card text-bg-success mb-3" style="max-width: 20rem; opacity: 0.9;" href="/book">
                 <div class="card-body" style="text-align: center; padding: 5rem">
-                <h5 class=" h4 card-title fa-solid fa-book"> Βιβλία</h5>
+                <h5 class=" card-title fa-solid fa-book"> Βιβλία</h5>
                 <p class="card-text"></p>
                 </div> 
             </a>
             <a class="col-lg-3 card text-bg-warning mb-3" style="max-width: 20rem; opacity: 0.9;" href="/student">
                 <div class="card-body" style="text-align: center; padding: 5rem">
-                <h5 class="h4 fa-solid fa-graduation-cap card-title"> Μαθητές</h5>
+                <h5 class=" fa-solid fa-graduation-cap card-title"> Μαθητές</h5>
                 <p class="card-text"></p>
                 </div> 
             </a>
             <a class="col-lg-3 card text-bg-danger mb-3" style="max-width: 20rem; opacity: 0.9;" href="/loans">
                 <div class="card-body" style="text-align: center; padding: 5rem">
-                <h5 class="h4 fa-solid fa-book-open-reader card-title"> Δανεισμοί</h5>
+                <h5 class=" fa-solid fa-book-open-reader card-title"> Δανεισμοί</h5>
                 <p class="card-text"></p>
                 </div> 
             </a>
             <a class="col-lg-3 card w-3 text-bg-dark mb-3" style="max-width: 20rem; opacity: 0.5;" href="/logout">
                 <div class="card-body" style="text-align: center; padding: 5rem">
-                <h5 class="h5 card-title fa-solid fa-arrow-right-from-bracket"> Αποσύνδεση</h5>
+                <h5 class="card-title fa-solid fa-arrow-right-from-bracket"> Αποσύνδεση</h5>
                 <p class="card-text"></p>
                 </div> 
             </a>

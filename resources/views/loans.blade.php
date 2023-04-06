@@ -31,7 +31,7 @@
                     <td><strong>{{$loan->student->class}}</strong></td>
                     <td>{{$loan->date_out}}</td>
                     @if($loan->date_in==null)
-                        <td><button class="bi bi-journal-arrow-down bg-primary" type="submit"> Επιστροφή</button></td>
+                        <td><button class="bi bi-journal-arrow-down bg-secondary" type="submit" style="color:white"> Επιστροφή</button></td>
                     @else
                         <td>{{$loan->date_in}}</td>
                     @endif
