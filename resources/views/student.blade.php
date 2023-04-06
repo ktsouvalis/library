@@ -56,7 +56,7 @@
                             <td>{{$student->class}}</td>
                             <form action="{{route('search_loan_s',[$student->id])}}" method="get">
                                 @csrf
-                                <td><button class="bi bi-journal-arrow-up bg-primary" type="submit" data-toggle="tooltip" title = "Δανεισμός" style="color: white">    </button></td>
+                                <td><button class="bi bi-search bg-primary" type="submit" data-toggle="tooltip" title = "Αναζήτηση βιβλίου για δανεισμό" style="color: white">    </button></td>
                             </form>
                         </tr>
                     @endforeach
@@ -82,7 +82,7 @@
                             <td>{{$student->class}}</td>
                             <form action="{{route('search_loan_s',[$student->id])}}" method="get">
                                 @csrf
-                                <td><button class="bi bi-journal-arrow-up bg-primary" type="submit" data-toggle="tooltip" title = "Δανεισμός" style="color: white">    </button></td>
+                                <td><button class="bi bi-search bg-primary" type="submit" data-toggle="tooltip" title = "Αναζήτηση βιβλίου για δανεισμό" style="color: white">    </button></td>
                             </form>
                         </tr>
                     @endforeach
