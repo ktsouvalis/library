@@ -44,34 +44,38 @@
                     @if($books->isEmpty())
                         <div class="alert alert-warning" role="alert">Δε βρέθηκε βιβλίο με τα στοιχεία που εισάγατε</div>
                     @else
-                        <table class="table table-striped table-hover table-light">
-                            <tr>
+                    <table class="table table-striped table-hover table-light">
+                        <tr>
                             <th>Κωδικός Βιβλίου</th>
                             <th>Τίτλος</th>
                             <th>Συγγραφέας</th>
                             <th>Εκδότης</th>
-                            <th>Δανεισμός / Επιστροφή</th>
+                            <th>Δανεισμός</th>
                         </tr>
                         @foreach($books as $book)
                             <tr>  
-                            <td>{{$book->code}}</td>
-                            <td><div class="badge bg-success text-wrap"><a href="/book_profile/{{$book->id}}" style="color:white;text-decoration:none;">{{$book->title}}</a><div></div></td>
-                            <td>{{$book->writer}}</td>
-                            <td>{{$book->publisher}}</td>
-                            
-                            @if($book->available)
-                                <form action="{{route('search_loan_b',[$book->id])}}" method="get">
-                                @csrf
-                                    <td><button class="bi bi-search bg-primary" type="submit" data-toggle="tooltip" title = "Δανεισμός" style="color: white">    </button></td>
-                                </form>
-                            @else
-                                <form action="/loans/return" method="post">
-                                    @csrf
-                                    <input type="hidden" name="loan_id" value={{ $book->loans()->where('book_id', $book->id)->whereNull('date_in')->first()->id}}>
-                                    <td><button class="bi bi-journal-arrow-down bg-secondary" type="submit" data-toggle="tooltip" title = "Επιστροφή" style="color: white">    </button></td>
-                                </form>
-                            @endif
-                        </tr>
+                                <td>{{$book->code}}</td>
+                                <td><div class="badge bg-success text-wrap"><a href="/book_profile/{{$book->id}}" style="color:white;text-decoration:none;">{{$book->title}}</a><div></div></td>
+                                <td>{{$book->writer}}</td>
+                                <td>{{$book->publisher}}</td>
+                                
+                                @if($book->available)
+                                    <form action="{{route('search_loan_b',[$book->id])}}" method="get">
+                                        @csrf
+                                        <td><button class="bi bi-search bg-primary" type="submit" data-toggle="tooltip" title = "Αναζήτηση μαθητή για δανεισμό" style="color: white">   </button></td>
+                                    </form>
+                                @else
+                                    <form action="/loans/return" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        @php
+                                            $data = $book->loans()->where('book_id', $book->id)->whereNull('date_in')->first()  
+                                        @endphp
+                                        <input type="hidden" name="loan_id" value="{{ $data->id}}">
+                                        <input type="hidden" name="came_from" value="search_book">
+                                        <td><button class="bi bi-journal-arrow-down bg-secondary" type="submit" data-toggle="tooltip" title = "{{$data->student->surname}} {{$data->student->name}} {{$data->student->class}}" style="color: white"> Επιστροφή </button></td>
+                                    </form>
+                                @endif
+                            </tr>
                         @endforeach
                     </table>
                     @endif
@@ -101,12 +105,14 @@
                             @else
                                 <form action="/loans/return" method="post">
                                     @csrf
+                                    @php
+                                        $data = $book->loans()->where('book_id', $book->id)->whereNull('date_in')->first()->student  
+                                    @endphp
                                     <input type="hidden" name="loan_id" value={{ $book->loans()->where('book_id', $book->id)->whereNull('date_in')->first()->id}}>
-                                    <td><button class="bi bi-journal-arrow-down bg-secondary" type="submit" data-toggle="tooltip" title = "Επιστροφή" style="color: white">    </button></td>
+                                    <td><button class="bi bi-journal-arrow-down bg-secondary" type="submit" data-toggle="tooltip" title = "{{$data->surname}} {{$data->name}} {{$data->class}}" style="color: white"> Επιστροφή </button></td>
                                 </form>
                             @endif
                         </tr>
-                    </form>
                     @endforeach
                 </table>
             @endisset

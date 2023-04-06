@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class LoanController extends Controller
 {
@@ -23,7 +24,9 @@ class LoanController extends Controller
         $book->available = 1;
         $book->save();
         $student = Student::find($loan->student->id);
-
+        if(isset($request['came_from'])){
+            return redirect('/book')->with('success','Η επιστροφή καταχωρήθηκε επιτυχώς');
+        }
         return back()->with('success','Η επιστροφή καταχωρήθηκε επιτυχώς');
     }
 
