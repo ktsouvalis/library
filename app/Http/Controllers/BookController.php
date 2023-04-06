@@ -138,11 +138,13 @@ class BookController extends Controller
             $check['acquired_year']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(10, $row)->getValue();
             $check['comments']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(11, $row)->getValue();
             
-            if($check['code']=='' or $check['code']==null){ 
+            if($check['code']=='' or $check['code']==null){
+                $error = 1; 
                 $check['code']="Κενός κωδικός";
             }
             else{
                 if(Book::where('user_id', Auth::id())->where('code', $check['code'])->count()){
+                    $error = 1;
                     $check['code']="Υπάρχει ήδη ο κωδικός";
                 }
             }

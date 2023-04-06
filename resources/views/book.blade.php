@@ -151,21 +151,21 @@
                 @endforeach
             </table>
                 @if($asks_to=='save')
-                Να προχωρήσει η εισαγωγή αυτών των στοιχείων;
-                <div class="row">
-                    <form action="/books_insertion" method="post" class="col container-fluid" enctype="multipart/form-data">
-                    @csrf
-                        <button type="submit" class="btn btn-primary">Εισαγωγή</button>
-                    </form>
-                    <a href="/book" class="col">Ακύρωση</a>
-                </div>
-                @else
-                <div class="row">
-                    <div>
-                        Διορθώστε τα σημειωμένα σφάλματα και υποβάλετε εκ νέου το αρχείο.
+                    Να προχωρήσει η εισαγωγή αυτών των στοιχείων;
+                    <div class="row">
+                        <form action="/books_insertion" method="post" class="col container-fluid" enctype="multipart/form-data">
+                        @csrf
+                            <button type="submit" class="btn btn-primary">Εισαγωγή</button>
+                        </form>
+                        <a href="/book" class="col">Ακύρωση</a>
                     </div>
-                    <a href="/book" class="col">Ακύρωση</a>
-                </div>
+                    @else
+                    <div class="row">
+                        <div>
+                            Διορθώστε τα σημειωμένα σφάλματα και υποβάλετε εκ νέου το αρχείο.
+                        </div>
+                        <a href="/book" class="col">Ακύρωση</a>
+                    </div>
                 @endif
             @endif
         </div>
