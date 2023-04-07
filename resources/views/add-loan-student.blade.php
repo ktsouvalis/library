@@ -13,6 +13,7 @@
                 <th>Τίτλος</th>
                 <th>Συγγραφέας</th>
                 <th>Εκδότης</th>
+                <th>Θεματική</th>
                 <th>Καταχώρηση Δανεισμού</th>
                 </tr>
             </thead>
@@ -23,6 +24,7 @@
                 <td><div class="badge bg-success text-wrap" style="color:white">{{$book->title}}</div></td>
                 <td>{{$book->writer}}</td>
                 <td>{{$book->publisher}}</td>
+                <td>{{$book->subject}}</td>
                 @if($book->available)
                     <form action="{{route('loans_save_student', [$student->id])}}" method="post" class="container-fluid">
                     @csrf

@@ -30,6 +30,7 @@
                             <th>Τίτλος</th>
                             <th>Συγγραφέας</th>
                             <th>Εκδότης</th>
+                            <th>Θεματική</th>
                             <th>Δανεισμός / Επιστροφή</th>
                         </tr>
                     </thead>
@@ -40,7 +41,7 @@
                             <td><div class="badge bg-success text-wrap"><a href="/book_profile/{{$book->id}}" style="color:white;text-decoration:none;">{{$book->title}}</a><div></div></td>
                             <td>{{$book->writer}}</td>
                             <td>{{$book->publisher}}</td>
-                            
+                            <td>{{$book->subject}}</td>
                             @if($book->available)
                                 <form action="{{route('search_loan_b',[$book->id])}}" method="get">
                                     @csrf
