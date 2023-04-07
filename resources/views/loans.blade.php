@@ -21,9 +21,7 @@
             </thead>
             <tbody>
             @foreach($loans as $loan)
-            <form action="/loans/return" method="post">
-                @csrf
-                <input type="hidden" name="loan_id" value={{$loan->id}}>
+           
                 <tr >  
                     <td>{{$loan->book->code}}</td>
                     <td><div class="badge bg-success text-wrap"><a href="/book_profile/{{$loan->book->id}}" style="color:white; text-decoration:none;">{{$loan->book->title}}</a></div></td>
@@ -34,12 +32,16 @@
                     <td><strong>{{$loan->student->class}}</strong></td>
                     <td>{{$loan->date_out}}</td>
                     @if($loan->date_in==null)
+                    <form action="/loans/return" method="post">
+                        @csrf
+                        <input type="hidden" name="loan_id" value={{$loan->id}}>
                         <td><button class="bi bi-journal-arrow-down bg-secondary" type="submit" style="color:white"> Επιστροφή</button></td>
+                    </form>
                     @else
                         <td>{{$loan->date_in}}</td>
                     @endif
                 </tr>
-            </form>
+            
             @endforeach
             </tbody>
         </table>

@@ -65,9 +65,7 @@
                 <th>Ημερομηνία Επιστροφής</th>
             </tr>
             @foreach($book->loans as $loan)
-            <form action="/loans/return" method="post">
-                @csrf
-                <input type="hidden" name="loan_id" value={{$loan->id}}>
+            
                 <tr >
                     <td>{{$loan->student->am}}</td>  
                     <td><div class="badge bg-warning text-wrap"><a href ="/student_profile/{{$loan->student->id}}" style="color:black; text-decoration:none;">{{$loan->student->surname}}</a></div></td>
@@ -75,12 +73,15 @@
                     <td>{{$loan->student->class}}</td>
                     <td>{{$loan->date_out}}</td>
                     @if($loan->date_in==null)
+                    <form action="/loans/return" method="post">
+                        @csrf
+                        <input type="hidden" name="loan_id" value={{$loan->id}}>
                         <td><button class="bi bi-journal-arrow-down bg-secondary" type="submit" style="color:white" data-toggle="tooltip" data-placement="top" title="Επιστροφή">   </button></td>
+                    </form>
                     @else
                         <td>{{$loan->date_in}}</td>
                     @endif
                 </tr>
-            </form>
             @endforeach
         </table>
         <br>
