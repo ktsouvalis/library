@@ -8,7 +8,7 @@
     <!--tabs-->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-          <button class="nav-link @isset($active_tab) @if($active_tab=='search') {{'active'}} @endif @else {{'active'}} @endisset" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="true">Αναζήτηση Βιβλίου με βάση τον τίτλο </button>
+          <button class="nav-link @isset($active_tab) @if($active_tab=='search') {{'active'}} @endif @else {{'active'}} @endisset" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="true">Αναζήτηση Βιβλίου </button>
         </li>
         <li class="nav-item" role="presentation">
           <button class="nav-link @isset($active_tab) @if($active_tab=='import') {{'active'}} @endif @endisset" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="tab2" aria-selected="false">Μαζική Εισαγωγή Βιβλίων</button>
@@ -22,7 +22,7 @@
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='search') {{'show active'}}  @endif @else {{'show active'}} @endisset" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
             <!-- 1st tab's content-->
-            <nav class="navbar navbar-light bg-light">
+            {{-- <nav class="navbar navbar-light bg-light">
                 <form action="{{route('search_book')}}" method="post" class="container-fluid">
                     @csrf
                     <div class="input-group">
@@ -80,17 +80,23 @@
                     </table>
                     @endif
                 @endisset
-            @endisset
+            @endisset --}}
             @isset($all_books)
-                <table id="allBooks" class="display" width="100%"></table>
-                <table class="table table-striped table-hover table-light">
-                    <tr>
-                        <th>Κωδικός Βιβλίου</th>
-                        <th>Τίτλος</th>
-                        <th>Συγγραφέας</th>
-                        <th>Εκδότης</th>
-                        <th>Δανεισμός / Επιστροφή</th>
-                    </tr>
+
+
+                {{-- <table  class="table table-striped table-hover table-light"> --}}
+    
+                <table  id="dataTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>Κωδικός Βιβλίου</th>
+                            <th>Τίτλος</th>
+                            <th>Συγγραφέας</th>
+                            <th>Εκδότης</th>
+                            <th>Δανεισμός / Επιστροφή</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     @foreach($all_books as $book)
                         <tr>  
                             <td>{{$book->code}}</td>
@@ -115,6 +121,7 @@
                             @endif
                         </tr>
                     @endforeach
+                </tbody>
                 </table>
             @endisset
         </div>

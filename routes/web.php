@@ -38,7 +38,7 @@ Route::get('/student', function(){
     return view('student', ['all_students' => $students]);
 })->name('student')->middleware('myauth');
 
-Route::post('/student/search', [StudentController::class,'searchStudent'])->name('search_student')->middleware('myauth');
+// Route::post('/student/search', [StudentController::class,'searchStudent'])->name('search_student')->middleware('myauth');
 
 Route::post('/student/insert', [StudentController::class,'insertStudent'])->name('insert_student')->middleware('myauth');
 
@@ -60,12 +60,17 @@ Route::post('/student_template_upload', [StudentController::class, 'importStuden
 
 Route::post('/students_insertion', [StudentController::class, 'insertStudents'])->name('insert_students_from_template')->middleware('myauth');
 
+// Route::get('/loans', function(){ 
+//     $loans = Loan::join('students', 'loans.student_id', '=', 'students.id')
+//         ->orderBy('students.class', 'asc')
+//         ->select('loans.*')
+//         ->where('loans.user_id', Auth::id())
+//         ->get(); 
+//     return view('loans', ['loans' => $loans]); 
+// })->middleware('myauth');
+
 Route::get('/loans', function(){ 
-    $loans = Loan::join('students', 'loans.student_id', '=', 'students.id')
-        ->orderBy('students.class', 'asc')
-        ->select('loans.*')
-        ->where('loans.user_id', Auth::id())
-        ->get(); 
+    $loans = Loan::where('loans.user_id', Auth::id())->get();
     return view('loans', ['loans' => $loans]); 
 })->middleware('myauth');
 
@@ -109,7 +114,7 @@ Route::get('/book', function(){
     return view('book', ['all_books' => $books]);
 })->name('book')->middleware('myauth');
 
-Route::post('/book/search', [BookController::class,'searchBook'])->name('search_book')->middleware('myauth');
+// Route::post('/book/search', [BookController::class,'searchBook'])->name('search_book')->middleware('myauth');
 
 Route::post('/book/insert', [BookController::class,'insertBook'])->name('insert_book')->middleware('myauth');
 

@@ -16,25 +16,25 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class BookController extends Controller
 {
-    public function searchBook(Request $request){
+    // public function searchBook(Request $request){
         
-        $incomingFields = $request->all();
+    //     $incomingFields = $request->all();
 
-        $rules = [
-            'book_code1'=>'required_without:book_title1',
-            'book_title1'=>'required_without:book_code1'
-        ];
-        $validator = Validator::make($incomingFields, $rules);
-        if($validator->fails()){
-            return view('book',['uierror'=>"Πρέπει να συμπληρώσετε τουλάχιστον ένα από τα δύο πεδία", 'active_tab'=>'search']);
-        }
+    //     $rules = [
+    //         'book_code1'=>'required_without:book_title1',
+    //         'book_title1'=>'required_without:book_code1'
+    //     ];
+    //     $validator = Validator::make($incomingFields, $rules);
+    //     if($validator->fails()){
+    //         return view('book',['uierror'=>"Πρέπει να συμπληρώσετε τουλάχιστον ένα από τα δύο πεδία", 'active_tab'=>'search']);
+    //     }
         
-        $given_title = isset($incomingFields['book_title1']) ? $incomingFields['book_title1'] : '';
-        $given_code = isset($incomingFields['book_code1']) ? $incomingFields['book_code1'] : 0;
-        $books= ($given_code <> 0) ? Book::where('user_id',Auth::id())->where('code', $given_code)->get() : Book::where('user_id',Auth::id())->where('title', 'LIKE', "%$given_title%")->orderBy('title')->get();
+    //     $given_title = isset($incomingFields['book_title1']) ? $incomingFields['book_title1'] : '';
+    //     $given_code = isset($incomingFields['book_code1']) ? $incomingFields['book_code1'] : 0;
+    //     $books= ($given_code <> 0) ? Book::where('user_id',Auth::id())->where('code', $given_code)->get() : Book::where('user_id',Auth::id())->where('title', 'LIKE', "%$given_title%")->orderBy('title')->get();
         
-        return view('book',['books'=>$books, 'active_tab'=>'search']);
-    }
+    //     return view('book',['books'=>$books, 'active_tab'=>'search']);
+    // }
 
     public function insertBook(Request $request){
       

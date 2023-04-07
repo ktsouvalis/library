@@ -8,7 +8,7 @@
 <!--tabs-->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-          <button class="nav-link @isset($active_tab) @if($active_tab=='search') {{'active'}} @endif @else {{'active'}} @endisset" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="true">Αναζήτηση Μαθητή με βάση το επώνυμο </button>
+          <button class="nav-link @isset($active_tab) @if($active_tab=='search') {{'active'}} @endif @else {{'active'}} @endisset" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="true">Αναζήτηση Μαθητή</button>
         </li>
         <li class="nav-item" role="presentation">
           <button class="nav-link @isset($active_tab) @if($active_tab=='import') {{'active'}} @endif @endisset" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="tab2" aria-selected="false">Μαζική Εισαγωγή Μαθητών</button>
@@ -22,7 +22,7 @@
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='search') {{'show active'}}  @endif @else {{'show active'}} @endisset" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
             <!-- 1st tab's content-->
-            <nav class="navbar navbar-light bg-light">
+            {{-- <nav class="navbar navbar-light bg-light">
                 <form action="{{route('search_student')}}" method="post" class="container-fluid">
                     @csrf
                     <div class="input-group">
@@ -62,9 +62,10 @@
                     @endforeach
                 </table>
                 @endif
-            @endisset
+            @endisset --}}
             @isset($all_students)
-                <table class="table table-striped table-hover table-light" >
+                <table  id="dataTable" class="display">
+                <thead>
                     <tr>
                         <th>Αριθμός Μητρώου</th>
                         <th>Επώνυμο</th>
@@ -73,19 +74,22 @@
                         <th>Τάξη</th>
                         <th>Δανεισμός</th>
                     </tr>
-                    @foreach($all_students as $student)
-                        <tr>  
-                            <td>{{$student->am}}</td>
-                            <td><div class="badge bg-warning text-wrap"><a href="/student_profile/{{$student->id}}" style="color:black; text-decoration:none;">{{$student->surname}}</a></div></td>
-                            <td>{{$student->name}}</td>
-                            <td>{{$student->f_name}}</td>
-                            <td>{{$student->class}}</td>
-                            <form action="{{route('search_loan_s',[$student->id])}}" method="get">
-                                @csrf
-                                <td><button class="bi bi-search bg-primary" type="submit" data-toggle="tooltip" title = "Αναζήτηση βιβλίου για δανεισμό" style="color: white">    </button></td>
-                            </form>
-                        </tr>
-                    @endforeach
+                </thead>
+                    <tbody>
+                        @foreach($all_students as $student)
+                            <tr>  
+                                <td>{{$student->am}}</td>
+                                <td><div class="badge bg-warning text-wrap"><a href="/student_profile/{{$student->id}}" style="color:black; text-decoration:none;">{{$student->surname}}</a></div></td>
+                                <td>{{$student->name}}</td>
+                                <td>{{$student->f_name}}</td>
+                                <td>{{$student->class}}</td>
+                                <form action="{{route('search_loan_s',[$student->id])}}" method="get">
+                                    @csrf
+                                    <td><button class="bi bi-search bg-primary" type="submit" data-toggle="tooltip" title = "Αναζήτηση βιβλίου για δανεισμό" style="color: white">    </button></td>
+                                </form>
+                            </tr>
+                        @endforeach
+                    </tbody>
                 </table>
             @endisset
         </div>

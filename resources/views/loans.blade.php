@@ -5,7 +5,8 @@
         <a href="/loans_dl" class="btn btn-danger bi bi-download"> Λήψη αρχείου δανεισμών </a>
     </div>
     @isset($loans)
-        <table class="table table-striped table-hover table-light">
+        <table id="dataTable" class="display">
+            <thead>
             <tr>
                 <th>Κωδικός Βιβλίου</th>
                 <th>Τίτλος</th>
@@ -17,6 +18,8 @@
                 <th>Ημερομηνία Δανεισμού</th>
                 <th>Ημερομηνία Επιστροφής</th>
             </tr>
+            </thead>
+            <tbody>
             @foreach($loans as $loan)
             <form action="/loans/return" method="post">
                 @csrf
@@ -38,6 +41,7 @@
                 </tr>
             </form>
             @endforeach
+            </tbody>
         </table>
         <br>
     σύνολο ενεργών δανεισμών: <strong>{{$loans->whereNull('date_in')->count()}}</strong> από <strong>{{$loans->count()}}</strong>
