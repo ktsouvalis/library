@@ -82,6 +82,7 @@
                 @endisset
             @endisset
             @isset($all_books)
+                <table id="allBooks" class="display" width="100%"></table>
                 <table class="table table-striped table-hover table-light">
                     <tr>
                         <th>Κωδικός Βιβλίου</th>

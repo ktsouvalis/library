@@ -7,7 +7,12 @@
     <title>Βιβιλιοθήκη</title>
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <!-- datatables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/5083d79d45.js" crossorigin="anonymous"></script>
+    
     <link rel="stylesheet" href="main.css" />
   </head> 
   @auth

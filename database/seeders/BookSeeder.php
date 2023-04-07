@@ -17,6 +17,7 @@ class BookSeeder extends Seeder
     {
         Book::create([
                 'code' => 200,
+                'user_id' => 1,
                 'writer' => 'Αλέξανδρος Παπαδιαμάντης',
                 'title' => 'Οι έμποροι των εθνών',
                 'publisher' => 'Γκοβόστης',
@@ -32,6 +33,7 @@ class BookSeeder extends Seeder
         
         Book::create([
                 'code' => 201,
+                'user_id' => 1,
                 'writer' => 'Steven Erikson',
                 'title' => 'Gardens of the moon',
                 'publisher' => 'Tor',

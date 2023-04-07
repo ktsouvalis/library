@@ -16,6 +16,7 @@ class StudentSeeder extends Seeder
     public function run()
     {
         Student::create([
+            'user_id' => 1,
             'am' => 100,
             'surname' => 'Λάτσης',
             'name' => 'Βασίλειος',
@@ -24,6 +25,7 @@ class StudentSeeder extends Seeder
         ]);
 
         Student::create([
+            'user_id' => 1,
             'am' => 101,
             'surname' => 'Τσούβαλης',
             'name' => 'Κωνσταντίνος',
@@ -32,6 +34,7 @@ class StudentSeeder extends Seeder
         ]);
 
         Student::create([
+            'user_id' => 1,
             'am' => 102,
             'surname' => 'Στεφανόπουλος',
             'name' => 'Κωνσταντίνος',
