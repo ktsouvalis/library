@@ -38,8 +38,6 @@ Route::get('/student', function(){
     return view('student', ['all_students' => $students]);
 })->name('student')->middleware('myauth');
 
-// Route::post('/student/search', [StudentController::class,'searchStudent'])->name('search_student')->middleware('myauth');
-
 Route::post('/student/insert', [StudentController::class,'insertStudent'])->name('insert_student')->middleware('myauth');
 
 Route::get('/students_dl', [StudentController::class, 'studentsDl'])->middleware('myauth');
@@ -60,15 +58,6 @@ Route::post('/student_template_upload', [StudentController::class, 'importStuden
 
 Route::post('/students_insertion', [StudentController::class, 'insertStudents'])->name('insert_students_from_template')->middleware('myauth');
 
-// Route::get('/loans', function(){ 
-//     $loans = Loan::join('students', 'loans.student_id', '=', 'students.id')
-//         ->orderBy('students.class', 'asc')
-//         ->select('loans.*')
-//         ->where('loans.user_id', Auth::id())
-//         ->get(); 
-//     return view('loans', ['loans' => $loans]); 
-// })->middleware('myauth');
-
 Route::get('/loans', function(){ 
     $loans = Loan::where('loans.user_id', Auth::id())->get();
     return view('loans', ['loans' => $loans]); 
@@ -78,7 +67,7 @@ Route::post('/loans/return',[LoanController::class, 'returnBook'])->middleware('
 
 Route::get('/loans_s/{student}', function(Student $student){
     if($student->user_id == Auth::id()){
-        return view('add-loan-student', ['student' => $student]);
+        return view('add-loan-student', ['student' => $student, 'books' => Book::where('user_id', Auth::id())->get()]);
     }
     else{
         return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');  
@@ -91,7 +80,7 @@ Route::post('/loans/save_s/{student}',[LoanController::class, 'lendBookFromStude
 
 Route::get('/loans_b/{book}', function(Book $book){
     if($book->user_id == Auth::id()){
-        return view('add-loan-book', ['book' => $book]);
+        return view('add-loan-book', ['book' => $book, 'students' => Student::where('user_id', Auth::id())->get()]);
     }
     else{
         return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
@@ -113,8 +102,6 @@ Route::get('/book', function(){
     $books = Book::where('user_id',Auth::id())->orderBy('title')->get();
     return view('book', ['all_books' => $books]);
 })->name('book')->middleware('myauth');
-
-// Route::post('/book/search', [BookController::class,'searchBook'])->name('search_book')->middleware('myauth');
 
 Route::post('/book/insert', [BookController::class,'insertBook'])->name('insert_book')->middleware('myauth');
 

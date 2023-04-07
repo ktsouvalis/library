@@ -22,47 +22,6 @@
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='search') {{'show active'}}  @endif @else {{'show active'}} @endisset" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
             <!-- 1st tab's content-->
-            {{-- <nav class="navbar navbar-light bg-light">
-                <form action="{{route('search_student')}}" method="post" class="container-fluid">
-                    @csrf
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><strong>Εισάγετε μέρος του Επωνύμου</strong></span>
-                    </div>
-                    <div class="input-group">
-                        <input name="student_surname1" type="text" value="" class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon1" required><br>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Αναζήτηση</button>
-                </form>
-            </nav>
-            @isset($students)
-                @if($students->isEmpty())
-                    <div class="alert alert-warning" role="alert">Δε βρέθηκε μαθητής με τα στοιχεία που εισάγατε</div>
-                @else
-                    <table class="table table-striped table-hover table-light" >
-                    <tr>
-                        <th>Αριθμός Μητρώου</th>
-                        <th>Επώνυμο</th>
-                        <th>Όνομα</th>
-                        <th>Πατρώνυμο</th>
-                        <th>Τάξη</th>
-                        <th>Ενέργεια</th>
-                    </tr>
-                    @foreach($students as $student)
-                        <tr>  
-                            <td>{{$student->am}}</td>
-                            <td><div class="badge bg-warning text-wrap"><a href="/student_profile/{{$student->id}}" style="color:black; text-decoration:none;">{{$student->surname}}</a></div></td>
-                            <td>{{$student->name}}</td>
-                            <td>{{$student->f_name}}</td>
-                            <td>{{$student->class}}</td>
-                            <form action="{{route('search_loan_s',[$student->id])}}" method="get">
-                                @csrf
-                                <td><button class="bi bi-search bg-primary" type="submit" data-toggle="tooltip" title = "Αναζήτηση βιβλίου για δανεισμό" style="color: white">    </button></td>
-                            </form>
-                        </tr>
-                    @endforeach
-                </table>
-                @endif
-            @endisset --}}
             @isset($all_students)
                 <table  id="dataTable" class="display">
                 <thead>

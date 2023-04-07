@@ -5,11 +5,7 @@
   
       <br><br><br><br><br><br>
     <div class="container">
-       <div class="d-flex justify-content-center"><p class="h3"> {{env('APP_NAME')}}</p></div>
-
-        {{-- <div class="d-flex justify-content-center"><div class="h1 fa-solid fa-school text-secondary"></div></div> --}}
-        {{-- <i class="fa-solid fa-circle-l">L</i> <i class="fa-solid fa-circle-i">I</i> <i class="fa-solid fa-circle-b">B</i> <i class="fa-solid fa-circle-r">R</i> <i class="fa-solid fa-circle-a">A</i> <i class="fa-solid fa-circle-r">R</i><i class="fa-solid fa-circle-y">Y</i> --}}
-        {{-- <div class="h2 fa-solid fa-circle-l" style="color: #419c4d;"></div> --}}
+       <div class="d-flex justify-content-center"><p class="h3" style="color:black"> {{env('APP_NAME')}}</p></div>
         <div class="row p-2 justify-content-evenly">
             
         @auth

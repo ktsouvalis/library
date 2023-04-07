@@ -14,7 +14,7 @@
   </head> 
   @auth
   <div class="d-flex justify-content-center"><div class="h1 fa-solid fa-school text-secondary"></div></div>
-    <div class="d-flex justify-content-center"> <a href='/password_reset' class="h4 text-secondary" style="text-decoration:none;"> {{Auth::user()->display_name}}</a></div>
+    <div class="d-flex justify-content-center"> <a href='/password_reset' class="h4 text-secondary" style="text-decoration:none;" data-toggle="tooltip" title="Αλλαγή κωδικού πρόσβασης"> {{Auth::user()->display_name}}</a></div>
   @endauth
   {{$slot}}
         @if (session()->has('success'))

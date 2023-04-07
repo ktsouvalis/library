@@ -16,17 +16,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class StudentController extends Controller
 {
-    // public function searchStudent(Request $request){
-        
-    //     $incomingFields = $request->all();
-        
-    //     $given_surname = $incomingFields['student_surname1'];
-        
-    //     $students= Student::where('user_id', Auth::id())->where('surname', 'LIKE', "%$given_surname%")->orderBy('surname')->get();
-        
-    //     return view('student',['students'=>$students, 'active_tab'=>'search']);
-    // }
-
     public function insertStudent(Request $request){
         
         //VALIDATION

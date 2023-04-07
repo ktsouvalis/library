@@ -22,70 +22,7 @@
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='search') {{'show active'}}  @endif @else {{'show active'}} @endisset" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
             <!-- 1st tab's content-->
-            {{-- <nav class="navbar navbar-light bg-light">
-                <form action="{{route('search_book')}}" method="post" class="container-fluid">
-                    @csrf
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><strong>Εισάγετε μέρος του τίτλου</strong></span>
-                    </div>
-                    <div class="input-group">
-                        <input name="book_code1" type="number" value="" class="form-control" placeholder="Κωδικός Βιβλίου" aria-label="Κωδικός Βιβλίου" aria-describedby="basic-addon1"><br>
-                    </div>
-                    <div class="input-group">
-                        <input name="book_title1" type="text" value="" class="form-control" placeholder="Τίτλος Βιβλίου" aria-label="Τίτλος Βιβλίου" aria-describedby="basic-addon1"><br>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Αναζήτηση</button>
-                </form>
-            </nav>
-            @isset($uierror)
-                <div class="alert alert-danger" role="alert"> {{$uierror}}</div>
-            @else
-                @isset($books)
-                    @if($books->isEmpty())
-                        <div class="alert alert-warning" role="alert">Δε βρέθηκε βιβλίο με τα στοιχεία που εισάγατε</div>
-                    @else
-                    <table class="table table-striped table-hover table-light">
-                        <tr>
-                            <th>Κωδικός Βιβλίου</th>
-                            <th>Τίτλος</th>
-                            <th>Συγγραφέας</th>
-                            <th>Εκδότης</th>
-                            <th>Δανεισμός</th>
-                        </tr>
-                        @foreach($books as $book)
-                            <tr>  
-                                <td>{{$book->code}}</td>
-                                <td><div class="badge bg-success text-wrap"><a href="/book_profile/{{$book->id}}" style="color:white;text-decoration:none;">{{$book->title}}</a><div></div></td>
-                                <td>{{$book->writer}}</td>
-                                <td>{{$book->publisher}}</td>
-                                
-                                @if($book->available)
-                                    <form action="{{route('search_loan_b',[$book->id])}}" method="get">
-                                        @csrf
-                                        <td><button class="bi bi-search bg-primary" type="submit" data-toggle="tooltip" title = "Αναζήτηση μαθητή για δανεισμό" style="color: white">   </button></td>
-                                    </form>
-                                @else
-                                    <form action="/loans/return" method="post" enctype="multipart/form-data">
-                                        @csrf
-                                        @php
-                                            $data = $book->loans()->where('book_id', $book->id)->whereNull('date_in')->first()  
-                                        @endphp
-                                        <input type="hidden" name="loan_id" value="{{ $data->id}}">
-                                        <input type="hidden" name="came_from" value="search_book">
-                                        <td><button class="bi bi-journal-arrow-down bg-secondary" type="submit" data-toggle="tooltip" title = "{{$data->student->surname}} {{$data->student->name}} {{$data->student->class}}" style="color: white"> Επιστροφή </button></td>
-                                    </form>
-                                @endif
-                            </tr>
-                        @endforeach
-                    </table>
-                    @endif
-                @endisset
-            @endisset --}}
             @isset($all_books)
-
-
-                {{-- <table  class="table table-striped table-hover table-light"> --}}
-    
                 <table  id="dataTable" class="display">
                     <thead>
                         <tr>

@@ -24,9 +24,7 @@ class LoanController extends Controller
         $book->available = 1;
         $book->save();
         $student = Student::find($loan->student->id);
-        if(isset($request['came_from'])){
-            return redirect('/book')->with('success','Η επιστροφή καταχωρήθηκε επιτυχώς');
-        }
+        
         return back()->with('success','Η επιστροφή καταχωρήθηκε επιτυχώς');
     }
 

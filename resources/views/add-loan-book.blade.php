@@ -6,24 +6,10 @@
                 {{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}
         </div>
         <div class="m-3">
-        <form action="{{route('loans_search_book', [$book->id])}}" method="post" class="">
-            @csrf
-            <input type="hidden" name="student_id" value="{{$book->id}}">
-            <input type="hidden" name="asks_to" value="search">
-            <div class="input-group">
-                <span class="input-group-text" id="basic-addon1"><strong>Εισάγετε όνομα μαθητή για δανεισμό</strong></span>
-            </div>
-            <div class="input-group">
-                <input name="student_surname" type="text" value="" class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon2" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Αναζήτηση</button>
-        </form>
-        </div>
-    @isset($dberror)
-                <div class="alert alert-danger" role="alert">{{$dberror}}</div>
-    @else
         @isset($students)
-            <table class="table table-striped table-hover table-light">
+
+            <table id="dataTable" class="display">
+                <thead>
                 <tr>
                 <th>Αριθμός Μητρώου</th>
                 <th>Επώνυμο</th>
@@ -32,6 +18,8 @@
                 <th>Τάξη</th>
                 <th>Καταχώρηση Δανεισμού</th>
                 </tr>
+                </thead>
+                <tbody>
             @foreach($students as $student)
                 <tr>     
                 <td>{{$student->am}}</td>
@@ -46,11 +34,11 @@
                 </form>
                 </tr>
             @endforeach
+                </tbody>
             </table>
         @endisset
         @isset($saved)
             <div class="alert alert-success" role="alert">Ο Δανεισμός καταχωρήθηκε</div>
         @endisset
         </div>
-    @endisset
 </x-layout>
