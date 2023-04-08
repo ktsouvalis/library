@@ -34,7 +34,7 @@ Route::get('/password_reset', function(){
 Route::post('/password_reset', [UserController::class, 'passwordReset'])->middleware('myauth');
 
 Route::get('/student', function(){
-    $students = Student::where('user_id',Auth::id())->orderBy('surname')->get();
+    $students = Student::where('user_id',Auth::id())->where('class','<>','0')->orderBy('class')->get();
     return view('student', ['all_students' => $students]);
 })->name('student')->middleware('myauth');
 
@@ -45,7 +45,7 @@ Route::get('/students_dl', [StudentController::class, 'studentsDl'])->middleware
 Route::get('/student_profile/{student}',[StudentController::class, 'show_profile'])->middleware('myauth');
 
 Route::get('/edit_student/{student}', function(Student $student){
-    if($student->user_id == Auth::id()){
+    if($student->user_id == Auth::id() and $student->class <> '0'){
         return view('edit-student',['student' => $student]);
     }
     else{
@@ -66,7 +66,7 @@ Route::get('/loans', function(){
 Route::post('/loans/return',[LoanController::class, 'returnBook'])->middleware('myauth');
 
 Route::get('/loans_s/{student}', function(Student $student){
-    if($student->user_id == Auth::id()){
+    if($student->user_id == Auth::id() and $student->class <> '0'){
         return view('add-loan-student', ['student' => $student, 'books' => Book::where('user_id', Auth::id())->get()]);
     }
     else{
@@ -80,7 +80,7 @@ Route::post('/loans/save_s/{student}',[LoanController::class, 'lendBookFromStude
 
 Route::get('/loans_b/{book}', function(Book $book){
     if($book->user_id == Auth::id()){
-        return view('add-loan-book', ['book' => $book, 'students' => Student::where('user_id', Auth::id())->get()]);
+        return view('add-loan-book', ['book' => $book, 'students' => Student::where('user_id', Auth::id())->where('class','<>','0')->get()]);
     }
     else{
         return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
@@ -124,3 +124,5 @@ Route::post('/book_template_upload', [BookController::class, 'importBooks'])->na
 
 Route::post('/books_insertion', [BookController::class, 'insertBooks'])->name('insert_books_from_template')->middleware('myauth');
 Route::post('/delete_book/{book}', [BookController::class, 'deleteBook'])->middleware('myauth');
+
+Route::get('change_year', [StudentController::class, 'changeYear'])->middleware('myauth');

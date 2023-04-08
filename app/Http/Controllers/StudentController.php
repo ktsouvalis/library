@@ -97,13 +97,16 @@ class StudentController extends Controller
             $check['name']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue();
             $check['f_name']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(4, $row)->getValue();
             $check['class']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(5, $row)->getValue();
-            $rule = [
-                'am' => 'required'
-            ];
-            $validator = Validator::make($check, $rule);
-            if($validator->fails()){
-                $error=1;                
+
+            if($check['am']=='' or $check['am']==null){
+                $error = 1; 
                 $check['am']="Κενό πεδίο";
+            }
+            else{
+                if(Student::where('user_id', Auth::id())->where('am', $check['am'])->count()){
+                    $error = 1;
+                    $check['am']="Υπάρχει ήδη ο Α.Μ.";
+                }
             }
             $rule = [
                 'surname' => 'required'
@@ -163,10 +166,6 @@ class StudentController extends Controller
             for($col=1;$col<=5;$col++){
                 $rowSumValue .= $spreadsheet->getActiveSheet()->getCellByColumnAndRow($col, $row)->getValue();
             }
-            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-            Loan::where('user_id', Auth::id())->delete();
-            Student::where('user_id', Auth::id())->delete();
-            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
             $student = new Student();
             $student->user_id = Auth::id();
             $student->am = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue();
@@ -218,5 +217,37 @@ class StudentController extends Controller
         $writer->save($filename);
 
         return response()->download("$filename");
+    }
+
+    public function changeYear(){
+        
+        $students = Student::all();
+        foreach ($students as $student){
+            $sec = substr($student->class,-1);
+            $class = substr($student->class, 0, -1);
+
+            switch ($class){
+                case 'ΣΤ':
+                    $student->class = '0';
+                    break;
+                case 'Ε':
+                    $student->class = "ΣΤ".$sec;
+                    break;
+                case 'Δ':
+                    $student->class = "Ε".$sec;
+                    break;
+                case 'Γ':
+                    $student->class = "Δ".$sec;
+                    break;
+                case 'Β':
+                    $student->class = "Γ".$sec;
+                    break;
+                case 'Α':
+                    $student->class = "Β".$sec;
+                    break;
+            }
+            $student->save();
+        }
+        return redirect('/student')->with('success', 'Η αλλαγή τάξης κάθε μαθητή ολοκληρώθηκε επιτυχώς');
     }
 }

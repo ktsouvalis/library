@@ -70,7 +70,11 @@
                     <td>{{$loan->student->am}}</td>  
                     <td><div class="badge bg-warning text-wrap"><a href ="/student_profile/{{$loan->student->id}}" style="color:black; text-decoration:none;">{{$loan->student->surname}}</a></div></td>
                     <td>{{$loan->student->name}}</td>
-                    <td>{{$loan->student->class}}</td>
+                    @if($loan->student->class <> '0')
+                        <td>{{$loan->student->class}}</td>
+                    @else
+                        <td style="color:red"> ΑΠΟΦΟΙΤΟΣ </td>
+                    @endif
                     <td>{{$loan->date_out}}</td>
                     @if($loan->date_in==null)
                     <form action="/loans/return" method="post">

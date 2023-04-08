@@ -80,7 +80,7 @@
                 </tr>
                 @foreach($students_array as $student)
                     <tr>  
-                        <td @if ($student['am']=="Κενό πεδίο") style='color:red;' @endif>{{$student['am']}}</td>
+                        <td @if ($student['am']=="Κενό πεδίο" or $student['am']=="Υπάρχει ήδη ο Α.Μ.") style='color:red;' @endif>{{$student['am']}}</td>
                         <td @if ($student['surname']=='Κενό πεδίο') style='color:red;' @endif>{{$student['surname']}}</td>
                         <td @if ($student['name']=='Κενό πεδίο') style='color:red;' @endif>{{$student['name']}}</td>
                         <td @if ($student['f_name']=='Κενό πεδίο') style='color:red;' @endif>{{$student['f_name']}}</td>

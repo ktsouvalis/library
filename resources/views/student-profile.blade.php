@@ -21,12 +21,18 @@
         </div>
     </div>
     <div class="p-3 row">
-        <div class="col-sm-2" >
-            <a href="{{route('search_loan_s',[$student->id])}} " class="btn btn-primary bi bi-journal-arrow-up" style="text-decoration:none;">  Καταχώρηση δανεισμού</a>
-        </div> 
-        <div class="col-sm-2 " >
-            <a href="/edit_student/{{$student->id}}" class="btn btn-primary bi bi-journal-text" style="text-decoration:none;">  Επεξεργασία στοιχείων μαθητή</a>
-        </div>
+        @if($student->class <> '0')
+            <div class="col-sm-2" >
+                <a href="{{route('search_loan_s',[$student->id])}} " class="btn btn-primary bi bi-journal-arrow-up" style="text-decoration:none;">  Καταχώρηση δανεισμού</a>
+            </div> 
+            <div class="col-sm-2 " >
+                <a href="/edit_student/{{$student->id}}" class="btn btn-primary bi bi-journal-text" style="text-decoration:none;">  Επεξεργασία στοιχείων μαθητή</a>
+            </div>
+        @else
+            <div class="col-sm-2 bg-danger rounded text-light">
+               Ο μαθητής έχει αποφοιτήσει
+            </div>
+        @endif
     </div>
     <table class="table table-striped table-hover table-light">
         <tr>

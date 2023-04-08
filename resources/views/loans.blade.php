@@ -29,7 +29,11 @@
                     <td>{{$loan->book->publisher}}</td>
                     <td><div class="badge bg-warning text-wrap"><a href="/student_profile/{{$loan->student->id}}" style="color:black; text-decoration:none;">{{$loan->student->surname}}</a></div></td>
                     <td>{{$loan->student->name}}</td>
-                    <td><strong>{{$loan->student->class}}</strong></td>
+                    @if($loan->student->class <> '0')
+                        <td><strong>{{$loan->student->class}}</strong></td>
+                    @else
+                        <td style="color:red"> ΑΠΟΦΟΙΤΟΣ </td>
+                    @endif
                     <td>{{$loan->date_out}}</td>
                     @if($loan->date_in==null)
                     <form action="/loans/return" method="post">
