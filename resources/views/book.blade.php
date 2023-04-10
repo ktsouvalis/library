@@ -25,6 +25,7 @@
             @isset($all_books)
                 <table  id="dataTable" class="display">
                     <thead>
+                        
                         <tr>
                             <th>Κωδικός Βιβλίου</th>
                             <th>Τίτλος</th>
@@ -33,6 +34,7 @@
                             <th>Θεματική</th>
                             <th>Δανεισμός / Επιστροφή</th>
                         </tr>
+                        
                     </thead>
                     <tbody>
                     @foreach($all_books as $book)
@@ -60,6 +62,16 @@
                         </tr>
                     @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th id="search">Κωδικός Βιβλίου</th>
+                        <th id="search">Τίτλος</th>
+                        <th id="search">Συγγραφέας</th>
+                        <th id="search">Εκδότης</th>
+                        <th id="search">Θεματική</th>
+                        <th id="search">Δανεισμός / Επιστροφή</th>
+                    </tr>
+                </tfoot>
                 </table>
             @endisset
         </div>

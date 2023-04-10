@@ -48,7 +48,32 @@
 			  crossorigin="anonymous"></script>
     <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script>
-      let table = new DataTable('#dataTable');
+      $(document).ready(function () {
+    // Setup - add a text input to each footer cell
+    $('#dataTable tfoot tr #search').each(function () {
+        var title = $(this).text();
+        $(this).html('<input type="text" placeholder="Αναζήτηση ' + title + '" />');
+    });
+ 
+    // DataTable
+    var table = $('#dataTable').DataTable({
+        initComplete: function () {
+            // Apply the search
+            this.api()
+                .columns()
+                .every(function () {
+                    var that = this;
+ 
+                    $('input', this.footer()).on('keyup change clear', function () {
+                        if (that.search() !== this.value) {
+                            that.search(this.value).draw();
+                        }
+                    });
+                });
+        },
+    });
+});
+
     </script>
     </div> <!-- container closing -->
    </body>
