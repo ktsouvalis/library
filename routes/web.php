@@ -34,7 +34,10 @@ Route::get('/password_reset', function(){
 Route::post('/password_reset', [UserController::class, 'passwordReset'])->middleware('myauth');
 
 Route::get('/student', function(){
-    $students = Student::where('user_id',Auth::id())->where('class','<>','0')->orderBy('class')->get();
+    $students = Student::where('user_id',Auth::id())
+                    ->where('class','<>','0')
+                    ->orderBy('surname')
+                    ->get();
     return view('student', ['all_students' => $students]);
 })->name('student')->middleware('myauth');
 

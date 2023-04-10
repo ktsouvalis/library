@@ -49,7 +49,17 @@
                             </tr>
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Α.Μ.</th>
+                            <th>Επίθετο</th>
+                            <th>Όνομα</th>
+                            <th>Πατρώνυμο</th>
+                            <th>Τάξη</th>
+                        </tr>
+                    </tfoot>
                 </table>
+                
             @endisset
         </div>
 
