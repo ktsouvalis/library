@@ -52,7 +52,7 @@
     // Setup - add a text input to each footer cell
     $('#dataTable tfoot tr #search').each(function () {
         var title = $(this).text();
-        $(this).html('<input type="text" placeholder="Αναζήτηση ' + title + '" />');
+        $(this).html('<input type="text" style="width:7rem;" placeholder="' + title + '" />');
     });
  
     // DataTable

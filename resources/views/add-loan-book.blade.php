@@ -35,6 +35,16 @@
                 </tr>
             @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th id="search">Κωδικός Βιβλίου</th>
+                        <th id="search">Τίτλος</th>
+                        <th id="search">Συγγραφέας</th>
+                        <th id="search">Εκδότης</th>
+                        <th id="search">Θεματική</th>
+                        <th id="search">Δανεισμός / Επιστροφή</th>
+                    </tr>
+                </tfoot>
             </table>
         @endisset
         @isset($saved)
