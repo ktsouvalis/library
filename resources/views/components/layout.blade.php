@@ -4,10 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Βιβιλιοθήκη</title>
+    <title>Βιβλιοθήκη</title>
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    {{-- <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"> --}}
+    <link href="DataTables-1.13.4/css/dataTables.bootstrap5.css" rel="stylesheet"/>
+    <link href="Responsive-2.4.1/css/responsive.bootstrap5.css" rel="stylesheet"/>
     <!-- fontawesome -->
     <script src="https://kit.fontawesome.com/5083d79d45.js" crossorigin="anonymous"></script>
   
@@ -45,8 +47,13 @@
     <script
 			  src="https://code.jquery.com/jquery-3.6.4.min.js"
 			  integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
-			  crossorigin="anonymous"></script>
-    <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+			  crossorigin="anonymous">
+    </script>
+    {{-- <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> --}}
+    <script src="DataTables-1.13.4/js/jquery.dataTables.js"></script>
+    <script src="DataTables-1.13.4/js/dataTables.bootstrap5.js"></script>
+    <script src="Responsive-2.4.1/js/dataTables.responsive.js"></script>
+    <script src="Responsive-2.4.1/js/responsive.bootstrap5.js"></script>
     <script>
       $(document).ready(function () {
     // Setup - add a text input to each footer cell

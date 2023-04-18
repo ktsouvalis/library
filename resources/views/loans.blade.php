@@ -5,7 +5,7 @@
         <a href="/loans_dl" class="btn btn-danger bi bi-download"> Λήψη αρχείου δανεισμών </a>
     </div>
     @isset($loans)
-        <table id="dataTable" class="display">
+        <table id="dataTable" class="display table table-sm table-striped table-hover">
             <thead>
             <tr>
                 <th>Κωδικός Βιβλίου</th>
