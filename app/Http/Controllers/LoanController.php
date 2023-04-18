@@ -126,7 +126,7 @@ class LoanController extends Controller
         $activeWorksheet->setCellValue('B1', 'Τίτλος Βιβλίου');
         $activeWorksheet->setCellValue('C1', 'Συγγραφέας');
         $activeWorksheet->setCellValue('D1', 'Εκδόσεις');
-        $activeWorksheet->setCellValue('E1', 'Επίθετο μαθητή');
+        $activeWorksheet->setCellValue('E1', 'Επώνυμο μαθητή');
         $activeWorksheet->setCellValue('F1', 'Όνομα μαθητή');
         $activeWorksheet->setCellValue('G1', 'Τάξη');
         $activeWorksheet->setCellValue('H1', 'Ημερομηνία δανεισμού');

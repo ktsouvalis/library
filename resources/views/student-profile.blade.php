@@ -16,7 +16,11 @@
             <div class="col"><strong>{{$student->surname}}</strong></div>
             <div class="col"><strong>{{$student->name}}</strong></div>
             <div class="col">{{$student->f_name}}</div>
-            <div class="col">{{$student->class}}</div>
+            @if($student->class==0)
+                <div class="col"><strong>ΑΠΟΦΟΙΤΟΣ</strong></div>
+            @else
+                <div class="col">{{$student->class}}</div>
+            @endif
         </div>
         </div>
     </div>
@@ -27,10 +31,6 @@
             </div> 
             <div class="col-sm-2 " >
                 <a href="/edit_student/{{$student->id}}" class="btn btn-primary bi bi-journal-text" style="text-decoration:none;">  Επεξεργασία στοιχείων μαθητή</a>
-            </div>
-        @else
-            <div class="col-sm-2 bg-danger rounded text-light">
-               Ο μαθητής έχει αποφοιτήσει
             </div>
         @endif
     </div>

@@ -23,7 +23,7 @@
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='search') {{'show active'}}  @endif @else {{'show active'}} @endisset" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
             <!-- 1st tab's content-->
             @isset($all_students)
-                <table  id="dataTable" class="display">
+                <table  id="dataTable" class="display table table-sm table-striped table-hover">
                 <thead>
                     <tr>
                         <th>Αριθμός Μητρώου</th>
@@ -51,11 +51,12 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Α.Μ.</th>
-                            <th>Επίθετο</th>
-                            <th>Όνομα</th>
-                            <th>Πατρώνυμο</th>
-                            <th>Τάξη</th>
+                            <th id="search">Αριθμός Μητρώου</th>
+                            <th id="search">Επώνυμο</th>
+                            <th id="search">Όνομα</th>
+                            <th id="search">Πατρώνυμο</th>
+                            <th id="search">Τάξη</th>
+                            <th id="search">Δανεισμός / Επιστροφή</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -82,7 +83,7 @@
             <table class="table table-striped table-hover table-light">
                 <tr>
                     <th>Αριθμός Μητρώου</th>
-                    <th>Επίθετο</th>
+                    <th>Επώνυμο</th>
                     <th>Όνομα</th>
                     <th>Πατρώυνμο</th>
                     <th>Τάξη</th>

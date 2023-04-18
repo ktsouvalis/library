@@ -5,14 +5,14 @@
         <a href="/loans_dl" class="btn btn-danger bi bi-download"> Λήψη αρχείου δανεισμών </a>
     </div>
     @isset($loans)
-        <table id="dataTable" class="display">
+        <table id="dataTable" class="display table table-sm table-striped table-hover">
             <thead>
             <tr>
                 <th>Κωδικός Βιβλίου</th>
                 <th>Τίτλος</th>
                 <th>Συγγραφέας</th>
                 <th>Εκδότης</th>
-                <th>Επίθετο μαθητή</th>
+                <th>Επώνυμο μαθητή</th>
                 <th>Όνομα μαθητή</th>
                 <th>Τάξη μαθητή</th>
                 <th>Ημερομηνία Δανεισμού</th>
@@ -48,6 +48,19 @@
             
             @endforeach
             </tbody>
+            <tfoot>
+                <tr>
+                <th id="search">Κωδικός Βιβλίου</th>
+                <th id="search">Τίτλος</th>
+                <th id="search">Συγγραφέας</th>
+                <th id="search">Εκδότης</th>
+                <th id="search">Επώνυμο μαθητή</th>
+                <th id="search">Όνομα μαθητή</th>
+                <th id="search">Τάξη μαθητή</th>
+                <th id="search">Ημερομηνία Δανεισμού</th>
+                <th id="search">Ημερομηνία Επιστροφής</th>
+                </tr>
+            </tfoot>
         </table>
         <br>
     σύνολο ενεργών δανεισμών: <strong>{{$loans->whereNull('date_in')->count()}}</strong> από <strong>{{$loans->count()}}</strong>

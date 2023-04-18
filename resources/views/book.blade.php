@@ -23,8 +23,9 @@
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='search') {{'show active'}}  @endif @else {{'show active'}} @endisset" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
             <!-- 1st tab's content-->
             @isset($all_books)
-                <table  id="dataTable" class="display">
+                <table  id="dataTable" class="display table table-sm table-striped table-hover">
                     <thead>
+                        
                         <tr>
                             <th>Κωδικός Βιβλίου</th>
                             <th>Τίτλος</th>
@@ -33,6 +34,7 @@
                             <th>Θεματική</th>
                             <th>Δανεισμός / Επιστροφή</th>
                         </tr>
+                        
                     </thead>
                     <tbody>
                     @foreach($all_books as $book)
@@ -45,7 +47,7 @@
                             @if($book->available)
                                 <form action="{{route('search_loan_b',[$book->id])}}" method="get">
                                     @csrf
-                                    <td><button class="bi bi-search bg-primary" type="submit" data-toggle="tooltip" title = "Αναζήτηση μαθητή για δανεισμό" style="color: white">   </button></td>
+                                    <td><button class="bi bi-search bg-primary" type="submit" data-toggle="tooltip" title = "Αναζήτηση μαθητή για δανεισμό" style="color: white">  </button></td>
                                 </form>
                             @else
                                 <form action="/loans/return" method="post">
@@ -60,6 +62,16 @@
                         </tr>
                     @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th id="search">Κωδικός Βιβλίου</th>
+                        <th id="search">Τίτλος</th>
+                        <th id="search">Συγγραφέας</th>
+                        <th id="search">Εκδότης</th>
+                        <th id="search">Θεματική</th>
+                        <th id="search">Δανεισμός / Επιστροφή</th>
+                    </tr>
+                </tfoot>
                 </table>
             @endisset
         </div>

@@ -128,4 +128,7 @@ Route::post('/book_template_upload', [BookController::class, 'importBooks'])->na
 Route::post('/books_insertion', [BookController::class, 'insertBooks'])->name('insert_books_from_template')->middleware('myauth');
 Route::post('/delete_book/{book}', [BookController::class, 'deleteBook'])->middleware('myauth');
 
-Route::get('change_year', [StudentController::class, 'changeYear'])->middleware('myauth');
+Route::get('/change_year', function(){
+    return view('change-year');
+})->middleware('myauth');
+Route::get('/subm_change_year', [StudentController::class, 'changeYear'])->middleware('myauth');

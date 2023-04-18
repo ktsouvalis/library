@@ -58,7 +58,7 @@
         <table class="table table-striped table-hover table-light">
             <tr>
                 <th>Αριθμός Μητρώου</th>
-                <th>Επίθετο</th>
+                <th>Επώνυμο</th>
                 <th>Όνομα</th>
                 <th>Τάξη</th>
                 <th>Ημερομηνία Δανεισμού</th>
