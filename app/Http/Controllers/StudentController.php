@@ -220,7 +220,7 @@ class StudentController extends Controller
     }
 
     public function changeYear(){
-        $students = Student::orderBy('class','DESC')->get();
+        $students = Student::where('user_id',Auth::id())->orderBy('class','DESC')->get();
         foreach ($students as $student){
             $sec = substr($student->class,-1);
             $class = substr($student->class, 0, -1);
