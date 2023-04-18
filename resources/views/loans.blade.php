@@ -48,6 +48,19 @@
             
             @endforeach
             </tbody>
+            <tfoot>
+                <tr>
+                <th id="search">Κωδικός Βιβλίου</th>
+                <th id="search">Τίτλος</th>
+                <th id="search">Συγγραφέας</th>
+                <th id="search">Εκδότης</th>
+                <th id="search">Επίθετο μαθητή</th>
+                <th id="search">Όνομα μαθητή</th>
+                <th id="search">Τάξη μαθητή</th>
+                <th id="search">Ημερομηνία Δανεισμού</th>
+                <th id="search">Ημερομηνία Επιστροφής</th>
+                </tr>
+            </tfoot>
         </table>
         <br>
     σύνολο ενεργών δανεισμών: <strong>{{$loans->whereNull('date_in')->count()}}</strong> από <strong>{{$loans->count()}}</strong>
