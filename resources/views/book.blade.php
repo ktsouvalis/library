@@ -69,7 +69,7 @@
                         <th id="search">Συγγραφέας</th>
                         <th id="search">Εκδότης</th>
                         <th id="search">Θεματική</th>
-                        <th id="search">Δανεισμός / Επιστροφή</th>
+                        {{-- <th id="search">Δανεισμός / Επιστροφή</th> --}}
                     </tr>
                 </tfoot>
                 </table>

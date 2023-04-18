@@ -230,7 +230,7 @@ class StudentController extends Controller
                 case 'ΣΤ':
                     $student->class = '0';
                     break;
-                case 'Ε':
+                case 'Ε' or 'E':
                     $student->class = "ΣΤ".$sec;
                     break;
                 case 'Δ':
@@ -239,10 +239,10 @@ class StudentController extends Controller
                 case 'Γ':
                     $student->class = "Δ".$sec;
                     break;
-                case 'Β':
+                case 'Β' or 'B':
                     $student->class = "Γ".$sec;
                     break;
-                case 'Α':
+                case 'Α' or 'A':
                     $student->class = "Β".$sec;
                     break;
             }
