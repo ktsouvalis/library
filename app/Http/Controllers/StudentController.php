@@ -220,31 +220,37 @@ class StudentController extends Controller
     }
 
     public function changeYear(){
-        
-        $students = Student::all();
+        $students = Student::orderBy('class','DESC')->get();
         foreach ($students as $student){
             $sec = substr($student->class,-1);
             $class = substr($student->class, 0, -1);
-
-            switch ($class){
-                case 'ΣΤ':
-                    $student->class = '0';
-                    break;
-                case 'Ε' or 'E':
-                    $student->class = "ΣΤ".$sec;
-                    break;
-                case 'Δ':
-                    $student->class = "Ε".$sec;
-                    break;
-                case 'Γ':
-                    $student->class = "Δ".$sec;
-                    break;
-                case 'Β' or 'B':
-                    $student->class = "Γ".$sec;
-                    break;
-                case 'Α' or 'A':
-                    $student->class = "Β".$sec;
-                    break;
+            if($class=='ΣΤ'){
+                $student->class = '0';
+            }
+            else{
+                if($class =='E' or $class=='Ε'){
+                    $student->class = 'ΣΤ'.$sec;
+                }
+                else{
+                    if($class=='Δ'){
+                        $student->class = 'Ε'.$sec;
+                    }
+                    else{
+                        if($class=='Γ'){
+                            $student->class = 'Δ'.$sec;
+                        }
+                        else{
+                            if($class=='Β' or $class=='B' ){
+                                $student->class = 'Γ'.$sec;
+                            }
+                            else{
+                                if($class=='A' or $class=='Α'){
+                                    $student->class = 'Β'.$sec;
+                                }    
+                            }
+                        }
+                    }
+                }
             }
             $student->save();
         }

@@ -47,7 +47,7 @@
                             @if($book->available)
                                 <form action="{{route('search_loan_b',[$book->id])}}" method="get">
                                     @csrf
-                                    <td><button class="bi bi-search bg-primary" type="submit" data-toggle="tooltip" title = "Αναζήτηση μαθητή για δανεισμό" style="color: white">   </button></td>
+                                    <td><button class="bi bi-search bg-primary" type="submit" data-toggle="tooltip" title = "Αναζήτηση μαθητή για δανεισμό" style="color: white">  </button></td>
                                 </form>
                             @else
                                 <form action="/loans/return" method="post">
@@ -69,7 +69,7 @@
                         <th id="search">Συγγραφέας</th>
                         <th id="search">Εκδότης</th>
                         <th id="search">Θεματική</th>
-                        {{-- <th id="search">Δανεισμός / Επιστροφή</th> --}}
+                        <th id="search">Δανεισμός / Επιστροφή</th>
                     </tr>
                 </tfoot>
                 </table>

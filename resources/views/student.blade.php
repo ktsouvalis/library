@@ -56,7 +56,7 @@
                             <th id="search">Όνομα</th>
                             <th id="search">Πατρώνυμο</th>
                             <th id="search">Τάξη</th>
-                            {{-- <th id="search">Δανεισμός / Επιστροφή</th> --}}
+                            <th id="search">Δανεισμός / Επιστροφή</th>
                         </tr>
                     </tfoot>
                 </table>
