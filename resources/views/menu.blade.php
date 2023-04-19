@@ -10,7 +10,7 @@
         <a href="/student" style="color:black; text-decoration:none;" class="fa-solid fa-graduation-cap"> Μαθητές</a>
     </div>
     <div class=" badge bg-danger text-wrap py-2 m-1" style="width: 12rem; opacity: 0.9;">
-        <a href="/loans" style="color:white; text-decoration:none;" class="fa-solid fa-book-open-reader"> Δανεισμοί</a>
+        <a href="/loans" style="color:white; text-decoration:none;" class="fa-solid fa-book-open-reader"> Ιστορικό</a>
     </div>
     <div class=" badge bg-dark text-wrap py-2 m-1" style="width: 12rem; opacity: 0.5;">
         <a href="/logout" style="color:white; text-decoration:none;" class="fa-solid fa-arrow-right-from-bracket"> Αποσύνδεση</a>

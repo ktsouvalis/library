@@ -6,11 +6,6 @@
     @endpush
 
     @push('scripts')
-        <script
-                  src="https://code.jquery.com/jquery-3.6.4.min.js"
-                  integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
-                  crossorigin="anonymous">
-        </script>
         <script src="../DataTables-1.13.4/js/jquery.dataTables.js"></script>
         <script src="../DataTables-1.13.4/js/dataTables.bootstrap5.js"></script>
         <script src="../Responsive-2.4.1/js/dataTables.responsive.js"></script>
@@ -49,7 +44,11 @@
                         <td><button type="submit" class="bi bi-journal-arrow-up bg-primary" style="color:white" data-toggle="tooltip" data-placement="top" title="Καταχώρηση δανεισμού" >   </button></td>
                     </form>
                 @else
-                    <td style="color:red">Μη διαθέσιμο</td>
+                    @php
+                        $data = $book->loans()->where('book_id', $book->id)->whereNull('date_in')->first()->student  
+                    @endphp
+
+                    <td style="color:red" data-toggle="tooltip" title="{{$data->surname}} {{$data->name}} {{$data->class}}"> <strong>ΜΗ ΔΙΑΘΕΣΙΜΟ</strong></td>
                 @endif
                 </tr>
             @endforeach

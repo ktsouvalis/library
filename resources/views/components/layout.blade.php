@@ -41,7 +41,11 @@
       <p class="m-0">Copyright &copy; 2023 <a href="/" class="text-muted">library</a>. Διεύθυνση Π.Ε. Αχαΐας - Τμήμα Πληροφορικής & Νέων Τεχνολογιών - Ηλεκτρονικές Υπηρεσίες.</p>
     </footer>
     <script src="/bootstrap/js/bootstrap.js"></script>
-
+    <script
+                src="https://code.jquery.com/jquery-3.6.4.min.js"
+                integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+                crossorigin="anonymous">
+    </script>
     @stack('scripts')
 
     <script>
@@ -55,6 +59,7 @@
       // DataTable
       var table = $('#dataTable').DataTable({
           initComplete: function () {
+            
               // Apply the search
               this.api()
                   .columns()

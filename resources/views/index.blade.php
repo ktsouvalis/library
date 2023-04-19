@@ -26,7 +26,14 @@
             <a class="col-lg-3 card w-3 text-bg-danger mb-3" style="max-width: 20rem; opacity: 0.9; text-decoration:none;" href="/loans">
                 <div class="card-body" style="text-align: center; padding: 5rem">
                 <div class="h5 fa-solid fa-book-open-reader card-title"></div>
-                <div>Ιστορικό δανεισμών</div>
+                <div>Ιστορικό</div>
+                <p class="card-text"></p>
+                </div> 
+            </a>
+            <a class="col-lg-3 card w-3 text-bg-primary mb-3" style="max-width: 20rem; opacity: 0.9; text-decoration:none;" href="/stats">
+                <div class="card-body" style="text-align: center; padding: 5rem">
+                <div class=" h5 fa-solid fa-chart-simple card-title"></div>
+                <div>Στατιστικά</div>
                 <p class="card-text"></p>
                 </div> 
             </a>

@@ -154,4 +154,33 @@ class LoanController extends Controller
 
         return response()->download("$filename");
     }
+
+    public function stats(){
+    
+        $top5books = Loan::where('user_id', Auth::id())
+            ->get()
+            ->groupBy('book_id')
+            ->map(function($row){
+                    return $row->count();
+            })
+            ->sortByDesc(function($count, $book_id){
+                    return $count;
+            })
+            ->take(5);
+
+        $top5students = Loan::where('user_id', Auth::id())
+            ->get()
+            ->groupBy('student_id')
+            ->map(function($row){
+                    return $row->count();
+            })
+            ->sortByDesc(function($count, $student_id){
+                    return $count;
+            })
+            ->take(5);
+
+        $to_show=array('top5books'=>$top5books, 'top5students'=>$top5students);
+
+        return view('stats', ['to_show' => $to_show]);
+    }
 }

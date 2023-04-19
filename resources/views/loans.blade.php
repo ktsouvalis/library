@@ -6,11 +6,11 @@
     @endpush
 
     @push('scripts')
-        <script
+        {{-- <script
                 src="https://code.jquery.com/jquery-3.6.4.min.js"
                 integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
                 crossorigin="anonymous">
-        </script>
+        </script> --}}
         <script src="DataTables-1.13.4/js/jquery.dataTables.js"></script>
         <script src="DataTables-1.13.4/js/dataTables.bootstrap5.js"></script>
         <script src="Responsive-2.4.1/js/dataTables.responsive.js"></script>

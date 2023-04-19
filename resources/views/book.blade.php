@@ -6,11 +6,6 @@
     @endpush
 
     @push('scripts')
-        <script
-                src="https://code.jquery.com/jquery-3.6.4.min.js"
-                integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
-                crossorigin="anonymous">
-        </script>
         <script src="DataTables-1.13.4/js/jquery.dataTables.js"></script>
         <script src="DataTables-1.13.4/js/dataTables.bootstrap5.js"></script>
         <script src="Responsive-2.4.1/js/dataTables.responsive.js"></script>
@@ -65,7 +60,7 @@
                             @if($book->available)
                                 <form action="{{route('search_loan_b',[$book->id])}}" method="get">
                                     @csrf
-                                    <td><button class="bi bi-search bg-primary" type="submit" data-toggle="tooltip" title = "Αναζήτηση μαθητή για δανεισμό" style="color: white">  </button></td>
+                                    <td><button class="bi bi-search bg-primary" type="submit" data-toggle="tooltip" title = "Αναζήτηση μαθητή για δανεισμό" style="color: white"> Δανεισμός </button></td>
                                 </form>
                             @else
                                 <form action="/loans/return" method="post">

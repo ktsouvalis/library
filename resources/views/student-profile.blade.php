@@ -5,7 +5,7 @@
     <div class="p-3 row">
         <div class="container-md">
         <div class="row rounded-top bg-warning bg-gradient  text-wrap">
-            <div class="col">Κωδικός</div>
+            <div class="col">Αριθμός Μητρώου</div>
             <div class="col">Επώνυμο</div>
             <div class="col">Όνομα</div>
             <div class="col">Όνομα πατρός</div>

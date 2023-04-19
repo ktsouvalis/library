@@ -132,3 +132,5 @@ Route::get('/change_year', function(){
     return view('change-year');
 })->middleware('myauth');
 Route::get('/subm_change_year', [StudentController::class, 'changeYear'])->middleware('myauth');
+
+Route::get('/stats', [LoanController::class, 'stats'])->middleware('myauth');
