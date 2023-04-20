@@ -19,4 +19,5 @@ yarn-error.log
 /public/loansTo*
 /public/booksTo*
 /public/studentsTo*
+/public/usersTo*
 /*.xlsx

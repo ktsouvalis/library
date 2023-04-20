@@ -2,6 +2,7 @@
 
 use App\Models\Book;
 use App\Models\Loan;
+use App\Models\User;
 use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -23,16 +24,8 @@ use App\Http\Controllers\StudentController;
 
 Route::view('/','index');
 
-Route::post('/login', [UserController::class,'login']);
 
-Route::get('/logout',[UserController::class, 'logout']);
-
-Route::get('/password_reset', function(){
-    return view('password_reset_form');
-})->middleware('myauth');
-
-Route::post('/password_reset', [UserController::class, 'passwordReset'])->middleware('myauth');
-
+// STUDENT ROUTES
 Route::get('/student', function(){
     $students = Student::where('user_id',Auth::id())
                     ->where('class','<>','0')
@@ -60,6 +53,9 @@ Route::post('/edit_student/{student}', [StudentController::class, 'save_profile'
 Route::post('/student_template_upload', [StudentController::class, 'importStudents'])->name('student_template_upload')->middleware('myauth');
 
 Route::post('/students_insertion', [StudentController::class, 'insertStudents'])->name('insert_students_from_template')->middleware('myauth');
+
+
+// LOANS ROUTES
 
 Route::get('/loans', function(){ 
     $loans = Loan::where('loans.user_id', Auth::id())->get();
@@ -96,10 +92,13 @@ Route::post('/loans/save_b/{book}',[LoanController::class, 'lendBookFromBook'])-
 
 Route::get('/loans_dl', [LoanController::class, 'loansDl'])->middleware('myauth');
 
-Route::get('/all-books', function(){
-    $books = Book::orderBy('title')->get();
-    return view('all-books',['books' => $books]);
-})->middleware('guest');
+
+// BOOK ROUTES
+
+// Route::get('/all-books', function(){
+//     $books = Book::orderBy('title')->get();
+//     return view('all-books',['books' => $books]);
+// })->middleware('guest');
 
 Route::get('/book', function(){
     $books = Book::where('user_id',Auth::id())->orderBy('title')->get();
@@ -126,11 +125,43 @@ Route::post('/edit_book/{book}', [BookController::class, 'save_profile'])->middl
 Route::post('/book_template_upload', [BookController::class, 'importBooks'])->name('book_template_upload')->middleware('myauth');
 
 Route::post('/books_insertion', [BookController::class, 'insertBooks'])->name('insert_books_from_template')->middleware('myauth');
+
 Route::post('/delete_book/{book}', [BookController::class, 'deleteBook'])->middleware('myauth');
 
+// MISC ROUTES
 Route::get('/change_year', function(){
     return view('change-year');
 })->middleware('myauth');
 Route::get('/subm_change_year', [StudentController::class, 'changeYear'])->middleware('myauth');
 
 Route::get('/stats', [LoanController::class, 'stats'])->middleware('myauth');
+
+// USER ROUTES
+Route::get('/user', function(){
+    return view('user');
+})->middleware('isAdmin');
+
+Route::post('/user/insert', [UserController::class,'insertUser'])->name('insert_user')->middleware('isAdmin');
+
+Route::get('/users_dl', [UserController::class, 'usersDl'])->middleware('isAdmin');
+
+Route::get('/user_profile/{user}',[UserController::class, 'show_profile'])->middleware('isAdmin');
+
+Route::get('/edit_user/{user}', function(User $user){
+    return view('edit-user',['user' => $user]);
+})->middleware('isAdmin');
+
+Route::post('/edit_user/{user}', [UserController::class, 'save_profile'])->middleware('isAdmin');
+Route::post('/user_template_upload', [UserController::class, 'importUsers'])->name('user_template_upload')->middleware('isAdmin');
+
+Route::post('/users_insertion', [UserController::class, 'insertUsers'])->name('insert_users_from_template')->middleware('isAdmin');
+
+Route::post('/login', [UserController::class,'login']);
+
+Route::get('/logout',[UserController::class, 'logout']);
+
+Route::get('/password_reset', function(){
+    return view('password_reset_form');
+})->middleware('myauth');
+
+Route::post('/password_reset', [UserController::class, 'passwordReset'])->middleware('myauth');

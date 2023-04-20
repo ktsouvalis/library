@@ -24,7 +24,7 @@ class StudentController extends Controller
 
         if(Student::where('user_id', Auth::id())->where('am', $given_am)->count()){
             $existing_student = Student::where('user_id', Auth::id())->where('am',$given_am)->first();
-            return view('student',['dberror'=>"Υπάρχει ήδη μαθητής με αριθμό μητρώου $given_am: $existing_student->surname $existing_student->name, $existing_student->class", 'old_data'=>$request,'active_tab'=>'insert']);
+            return view('student',['dberror3'=>"Υπάρχει ήδη μαθητής με αριθμό μητρώου $given_am: $existing_student->surname $existing_student->name, $existing_student->class", 'old_data'=>$request,'active_tab'=>'insert']);
         }
         //VALIDATION PASSED
         try{
@@ -38,7 +38,7 @@ class StudentController extends Controller
             ]);
         } 
         catch(QueryException $e){
-            return view('student',['dberror'=>"Κάποιο πρόβλημα προέκυψε κατά την εκτέλεση της εντολής, προσπαθήστε ξανά.", 'old_data'=>$request,'active_tab'=>'insert']);
+            return view('student',['dberror3'=>"Κάποιο πρόβλημα προέκυψε κατά την εκτέλεση της εντολής, προσπαθήστε ξανά.", 'old_data'=>$request,'active_tab'=>'insert']);
         }
 
         return view('student',['record'=>$record,'active_tab'=>'insert']);
@@ -182,7 +182,7 @@ class StudentController extends Controller
                 $student->save();
             } 
             catch(QueryException $e){
-                return view('student',['dberror'=>"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.", 'active_tab'=>'import']);
+                return view('student',['dberror2'=>"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.", 'active_tab'=>'import']);
             }
         }
 

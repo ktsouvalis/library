@@ -44,6 +44,15 @@
                 <p class="card-text"></p>
                 </div> 
             </a>
+            @if (Illuminate\Support\Facades\Auth::id()==2 or Illuminate\Support\Facades\Auth::id()==1)
+                <a class="col-lg-3 card w-3 text-bg-primary mb-3" style="max-width: 20rem; opacity: 0.4; text-decoration:none;" href="/user">
+                <div class="card-body" style="text-align: center; padding: 5rem">
+                <div class="h5 card-title fa-solid fa-users"></div>
+                <div>Διαχείριση Σχολείων</div>
+                <p class="card-text"></p>
+                </div> 
+                </a>
+            @endif
             <a class="col-lg-3 card w-3 text-bg-dark mb-3" style="max-width: 20rem; opacity: 0.5; text-decoration:none;" href="/logout">
                 <div class="card-body" style="text-align: center; padding: 5rem">
                 <div class="h5 card-title fa-solid fa-arrow-right-from-bracket"></div>

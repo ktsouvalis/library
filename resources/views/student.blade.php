@@ -98,7 +98,7 @@
                     <th>Αριθμός Μητρώου</th>
                     <th>Επώνυμο</th>
                     <th>Όνομα</th>
-                    <th>Πατρώυνμο</th>
+                    <th>Πατρώνυμο</th>
                     <th>Τάξη</th>
                     
                 </tr>
@@ -131,6 +131,9 @@
                 </div>
                 @endif
             @endif
+            @isset($dberror2)
+                <div class="alert alert-danger" role="alert">{{$dberror2}}</div>
+            @endisset
         </div>
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='insert') {{'show active'}} @endif @endisset" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
@@ -148,19 +151,19 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon2">Επώνυμο</span>
-                        <input name="student_surname3" type="text" class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon2" required value=@isset($dberror) {{$old_data['student_surname3']}} @endisset><br>
+                        <input name="student_surname3" type="text" class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon2" required value=@isset($dberror3) {{$old_data['student_surname3']}} @endisset><br>
                     </div>
                     <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon3">Όνομα</span>
-                        <input name="student_name3" type="text" class="form-control" placeholder="Όνομα Μαθητή" aria-label="Όνομα Μαθητή" aria-describedby="basic-addon3" required value=@isset($dberror) {{$old_data['student_name3']}} @endisset><br>
+                        <input name="student_name3" type="text" class="form-control" placeholder="Όνομα Μαθητή" aria-label="Όνομα Μαθητή" aria-describedby="basic-addon3" required value=@isset($dberror3) {{$old_data['student_name3']}} @endisset><br>
                     </div>
                     <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon4">Πατρώνυμο</span>
-                        <input name="student_fname3" type="text" class="form-control" placeholder="Πατρώνυμο Μαθητή" aria-label="Πατρώνυμο Μαθητή" aria-describedby="basic-addon4" required value=@isset($dberror) {{$old_data['student_fname3']}} @endisset ><br>
+                        <input name="student_fname3" type="text" class="form-control" placeholder="Πατρώνυμο Μαθητή" aria-label="Πατρώνυμο Μαθητή" aria-describedby="basic-addon4" required value=@isset($dberror3) {{$old_data['student_fname3']}} @endisset ><br>
                     </div>
                     <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon5">Τάξη</span>
-                        <input name="student_class3" type="text" class="form-control" placeholder="Τάξη" aria-label="Τάξη" aria-describedby="basic-addon5" required value=@isset($dberror) {{$old_data['student_class3']}} @endisset ><br>
+                        <input name="student_class3" type="text" class="form-control" placeholder="Τάξη" aria-label="Τάξη" aria-describedby="basic-addon5" required value=@isset($dberror3) {{$old_data['student_class3']}} @endisset ><br>
                     </div>
                     <div class="input-group">
                         <span class="w-25"></span>
@@ -169,8 +172,8 @@
                     
                 </form>
             </nav>
-            @isset($dberror)
-                <div class="alert alert-danger" role="alert">{{$dberror}}</div>
+            @isset($dberror3)
+                <div class="alert alert-danger" role="alert">{{$dberror3}}</div>
             @else
                 @isset($record)
                     <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div>

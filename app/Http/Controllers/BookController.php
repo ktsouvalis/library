@@ -25,7 +25,7 @@ class BookController extends Controller
         //VALIDATION
         if(Book::where('user_id',Auth::id())->where('code',$given_code)->count()){
             $existing_book = Book::where('user_id',Auth::id())->where('code',$given_code)->first();
-            return view('book',['dberror'=>"Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, Εκδόσεις $existing_book->publisher", 'old_data'=>$request,'active_tab'=>'insert']);
+            return view('book',['dberror3'=>"Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, Εκδόσεις $existing_book->publisher", 'old_data'=>$request,'active_tab'=>'insert']);
         }
         //VALIDATION PASSED
         
@@ -47,7 +47,7 @@ class BookController extends Controller
             ]);
         } 
         catch(QueryException $e){
-            return view('book',['dberror'=>"Κάποιο πρόβλημα προέκυψε κατά την εκτέλεση της εντολής, προσπαθήστε ξανά.", 'old_data'=>$request,'active_tab'=>'insert']);
+            return view('book',['dberror3'=>"Κάποιο πρόβλημα προέκυψε κατά την εκτέλεση της εντολής, προσπαθήστε ξανά.", 'old_data'=>$request,'active_tab'=>'insert']);
         }
 
         return view('book',['record'=>$record,'active_tab'=>'insert']);
@@ -232,7 +232,7 @@ class BookController extends Controller
                 $book->save();
             } 
             catch(QueryException $e){
-                return view('book',['dberror'=>"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.", 'active_tab'=>'import']);
+                return view('book',['dberror2'=>"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.", 'active_tab'=>'import']);
             }
         }
 
