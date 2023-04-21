@@ -2,6 +2,9 @@
 <div class="p-3 container">
     @include('menu')
 <body>
+    @push('title')
+        <title>{{$book->title}}</title>
+    @endpush
     <div class="p-3 row" >
         <div class="container-md">
             

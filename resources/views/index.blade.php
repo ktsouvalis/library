@@ -1,14 +1,14 @@
 
 
 <x-layout>
-    <body class="bg-light">
-  
-      <br><br><br><br><br><br>
+    <body class="bg-light"></body>
+    <br><br><br><br><br><br>
     <div class="container">
-       <div class="d-flex justify-content-center"><p class="h3" style="color:black"> {{env('APP_NAME')}}</p></div>
         <div class="row p-2 justify-content-evenly">
-            
         @auth
+            @push('title')
+                <title>Αρχική</title>
+            @endpush
             <a class="col-lg-3 card w-3 text-bg-success mb-3" data-toggle="tooltip" title="Αναζήτηση, Δανεισμός, Επιστροφή, Επεξεργασία" style="max-width: 20rem; opacity: 0.9; text-decoration:none;" href="/book">
                 <div class="card-body" style="text-align: center; padding: 5rem">
                 <div class=" h5 card-title fa-solid fa-book"></div>
@@ -30,7 +30,7 @@
                 <p class="card-text"></p>
                 </div> 
             </a>
-            <a class="col-lg-3 card w-3 text-bg-primary mb-3" style="max-width: 20rem; opacity: 0.9; text-decoration:none;" href="/stats">
+            <a class="col-lg-3 card w-3 text-bg-primary mb-3" style="max-width: 20rem; text-decoration:none;" href="/stats">
                 <div class="card-body" style="text-align: center; padding: 5rem">
                 <div class=" h5 fa-solid fa-chart-simple card-title"></div>
                 <div>Στατιστικά</div>
@@ -40,7 +40,7 @@
             <a class="col-lg-3 card w-3 text-bg-dark mb-3" style="max-width: 20rem; opacity: 0.9; text-decoration:none;" href="/change_year">
                 <div class="card-body" style="text-align: center; padding: 5rem">
                 <div class=" h5 fa-solid fa-arrow-right-arrow-left card-title"></div>
-                <div>Αλλαγή έτους</div>
+                <div>Μεταφορά Μαθητών</div>
                 <p class="card-text"></p>
                 </div> 
             </a>
@@ -61,6 +61,9 @@
                 </div> 
             </a>
         @else
+        @push('title')
+                <title>Σύνδεση</title>
+        @endpush
         <div class="col-lg-3 p-3">
             <form action="/login" method="post">
                 @csrf
@@ -85,10 +88,5 @@
                 <button type="submit" class="btn btn-primary">Είσοδος</button>
             </form>
         </div>
-    
-    
         @endauth
-        
-    
-        
 </x-layout>

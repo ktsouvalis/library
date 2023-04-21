@@ -11,7 +11,9 @@
         <script src="Responsive-2.4.1/js/dataTables.responsive.js"></script>
         <script src="Responsive-2.4.1/js/responsive.bootstrap5.js"></script>
     @endpush
-
+    @push('title')
+        <title>Βιβλία</title>
+    @endpush
 <body>
 <div class="container">
     @include('menu')
@@ -36,6 +38,7 @@
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='search') {{'show active'}}  @endif @else {{'show active'}} @endisset" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
             <!-- 1st tab's content-->
             @isset($all_books)
+            <div class="table-responsive">
                 <table  id="dataTable" class="display table table-sm table-striped table-hover">
                     <thead>
                         
@@ -86,6 +89,7 @@
                     </tr>
                 </tfoot>
                 </table>
+            </div>
             @endisset
         </div>
 

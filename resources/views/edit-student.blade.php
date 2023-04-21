@@ -1,4 +1,7 @@
 <x-layout>
+    @push('title')
+        <title>Επεξεργασία {{$student->surname}} {{$student->name}}</title>
+    @endpush
     <div class="container">
         @include('menu')
         <nav class="navbar navbar-light bg-light">

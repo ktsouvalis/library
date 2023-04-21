@@ -12,12 +12,17 @@
         <script src="Responsive-2.4.1/js/responsive.bootstrap5.js"></script>
     @endpush
 
+    @push('title')
+        <title>Ιστορικό Δανεισμών</title>
+    @endpush
+
     <div class="container">
     @include('menu')
     <div class="d-flex justify-content-end">
         <a href="/loans_dl" class="btn btn-danger bi bi-download"> Λήψη αρχείου δανεισμών </a>
     </div>
     @isset($loans)
+    <div class="table-responsive">
         <table id="dataTable" class="display table table-sm table-striped table-hover">
             <thead>
             <tr>
@@ -75,6 +80,7 @@
                 </tr>
             </tfoot>
         </table>
+    </div>
         <br>
     σύνολο ενεργών δανεισμών: <strong>{{$loans->whereNull('date_in')->count()}}</strong> από <strong>{{$loans->count()}}</strong>
     @endisset

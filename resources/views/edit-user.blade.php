@@ -1,4 +1,7 @@
 <x-layout>
+    @push('title')
+        <title>Επεξεργασία {{$user->display_name}}</title>
+    @endpush
     <div class="container">
         <nav class="navbar navbar-light bg-light">
                 <form action="/edit_user/{{$user->id}}" method="post" class="container-fluid">

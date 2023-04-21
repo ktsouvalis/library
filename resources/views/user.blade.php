@@ -12,6 +12,10 @@
         <script src="Responsive-2.4.1/js/dataTables.responsive.js"></script>
         <script src="Responsive-2.4.1/js/responsive.bootstrap5.js"></script>
     @endpush
+
+    @push('title')
+        <title>Χρήστες</title>
+    @endpush
     
 <body>
     <div class="container">
@@ -39,6 +43,7 @@
                 @php      
                     $all_users = App\Models\User::all();
                 @endphp
+                <div class="table-responsive">
                 <table  id="dataTable" class="display table table-sm table-striped table-hover">
                 <thead>
                     <tr>
@@ -73,6 +78,7 @@
                         </tr>
                     </tfoot>
                 </table>
+            </div>
         </div>
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='import') {{'show active'}} @endif @endisset" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">

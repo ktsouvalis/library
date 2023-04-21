@@ -1,4 +1,7 @@
 <x-layout>
+    @push('title')
+        <title>Αλλαγή Κωδικού Πρόσβασης</title>
+    @endpush
     <div class="container">
     @include('menu')
     <form action='/password_reset' method="POST" enctype="multipart/form-data">

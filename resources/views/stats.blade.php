@@ -1,4 +1,7 @@
 <x-layout>
+    @push('title')
+        <title>Στατιστικά</title>
+    @endpush
     <div class="container" >
         @include('menu')
         <br><br>

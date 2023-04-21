@@ -12,12 +12,17 @@
         <script src="../Responsive-2.4.1/js/responsive.bootstrap5.js"></script>
     @endpush
     
+    @push('title')
+        <title>Δανεισμός στον μαθητή {{$student->surname}} {{$student->name}} </title>
+    @endpush
+
     <div class="container py-3">
     @include('menu')
         <div class="col-sm-2 btn btn-warning text-wrap">
                 {{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->f_name}}, {{$student->class}}
         </div>
         @isset($books)
+        <div class="table-responsive">
             <table id="dataTable" class="display table table-sm table-striped table-hover">
                 <thead>
                 <tr>
@@ -64,6 +69,7 @@
                 </tr>
             </tfoot>
             </table>
+        </div>
         @endisset
     </div>
 </x-layout>

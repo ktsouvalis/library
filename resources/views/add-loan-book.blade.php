@@ -11,13 +11,21 @@
         <script src="../Responsive-2.4.1/js/responsive.bootstrap5.js"></script>
     @endpush
 
+    @push('title')
+        <title>Δανεισμός του βιβλίου "{{$book->title}}"</title>
+    @endpush
+
     <div class="container py-3">
     @include('menu')
         <div class="col-sm-2 btn btn-success text-wrap">
                 {{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}
         </div>
+
+       
+
         <div class="m-3">
         @isset($students)
+        <div class="table-responsive">
             <table id="dataTable" class="display table table-sm table-striped table-hover">
                 <thead>
                     <tr>
@@ -56,6 +64,7 @@
                     </tr>
                 </tfoot>
             </table>
+        </div>
         @endisset
         @isset($saved)
             <div class="alert alert-success" role="alert">Ο Δανεισμός καταχωρήθηκε</div>

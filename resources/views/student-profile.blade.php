@@ -1,4 +1,7 @@
 <x-layout>
+    @push('title')
+        <title>{{$student->surname}} {{$student->name}}</title>
+    @endpush
     <div class="p-3 container">
     @include('menu')
 <body>

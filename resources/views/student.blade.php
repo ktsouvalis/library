@@ -12,6 +12,9 @@
         <script src="Responsive-2.4.1/js/responsive.bootstrap5.js"></script>
     @endpush
     
+    @push('title')
+        <title>Μαθητές</title>
+    @endpush
 <body>
     <div class="container">
     @include('menu')
@@ -27,7 +30,7 @@
           <button class="nav-link @isset($active_tab) @if($active_tab=='import') {{'active'}} @endif @endisset" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="tab2" aria-selected="false">Μαζική Εισαγωγή Μαθητών</button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link @isset($active_tab) @if($active_tab=='insert') {{'active'}} @endif @endisset" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" aria-controls="tab3" aria-selected="false">Εισαγωγή μαθητή</button>
+          <button class="nav-link @isset($active_tab) @if($active_tab=='insert') {{'active'}} @endif @endisset" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" aria-controls="tab3" aria-selected="false">Εισαγωγή Μαθητή</button>
         </li>
     </ul>
 <!--tab content-->
@@ -36,6 +39,7 @@
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='search') {{'show active'}}  @endif @else {{'show active'}} @endisset" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
             <!-- 1st tab's content-->
             @isset($all_students)
+            <div class="table-responsive">
                 <table  id="dataTable" class="display table table-sm table-striped table-hover">
                 <thead>
                     <tr>
@@ -73,7 +77,7 @@
                         </tr>
                     </tfoot>
                 </table>
-                
+            </div>
             @endisset
         </div>
 
