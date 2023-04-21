@@ -9,6 +9,7 @@
             @push('title')
                 <title>Αρχική</title>
             @endpush
+            
             <a class="col-lg-3 card w-3 text-bg-success mb-3" data-toggle="tooltip" title="Αναζήτηση, Δανεισμός, Επιστροφή, Επεξεργασία" style="max-width: 20rem; opacity: 0.9; text-decoration:none;" href="/book">
                 <div class="card-body" style="text-align: center; padding: 5rem">
                 <div class=" h5 card-title fa-solid fa-book"></div>
@@ -48,7 +49,7 @@
                 <a class="col-lg-3 card w-3 text-bg-primary mb-3" style="max-width: 20rem; opacity: 0.4; text-decoration:none;" href="/user">
                 <div class="card-body" style="text-align: center; padding: 5rem">
                 <div class="h5 card-title fa-solid fa-users"></div>
-                <div>Διαχείριση Σχολείων</div>
+                <div>Σχολεία</div>
                 <p class="card-text"></p>
                 </div> 
                 </a>
@@ -60,11 +61,19 @@
                 <p class="card-text"></p>
                 </div> 
             </a>
+        
         @else
         @push('title')
                 <title>Σύνδεση</title>
         @endpush
-        <div class="col-lg-3 p-3">
+        <div class="row justify-content-md-center">
+        <div class="col">
+                
+        </div>
+        <div class="col p-3">
+                <img src="/favicon/index.png" width="200" height="131" alt="books">
+        </div>
+        <div class="col p-3">
             <form action="/login" method="post">
                 @csrf
                 <div class="mb-3">
@@ -88,5 +97,9 @@
                 <button type="submit" class="btn btn-primary">Είσοδος</button>
             </form>
         </div>
+        <div class="col">
+                
+        </div>
+    </div>
         @endauth
 </x-layout>

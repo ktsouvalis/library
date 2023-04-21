@@ -23,8 +23,16 @@
   
   </head> 
   @auth
-  <div class="d-flex justify-content-center"><div class="h1 fa-solid fa-school text-dark" style="text-decoration:none; "></div></div>
-    <div class="d-flex justify-content-center"> <a href='/password_reset' class="h4 text-dark" style="text-decoration:none; " data-toggle="tooltip" title="Αλλαγή κωδικού πρόσβασης"> {{Auth::user()->display_name}}</a></div>
+  
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col"></div>
+      <div class="col p-4">
+        <a href='/password_reset' class="h4 text-dark" style="text-decoration:none; " data-toggle="tooltip" title="Αλλαγή κωδικού πρόσβασης"> <img src="/favicon/index.png" width="100" height="65" alt="books"> {{Auth::user()->display_name}}</a>
+      </div>
+      <div class="col"></div>
+    </div>
+  </div>
   @endauth
   {{$slot}}
         @if (session()->has('success'))
