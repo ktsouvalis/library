@@ -84,7 +84,14 @@
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='import') {{'show active'}} @endif @endisset" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
             @if(empty($asks_to))
             <nav class="navbar navbar-light bg-light">
-                <a href="/students.xlsx" class="link-info">Πρότυπο αρχείο για συμπλήρωση</a>
+                <div>Το αρχείο που χρειάζεται θα το κατεβάσετε από το <strong>myschool</strong> ως εξης: <br><br></div>
+                <div> ΑΝΑΦΟΡΕΣ -> Αναφορές Μαθητών -> Γενικές Καταστάσεις -> Γενικά Στοιχεία Μαθητών. <br><br>
+                Στην ενότητα <strong class="text-primary">Ομαδοποίηση και Ταξινόμηση</strong> από τη λίστα <strong class="text-success"> Ομαδοποίηση</strong> θα επιλέξετε <strong class= "text-primary"> Τμήμα</strong>.<br>
+                Στην ενότητα <strong class="text-primary">Κριτήρια Επιλογής Δεδομένων</strong> θα επιλέξετε <strong>όλες τις τάξεις</strong> και <strong>μόνο τα τμήματα Γενικής Παιδείας</strong>. <br>
+                Θα πατήσετε <strong class="text-primary">Προεπισκόπηση</strong> και στη σελίδα που ανοίγει, θα επιλέξετε <strong class="text-success"> Xlsx </strong> αντί για Pdf που είναι η προεπιλογή
+                και έπειτα το κουμπί <strong class="text-primary">Αποθήκευση</strong>.<br><br>
+                Το αρχείο που θα κατέβει, το ανεβάζετε χωρίς καμία επεξεργασία στην εφαρμογή.<br><br></div>
+
                 <form action="{{route('student_template_upload')}}" method="post" class="container-fluid" enctype="multipart/form-data">
                     @csrf
                     
@@ -96,9 +103,13 @@
             <div style="p-3 mb-2 bg-info text-dark">
                 Διαβάστηκαν οι ακόλουθοι μαθητές από το αρχείο:
             </div>
-            
+            @php
+            $no_of_students = 1;  
+            @endphp
+            <div class="table-responsive">
             <table class="table table-striped table-hover table-light">
                 <tr>
+                    <th>#</th>
                     <th>Αριθμός Μητρώου</th>
                     <th>Επώνυμο</th>
                     <th>Όνομα</th>
@@ -107,7 +118,8 @@
                     
                 </tr>
                 @foreach($students_array as $student)
-                    <tr>  
+                    <tr> 
+                        <td>{{$no_of_students}}</td> 
                         <td @if ($student['am']=="Κενό πεδίο" or $student['am']=="Υπάρχει ήδη ο Α.Μ.") style='color:red;' @endif>{{$student['am']}}</td>
                         <td @if ($student['surname']=='Κενό πεδίο') style='color:red;' @endif>{{$student['surname']}}</td>
                         <td @if ($student['name']=='Κενό πεδίο') style='color:red;' @endif>{{$student['name']}}</td>
@@ -115,7 +127,11 @@
                         <td @if ($student['class']=='Κενό πεδίο') style='color:red;' @endif>{{$student['class']}}</td>
                         
                     </tr>
+                @php
+                    $no_of_students++;
+                @endphp
                 @endforeach
+            </div>
             </table>
                 @if($asks_to=='save')
                 Να προχωρήσει η εισαγωγή αυτών των στοιχείων;

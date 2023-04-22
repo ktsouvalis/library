@@ -87,106 +87,95 @@ class StudentController extends Controller
         $mime = Storage::mimeType($path);
         $spreadsheet = IOFactory::load("../storage/app/$path");
         $students_array=array();
-        $row=2;
+        $sheetCount = $spreadsheet->getSheetCount();
         $error=0;
-        $rowSumValue="1";
-        while ($rowSumValue != "" && $row<10000){
-            $check=array();
-            $check['am'] = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue();
-            $check['surname']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue();
-            $check['name']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue();
-            $check['f_name']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(4, $row)->getValue();
-            $check['class']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(5, $row)->getValue();
+        for ($i = 0; $i < $sheetCount; $i++){ 
+            $sheet = $spreadsheet->getSheet($i);
+            $row=17;
+            
+            $rowSumValue="1";
+            while ($rowSumValue != "" && $row<10000){
+                $check=array();
+                $check['am'] = $sheet->getCellByColumnAndRow(2, $row)->getValue();
+                $check['surname']= $sheet->getCellByColumnAndRow(3, $row)->getValue();
+                $check['name']= $sheet->getCellByColumnAndRow(5, $row)->getValue();
+                $check['f_name']= $sheet->getCellByColumnAndRow(6, $row)->getValue();
+                $check['class']= $sheet->getCellByColumnAndRow(4, 14)->getValue();
 
-            if($check['am']=='' or $check['am']==null){
-                $error = 1; 
-                $check['am']="Κενό πεδίο";
-            }
-            else{
-                if(Student::where('user_id', Auth::id())->where('am', $check['am'])->count()){
-                    $error = 1;
-                    $check['am']="Υπάρχει ήδη ο Α.Μ.";
+                if($check['am']=='' or $check['am']==null){
+                    $error = 1; 
+                    $check['am']="Κενό πεδίο";
                 }
-            }
-            $rule = [
-                'surname' => 'required'
-            ];
-            $validator = Validator::make($check, $rule);
-            if($validator->fails()){ 
-                $error=1;
-                $check['surname']="Κενό πεδίο";
-            }
-            $rule = [
-                'name' => 'required',
-            ];
-            $validator = Validator::make($check, $rule);
-            if($validator->fails()){ 
-                $error=1;
-                $check['name']="Κενό πεδίο";
-            }
-            $rule = [
-                'f_name' => 'required'
-            ];
-            $validator = Validator::make($check, $rule);
-            if($validator->fails()){ 
-                $error=1;
-                $check['f_name']="Κενό πεδίο";
-            }
-            $rule = [
-                'class' => 'required',
-            ];
-            $validator = Validator::make($check, $rule);
-            if($validator->fails()){ 
-                $error=1;
-                $check['class']="Πρέπει να είναι αριθμός";               
-            }
-            array_push($students_array, $check);
-            $row++;
-            $rowSumValue="";
-            for($col=1;$col<=5;$col++){
-                $rowSumValue .= $spreadsheet->getActiveSheet()->getCellByColumnAndRow($col, $row)->getValue();   
+                else{
+                    if(Student::where('user_id', Auth::id())->where('am', $check['am'])->count()){
+                        $error = 1;
+                        $check['am']="Υπάρχει ήδη ο Α.Μ.";
+                    }
+                }
+
+                $rule = [
+                    'surname' => 'required'
+                ];
+                $validator = Validator::make($check, $rule);
+                if($validator->fails()){ 
+                    $error=1;
+                    $check['surname']="Κενό πεδίο";
+                }
+
+                $rule = [
+                    'name' => 'required',
+                ];
+                $validator = Validator::make($check, $rule);
+                if($validator->fails()){ 
+                    $error=1;
+                    $check['name']="Κενό πεδίο";
+                }
+
+                $rule = [
+                    'f_name' => 'required',
+                ];
+                $validator = Validator::make($check, $rule);
+                if($validator->fails()){ 
+                    $error=1;
+                    $check['f_name']="Κενό πεδίο";
+                }
+
+                array_push($students_array, $check);
+                $row++;
+                $rowSumValue="";
+                $rowSumValue = $sheet->getCellByColumnAndRow(1, $row)->getValue();   
             }
         }
-        
+        // echo 'error='.$error;exit;
         if($error){
             return view('student',['students_array'=>$students_array,'active_tab'=>'import', 'asks_to'=>'error']);
         }
         else{
+            session(['studs' => $students_array]);
             return view('student',['students_array'=>$students_array,'active_tab'=>'import', 'asks_to'=>'save']);
         }
     }
 
     public function insertStudents(){
-        $filename = "students_file_".Auth::id().".xlsx";
-        $spreadsheet = IOFactory::load("../storage/app/files/$filename");
-        $students_array=array();
-        $row=2;
-        do{
-            $rowSumValue="";
-            for($col=1;$col<=5;$col++){
-                $rowSumValue .= $spreadsheet->getActiveSheet()->getCellByColumnAndRow($col, $row)->getValue();
-            }
+        $students_array = session('studs');
+        $imported=0;
+        foreach($students_array as $one_student){
             $student = new Student();
             $student->user_id = Auth::id();
-            $student->am = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue();
-            $student->surname= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue();
-            $student->name= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue();
-            $student->f_name= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(4, $row)->getValue();
-            $student->class= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(5, $row)->getValue();
-            array_push($students_array, $student);
-            $row++;
-        } while ($rowSumValue != "" || $row>10000);
-        array_pop($students_array);
-        foreach($students_array as $student){
+            $student->am = $one_student['am'];
+            $student->surname = $one_student['surname'];
+            $student->name = $one_student['name'];
+            $student->f_name = $one_student['f_name'];
+            $student->class = $one_student['class'];
             try{
+                $imported++;
                 $student->save();
             } 
             catch(QueryException $e){
                 return view('student',['dberror2'=>"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.", 'active_tab'=>'import']);
             }
         }
-
-        $imported = $row -3;
+        session()->forget('studs');
         return redirect('/student')->with('success', "Η εισαγωγή $imported μαθητών ολοκληρώθηκε");
     }
 
