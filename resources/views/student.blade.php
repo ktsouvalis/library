@@ -87,7 +87,7 @@
                 <div>Το αρχείο που χρειάζεται θα το κατεβάσετε από το <strong>myschool</strong> ως εξης: <br><br></div>
                 <div> ΑΝΑΦΟΡΕΣ -> Αναφορές Μαθητών -> Γενικές Καταστάσεις -> Γενικά Στοιχεία Μαθητών. <br><br>
                 Στην ενότητα <strong class="text-primary">Ομαδοποίηση και Ταξινόμηση</strong> από τη λίστα <strong class="text-success"> Ομαδοποίηση</strong> θα επιλέξετε <strong class= "text-primary"> Τμήμα</strong>.<br>
-                Στην ενότητα <strong class="text-primary">Κριτήρια Επιλογής Δεδομένων</strong> θα επιλέξετε <strong>όλες τις τάξεις</strong> και <strong>μόνο τα τμήματα Γενικής Παιδείας</strong>. <br>
+                Στην ενότητα <strong class="text-primary">Κριτήρια Επιλογής Δεδομένων</strong> θα επιλέξετε <strong> τις τάξεις και τα τμήματα ΓΕΝΙΚΗΣ ΠΑΙΔΕΙΑΣ που επιθυμείτε</strong>. <br>
                 Θα πατήσετε <strong class="text-primary">Προεπισκόπηση</strong> και στη σελίδα που ανοίγει, θα επιλέξετε <strong class="text-success"> Xlsx </strong> αντί για Pdf που είναι η προεπιλογή
                 και έπειτα το κουμπί <strong class="text-primary">Αποθήκευση</strong>.<br><br>
                 Το αρχείο που θα κατέβει, το ανεβάζετε χωρίς καμία επεξεργασία στην εφαρμογή.<br><br></div>
