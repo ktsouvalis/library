@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Loan;
+use App\Models\User;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -16,7 +17,7 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 class LoanController extends Controller
 {
     public function getLoans(){
-        $loans = Loan::where('loans.user_id', Auth::id())->get();
+        $loans=User::find(Auth::id())->loans;
         return view('loans', ['loans' => $loans]); 
     }
 

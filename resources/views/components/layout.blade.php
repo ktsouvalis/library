@@ -24,6 +24,11 @@
   </head> 
   @auth
   
+  @php
+    $user = App\Models\User::find(Auth::id());
+    $link = $user->public_link;
+  @endphp     
+   
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="col"></div>
@@ -100,7 +105,11 @@ $(document).ready(function () {
 
     
     </div> <!-- container closing -->
-
+   
     <div class="d-flex justify-content-center"><p class="h3" style="color:black"> {{env('APP_NAME')}}</p></div>
+    @auth
+      <div class="d-flex justify-content-center"><p class="h5" style="color:black"> http://81.186.76.106/library/{{$link}}</p></div>  
+    @endauth
+    
    </body>
 </html>

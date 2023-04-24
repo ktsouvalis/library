@@ -83,6 +83,8 @@ Route::post('/books_insertion', [BookController::class, 'insertBooks'])->name('i
 
 Route::post('/delete_book/{book}', [BookController::class, 'deleteBook'])->middleware('myauth');
 
+Route::get('/{link}', [BookController::class, 'showBooksInPublic']);
+
 // MISC ROUTES
 Route::get('/change_year', function(){
     return view('change-year');

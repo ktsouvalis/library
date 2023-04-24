@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Loan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
@@ -17,7 +18,8 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class BookController extends Controller
 {   
     public function getBooks(){
-        $books = Book::where('user_id',Auth::id())->orderBy('title')->get();
+        // $books = Book::where('user_id',Auth::id())->orderBy('title')->get();
+        $books = User::find(Auth::id())->books;
         return view('book', ['all_books' => $books]);
     }
 
@@ -304,5 +306,12 @@ class BookController extends Controller
         $writer->save($filename);
 
         return response()->download("$filename");
+    }
+
+    public function showBooksInPublic($link){
+        $user = User::where('public_link', $link)->first();
+        $books = Book::where('user_id', $user->id)->get();
+
+        return view('all-books',['books'=>$books, 'school'=>$user]);
     }
 }
