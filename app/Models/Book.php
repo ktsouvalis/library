@@ -25,7 +25,7 @@ class Book extends Model
                             'comments',
                             'available'
 ];
-    public function loans(): HasMany
+    public function loans()
     {
         return $this->hasMany(Loan::class);
     }

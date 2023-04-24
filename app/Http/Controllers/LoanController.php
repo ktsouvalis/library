@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Loan;
+use App\Models\User;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -15,7 +16,11 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class LoanController extends Controller
 {
-    //
+    public function getLoans(){
+        $loans=User::find(Auth::id())->loans;
+        return view('loans', ['loans' => $loans]); 
+    }
+
     public function returnBook(Request $request){
         $loan = Loan::find($request['loan_id']);
         $loan->date_in = date('y/m/d');
@@ -28,36 +33,23 @@ class LoanController extends Controller
         return back()->with('success','Η επιστροφή καταχωρήθηκε επιτυχώς');
     }
 
-    public function searchBook(Student $student, Request $request){
-
-        $incomingFields = $request->all();
-
-        $rules = [
-            'book_code'=>'required_without:book_title',
-            'book_title'=>'required_without:book_code'
-        ];
-        $validator = Validator::make($incomingFields, $rules);
-        if($validator->fails()){
-            return view('add-loan-student',['dberror'=>"Πρέπει να συμπληρώσετε τουλάχιστον ένα από τα δύο πεδία", 'student' => $student]);
-        }
-        $given_title = isset($incomingFields['book_title']) ? $incomingFields['book_title'] : '';
-        $given_code = isset($incomingFields['book_code']) ? $incomingFields['book_code'] : 0;
-        if($given_code<>0){
-            if(!Book::where('user_id', Auth::id())->where('code',$given_code)->count()){
-                return view('add-loan-student',['dberror'=>"Δεν υπάρχει στη βάση σας βιβλίο με κωδικό $given_code", 'student' => $student]);
-            }
-            $books = Book::where('user_id', Auth::id())->where('code', $given_code)->get();
+    public function addLoanStudent(Student $student){
+        if($student->user_id == Auth::id() and $student->class <> '0'){
+            return view('add-loan-student', ['student' => $student, 'books' => Book::where('user_id', Auth::id())->get()]);
         }
         else{
-            $books = Book::where('user_id', Auth::id())->where('title', 'LIKE', "%$given_title%")->orderBy('title')->get();
-            if(!$books->count()){
-                return view('add-loan-student',['dberror'=>"Δεν υπάρχει στη βάση σας βιβλίο με παρόμοιο τίτλο", 'student' => $student]);
-            }
+            return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');  
         }
-
-        return view('add-loan-student',['books' => $books, 'student' => $student]);
     }
 
+    public function addLoanBook(Book $book){
+        if($book->user_id == Auth::id()){
+            return view('add-loan-book', ['book' => $book, 'students' => Student::where('user_id', Auth::id())->where('class','<>','0')->get()]);
+        }
+        else{
+            return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
+        }
+    }
     public function lendBookFromStudent(Student $student, Request $request){
         if(isset($request['book_id'])){
             $book = Book::find($request['book_id']);
@@ -82,17 +74,6 @@ class LoanController extends Controller
         else{
             return view('add-loan-student',['dberror'=>"Δεν επιλέξατε κάποιο βιβλίο", 'student' => $student]);
         }
-    }
-
-    public function searchStudent(Book $book, Request $request){
-        $incomingFields = $request->all();
-        $given_surname = $incomingFields['student_surname'];
-        $students= Student::where('user_id', Auth::id())->Where('surname', 'LIKE', "%$given_surname%")->orderBy('surname')->get(); 
-        if(!$students->count()){
-            return redirect("/loans_b/$book->id")->with('failure','Δε βρέθηκε μαθητής με αυτά τα στοιχεία');
-        }
-
-        return view('add-loan-book',['students' => $students, 'book' => $book]);
     }
 
     public function lendBookFromBook(Book $book, Request $request){

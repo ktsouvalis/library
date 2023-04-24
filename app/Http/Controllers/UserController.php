@@ -148,7 +148,8 @@ class UserController extends Controller
             $user->name = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue();
             $user->display_name= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue();
             $user->email= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue();
-            $user->password= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(4, $row)->getValue();
+            $user->password= bcrypt($spreadsheet->getActiveSheet()->getCellByColumnAndRow(4, $row)->getValue());
+            $user->public_link=md5($spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue());
             array_push($users_array, $user);
             $row++;
         } while ($rowSumValue != "" || $row>10000);
@@ -189,7 +190,8 @@ class UserController extends Controller
                 'name' => $incomingFields['user_name3'],
                 'display_name' => $incomingFields['user_display_name3'],
                 'email' => $incomingFields['user_email3'],
-                'password' => bcrypt($incomingFields['user_password3'])
+                'password' => bcrypt($incomingFields['user_password3']),
+                'public_link' => md5($incomingFields['user_display_name3'])
             ]);
         } 
         catch(QueryException $e){

@@ -26,16 +26,16 @@
         <table id="dataTable" class="display table table-sm table-striped table-hover">
             <thead>
             <tr>
-                <th>Κωδικός Βιβλίου</th>
-                <th>Τίτλος</th>
-                <th>Συγγραφέας</th>
-                <th>Εκδότης</th>
-                <th>Επώνυμο μαθητή</th>
-                <th>Όνομα μαθητή</th>
-                <th>Τάξη μαθητή</th>
-                <th>Ημερομηνία Δανεισμού</th>
-                <th>Ημερομηνία Επιστροφής</th>
-            </tr>
+                <th id="search">Κωδικός Βιβλίου</th>
+                <th id="search">Τίτλος</th>
+                <th id="search">Συγγραφέας</th>
+                <th id="search">Εκδότης</th>
+                <th id="search">Επώνυμο μαθητή</th>
+                <th id="search">Όνομα μαθητή</th>
+                <th id="search">Τάξη μαθητή</th>
+                <th id="search">Ημερομηνία Δανεισμού</th>
+                <th id="search">Ημερομηνία Επιστροφής</th>
+                </tr>
             </thead>
             <tbody>
             @foreach($loans as $loan)
@@ -66,7 +66,7 @@
             
             @endforeach
             </tbody>
-            <tfoot>
+            {{-- <tfoot>
                 <tr>
                 <th id="search">Κωδικός Βιβλίου</th>
                 <th id="search">Τίτλος</th>
@@ -78,7 +78,7 @@
                 <th id="search">Ημερομηνία Δανεισμού</th>
                 <th id="search">Ημερομηνία Επιστροφής</th>
                 </tr>
-            </tfoot>
+            </tfoot> --}}
         </table>
     </div>
         <br>

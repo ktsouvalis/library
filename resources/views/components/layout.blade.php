@@ -24,6 +24,11 @@
   </head> 
   @auth
   
+  @php
+    $user = App\Models\User::find(Auth::id());
+    $link = $user->public_link;
+  @endphp     
+   
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="col"></div>
@@ -65,37 +70,46 @@
     @stack('scripts')
 
     <script>
-      $(document).ready(function () {
-      // Setup - add a text input to each footer cell
-      $('#dataTable tfoot tr #search').each(function () {
-          var title = $(this).text();
-          $(this).html('<input type="text" style="width:7rem;" placeholder="' + title + '" />');
-      });
-  
-      // DataTable
-      var table = $('#dataTable').DataTable({
-          initComplete: function () {
-            
-              // Apply the search
-              this.api()
-                  .columns()
-                  .every(function () {
-                      var that = this;
-  
-                      $('input', this.footer()).on('keyup change clear', function () {
-                          if (that.search() !== this.value) {
-                              that.search(this.value).draw();
-                          }
-                      });
-                  });
-              },
-          });
-      });
+$(document).ready(function () {
+  // Setup - add a text input to each header cell
+  $('#dataTable thead tr #search').each(function () {
+    var title = $(this).text();
+    $(this).html('<input type="text" style="width:7rem;" placeholder="' + title + '" />');
+  });
 
-      </script>
+  // DataTable
+  var table = $('#dataTable').DataTable({
+    initComplete: function () {
+
+      // Apply the search
+      this.api()
+        .columns()
+        .every(function () {
+          var that = this;
+          var column = this;
+
+          $('input', this.header()).on('keyup change clear', function () {
+            if (that.search() !== this.value) {
+              that.search(this.value).draw();
+            }
+          }).on('click', function(e) {
+            e.stopPropagation(); // Stop the click event from propagating to the DataTables header cell
+            // table.ordering([[], []]); // Toggle sorting off
+            column.search($(this).val()).draw(); // Apply the search filter
+          });
+        });
+    },
+  });
+});
+</script>
+
     
     </div> <!-- container closing -->
-
+   
     <div class="d-flex justify-content-center"><p class="h3" style="color:black"> {{env('APP_NAME')}}</p></div>
+    @auth
+      <div class="d-flex justify-content-center"><p class="h5" style="color:black"> http://81.186.76.106/{{$link}}</p></div>  
+    @endauth
+    
    </body>
 </html>
