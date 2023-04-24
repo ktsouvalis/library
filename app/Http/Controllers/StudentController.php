@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Loan;
+use App\Models\User;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,20 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class StudentController extends Controller
 {
+    public function getStudents(){
+        $students = User::find(Auth::id())->students
+            ->where('class','<>','0');
+        return view('student', ['all_students' => $students]);
+    }
+ 
+    public function editStudent(Student $student){
+        if($student->user_id == Auth::id() and $student->class <> '0'){
+            return view('edit-student',['student' => $student]);
+        }
+        else{
+            return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
+        }
+    }
     public function insertStudent(Request $request){
         
         //VALIDATION

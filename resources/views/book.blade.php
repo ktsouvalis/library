@@ -43,12 +43,12 @@
                     <thead>
                         
                         <tr>
-                            <th>Κωδικός Βιβλίου</th>
-                            <th>Τίτλος</th>
-                            <th>Συγγραφέας</th>
-                            <th>Εκδότης</th>
-                            <th>Θεματική</th>
-                            <th>Δανεισμός / Επιστροφή</th>
+                            <th id="search">Κωδικός Βιβλίου</th>
+                            <th id="search">Τίτλος</th>
+                            <th id="search">Συγγραφέας</th>
+                            <th id="search">Εκδότης</th>
+                            <th id="search">Θεματική</th>
+                            <th id="search">Δανεισμός / Επιστροφή</th>
                         </tr>
                         
                     </thead>
@@ -78,7 +78,7 @@
                         </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
+                {{-- <tfoot>
                     <tr>
                         <th id="search">Κωδικός Βιβλίου</th>
                         <th id="search">Τίτλος</th>
@@ -87,7 +87,7 @@
                         <th id="search">Θεματική</th>
                         <th id="search">Δανεισμός / Επιστροφή</th>
                     </tr>
-                </tfoot>
+                </tfoot> --}}
                 </table>
             </div>
             @endisset

@@ -15,7 +15,20 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class BookController extends Controller
-{
+{   
+    public function getBooks(){
+        $books = Book::where('user_id',Auth::id())->orderBy('title')->get();
+        return view('book', ['all_books' => $books]);
+    }
+
+    public function editBook(Book $book){
+        if($book->user_id == Auth::id()){
+            return view('edit-book',['book' => $book]);
+        }
+        else{
+            return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
+        }
+    }
 
     public function insertBook(Request $request){
       

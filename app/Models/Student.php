@@ -19,7 +19,7 @@ class Student extends Model
                             'am'
 ];
 
-    public function loans(): HasMany
+    public function loans()
     {
         return $this->hasMany(Loan::class);
     }
