@@ -82,6 +82,14 @@ class StudentController extends Controller
     }
 
     public function importStudents(Request $request){
+        $rule = [
+            'import_students' => 'required|mimes:xlsx'
+        ];
+        $validator = Validator::make($request->all(), $rule);
+        if($validator->fails()){ 
+            return redirect('/')->with('failure', 'Λάθος τύπος αρχείου');
+            
+        }
         $filename = "students_file_".Auth::id().".xlsx"; 
         $path = $request->file('import_students')->storeAs('files', $filename);
         $mime = Storage::mimeType($path);

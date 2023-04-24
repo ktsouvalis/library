@@ -97,6 +97,14 @@ class BookController extends Controller
     }
 
     public function importBooks(Request $request){
+        $rule = [
+            'import_books' => 'required|mimes:xlsx'
+        ];
+        $validator = Validator::make($request->all(), $rule);
+        if($validator->fails()){ 
+            return redirect('/')->with('failure', 'Λάθος τύπος αρχείου');
+            
+        }
         $filename = "books_file".Auth::id().".xlsx";
         $path = $request->file('import_books')->storeAs('files', $filename);
         $mime = Storage::mimeType($path);

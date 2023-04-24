@@ -55,6 +55,14 @@ class UserController extends Controller
     }
 
     public function importUsers(Request $request){
+        $rule = [
+            'import_books' => 'required|mimes:xlsx'
+        ];
+        $validator = Validator::make($request->all(), $rule);
+        if($validator->fails()){ 
+            return redirect('/')->with('failure', 'Λάθος τύπος αρχείου');
+            
+        }
         $filename = "users_file_".Auth::id().".xlsx"; 
         $path = $request->file('import_users')->storeAs('files', $filename);
         $mime = Storage::mimeType($path);
