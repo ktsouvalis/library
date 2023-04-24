@@ -117,7 +117,7 @@ class BookController extends Controller
         ];
         $validator = Validator::make($request->all(), $rule);
         if($validator->fails()){ 
-            return redirect('/')->with('failure', 'Λάθος τύπος αρχείου');
+            return redirect('/')->with('failure', 'Μη επιτρεπτός τύπος αρχείου');
             
         }
         $filename = "books_file".Auth::id().".xlsx";

@@ -47,12 +47,12 @@
                 <table  id="dataTable" class="display table table-sm table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Username</th>
-                        <th>DisplayName</th>
-                        <th>email</th>
-                        <th>CreatedAt</th>
-                        <th>UpdatedAt</th>
+                        <th id="search">Αναγνωριστικό</th>
+                        <th id="search">Username</th>
+                        <th id="search">DisplayName</th>
+                        <th id="search">email</th>
+                        <th id="search">CreatedAt</th>
+                        <th id="search">UpdatedAt</th>
                     </tr>
                 </thead>
                     <tbody>
@@ -67,16 +67,6 @@
                             </tr>
                         @endforeach
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th id="search">Αναγνωριστικό</th>
-                            <th id="search">Username</th>
-                            <th id="search">DisplayName</th>
-                            <th id="search">email</th>
-                            <th id="search">CreatedAt</th>
-                            <th id="search">UpdatedAt</th>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>

@@ -29,12 +29,12 @@
             <table id="dataTable" class="display table table-sm table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Αριθμός Μητρώου</th>
-                        <th>Επώνυμο</th>
-                        <th>Όνομα</th>
-                        <th>Πατρώνυμο</th>
-                        <th>Τάξη</th>
-                        <th>Καταχώρηση Δανεισμού</th>
+                        <th id="search">Αριθμός Μητρώου</th>
+                        <th id="search">Επώνυμο</th>
+                        <th id="search">Όνομα</th>
+                        <th id="search">Πατρώνυμο</th>
+                        <th id="search">Τάξη</th>
+                        <th id="">Δανεισμός / Επιστροφή</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,21 +48,11 @@
                 <form action="{{route('loans_save_book', [$book->id])}}" method="post" class="container-fluid">
                 @csrf
                     <input type="hidden" name="student_id"  value="{{$student->id}}">
-                    <td><button type="submit" class="bi bi-journal-arrow-up bg-primary" style="color:white" data-toggle="tooltip" data-placement="top" title="Καταχώρηση δανεισμού" >   </button></td>
+                    <td><button type="submit" class="bi bi-journal-arrow-up bg-primary" style="color:white" data-toggle="tooltip" data-placement="top" title="Καταχώρηση δανεισμού" > Δανεισμός  </button></td>
                 </form>
                 </tr>
             @endforeach
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th id="search">Αριθμός Μητρώου</th>
-                        <th id="search">Επώνυμο</th>
-                        <th id="search">Όνομα</th>
-                        <th id="search">Πατρώνυμο</th>
-                        <th id="search">Τάξη</th>
-                        <th id="search">Δανεισμός / Επιστροφή</th>
-                    </tr>
-                </tfoot>
             </table>
         </div>
         @endisset

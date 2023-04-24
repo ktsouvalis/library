@@ -28,7 +28,7 @@
             <th id="search">Συγγραφέας</th>
             <th id="search">Εκδότης</th>
             <th id="search">Θεματική</th>
-            <th id="seatch">Διαθεσιμότητα</th>
+            <th id="search">Διαθεσιμότητα</th>
         </tr>
         </thead>
     @foreach($books as $book)

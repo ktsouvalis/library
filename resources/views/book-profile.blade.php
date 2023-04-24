@@ -42,7 +42,7 @@
     </div>
     <div class="p-3 row" >
         @if($book->available)
-            <div class="col-sm-2"><a href="{{route('search_loan_b',[$book->id])}}" class="btn btn-primary bi bi-journal-arrow-up" style="text-decoration:none;">  Καταχώρηση δανεισμού</a></div>
+            <div class="col-sm-2"><a href="{{route('search_loan_b',[$book->id])}}" class="btn btn-primary bi bi-search" style="text-decoration:none;">  Αναζήτηση μαθητή για νέο δανεισμό του βιβλίου</a></div>
         @else
             <div class="col-sm-2 bg-danger rounded text-light">
                 Το βιβλίο δεν είναι διαθέσιμο για δανεισμό
@@ -83,7 +83,7 @@
                     <form action="/loans/return" method="post">
                         @csrf
                         <input type="hidden" name="loan_id" value={{$loan->id}}>
-                        <td><button class="bi bi-journal-arrow-down bg-secondary" type="submit" style="color:white" data-toggle="tooltip" data-placement="top" title="Επιστροφή">   </button></td>
+                        <td><button class="bi bi-journal-arrow-down bg-secondary" type="submit" style="color:white" data-toggle="tooltip" data-placement="top" title="Επιστροφή"> Επιστροφή  </button></td>
                     </form>
                     @else
                         <td>{{$loan->date_in}}</td>
