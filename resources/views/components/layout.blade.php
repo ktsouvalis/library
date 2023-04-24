@@ -108,7 +108,7 @@ $(document).ready(function () {
    
     <div class="d-flex justify-content-center"><p class="h3" style="color:black"> {{env('APP_NAME')}}</p></div>
     @auth
-      <div class="d-flex justify-content-center"><p class="h5" style="color:black"> http://81.186.76.106/library/{{$link}}</p></div>  
+      <div class="d-flex justify-content-center"><p class="h5" style="color:black"> http://81.186.76.106/{{$link}}</p></div>  
     @endauth
     
    </body>
