@@ -85,7 +85,7 @@
                     @csrf
                     
                     <input type="file" name="import_students" > 
-                    <button type="submit" class="btn btn-primary">Εισαγωγή αρχείου</button>
+                    <button type="submit" class="btn btn-primary bi bi-filetype-xlsx"> Αποστολή αρχείου</button>
                 </form>
             </nav>
             @else
@@ -109,7 +109,7 @@
                 @foreach($students_array as $student)
                     <tr> 
                         <td>{{$no_of_students}}</td> 
-                        <td @if ($student['am']=="Κενό πεδίο" or $student['am']=="Υπάρχει ήδη ο Α.Μ.") style='color:red;' @endif>{{$student['am']}}</td>
+                        <td @if ($student['am']=="Κενό πεδίο" or $student['am']=="Ο Α.Μ. χρησιμοποιείται") style='color:red;' @endif>{{$student['am']}}</td>
                         <td @if ($student['surname']=='Κενό πεδίο') style='color:red;' @endif>{{$student['surname']}}</td>
                         <td @if ($student['name']=='Κενό πεδίο') style='color:red;' @endif>{{$student['name']}}</td>
                         <td @if ($student['f_name']=='Κενό πεδίο') style='color:red;' @endif>{{$student['f_name']}}</td>
@@ -127,7 +127,7 @@
                 <div class="row">
                     <form action="/students_insertion" method="post" class="col container-fluid" enctype="multipart/form-data">
                     @csrf
-                        <button type="submit" class="btn btn-primary">Εισαγωγή</button>
+                        <button type="submit" class="btn btn-primary bi bi-file-arrow-up"> Εισαγωγή</button>
                     </form>
                     <a href="/student" class="col">Ακύρωση</a>
                 </div>
@@ -160,19 +160,19 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon2">Επώνυμο</span>
-                        <input name="student_surname3" type="text" class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon2" required value=@isset($dberror3) {{$old_data['student_surname3']}} @endisset><br>
+                        <input name="student_surname3" type="text" class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon2" required value="@isset($dberror3){{$old_data['student_surname3']}}@endisset"><br>
                     </div>
                     <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon3">Όνομα</span>
-                        <input name="student_name3" type="text" class="form-control" placeholder="Όνομα Μαθητή" aria-label="Όνομα Μαθητή" aria-describedby="basic-addon3" required value=@isset($dberror3) {{$old_data['student_name3']}} @endisset><br>
+                        <input name="student_name3" type="text" class="form-control" placeholder="Όνομα Μαθητή" aria-label="Όνομα Μαθητή" aria-describedby="basic-addon3" required value="@isset($dberror3){{$old_data['student_name3']}}@endisset"><br>
                     </div>
                     <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon4">Πατρώνυμο</span>
-                        <input name="student_fname3" type="text" class="form-control" placeholder="Πατρώνυμο Μαθητή" aria-label="Πατρώνυμο Μαθητή" aria-describedby="basic-addon4" required value=@isset($dberror3) {{$old_data['student_fname3']}} @endisset ><br>
+                        <input name="student_fname3" type="text" class="form-control" placeholder="Πατρώνυμο Μαθητή" aria-label="Πατρώνυμο Μαθητή" aria-describedby="basic-addon4" required value="@isset($dberror3){{$old_data['student_fname3']}}@endisset" ><br>
                     </div>
                     <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon5">Τάξη</span>
-                        <input name="student_class3" type="text" class="form-control" placeholder="Τάξη" aria-label="Τάξη" aria-describedby="basic-addon5" required value=@isset($dberror3) {{$old_data['student_class3']}} @endisset ><br>
+                        <input name="student_class3" type="text" class="form-control" placeholder="Τάξη" aria-label="Τάξη" aria-describedby="basic-addon5" required value="@isset($dberror3){{$old_data['student_class3']}}@endisset" ><br>
                     </div>
                     <div class="input-group">
                         <span class="w-25"></span>

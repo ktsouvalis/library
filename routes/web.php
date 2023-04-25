@@ -114,12 +114,14 @@ Route::post('/user_template_upload', [UserController::class, 'importUsers'])->na
 
 Route::post('/users_insertion', [UserController::class, 'insertUsers'])->name('insert_users_from_template')->middleware('isAdmin');
 
-Route::post('/login', [UserController::class,'login']);
+Route::post('/login', [UserController::class,'login'])->middleware('guest');
 
-Route::get('/logout',[UserController::class, 'logout']);
+Route::get('/logout',[UserController::class, 'logout'])->middleware('myauth');
 
-Route::get('/password_reset', function(){
-    return view('password_reset_form');
+Route::get('/password_change', function(){
+    return view('password_change_form');
 })->middleware('myauth');
 
-Route::post('/password_reset', [UserController::class, 'passwordReset'])->middleware('myauth');
+Route::post('/password_change', [UserController::class, 'passwordChange'])->middleware('myauth');
+
+Route::post('/password_reset', [UserController::class, 'passwordReset'])->middleware('isAdmin');

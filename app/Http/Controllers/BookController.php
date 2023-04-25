@@ -149,7 +149,7 @@ class BookController extends Controller
             else{
                 if(Book::where('user_id', Auth::id())->where('code', $check['code'])->count()){
                     $error = 1;
-                    $check['code']="Υπάρχει ήδη ο κωδικός";
+                    $check['code']="Ο κωδικός χρησιμοποιείται";
                 }
             }
             $rule = [

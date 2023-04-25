@@ -132,7 +132,7 @@ class StudentController extends Controller
                 else{
                     if(Student::where('user_id', Auth::id())->where('am', $check['am'])->count()){
                         $error = 1;
-                        $check['am']="Υπάρχει ήδη ο Α.Μ.";
+                        $check['am']="Ο Α.Μ. χρησιμοποιείται";
                     }
                 }
 

@@ -53,6 +53,7 @@
                         <th id="search">email</th>
                         <th id="search">CreatedAt</th>
                         <th id="search">UpdatedAt</th>
+                        <th id="">Password Reset</th>
                     </tr>
                 </thead>
                     <tbody>
@@ -64,6 +65,11 @@
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->created_at}}</td>
                                 <td>{{$user->updated_at}}</td>
+                                <form action="/password_reset" method="post">
+                                @csrf
+                                    <input type="hidden" name="user_id" value={{$user->id}}>
+                                    <td><button class="bi bi-key-fill bg-warning" type="submit" onclick="return confirm('Επιβεβαίωση επαναφοράς κωδικού')" > </button></td>
+                                </form>
                             </tr>
                         @endforeach
                     </tbody>
@@ -79,7 +85,7 @@
                     @csrf
                     
                     <input type="file" name="import_users" > 
-                    <button type="submit" class="btn btn-primary">Εισαγωγή αρχείου</button>
+                    <button type="submit" class="btn btn-primary bi bi-filetype-xlsx"> Αποστολή αρχείου</button>
                 </form>
             </nav>
             @else
@@ -108,7 +114,7 @@
                 <div class="row">
                     <form action="/users_insertion" method="post" class="col container-fluid" enctype="multipart/form-data">
                     @csrf
-                        <button type="submit" class="btn btn-primary">Εισαγωγή</button>
+                        <button type="submit" class="btn btn-primary bi bi-file-arrow-up"> Εισαγωγή</button>
                     </form>
                     <a href="/user" class="col">Ακύρωση</a>
                 </div>

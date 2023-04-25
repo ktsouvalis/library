@@ -36,7 +36,7 @@ class UserController extends Controller
         return redirect('/')->with('success','Αποσυνδεθήκατε...');
     }
 
-    public function passwordReset(Request $request){
+    public function passwordChange(Request $request){
         $incomingFields = $request->all();
         $rules = [
             'pass1' => 'min:6|required_with:pass1_confirmation|same:pass1_confirmation',
@@ -52,6 +52,16 @@ class UserController extends Controller
         $user->save();
 
         return redirect('/')->with('success', 'Ο νέος σας κωδικός αποθηκεύτηκε επιτυχώς');
+    }
+
+    public function passwordReset(Request $request){
+        $incomingFields = $request->all();
+        $user_id=$incomingFields['user_id'];
+        $user = User::find($user_id);
+        $user->password = bcrypt('123456');
+        $user->save();
+        
+        return back()->with('success',"Ο κωδικός του χρήστη $user->name άλλαξε επιτυχώς");
     }
 
     public function importUsers(Request $request){
@@ -229,6 +239,9 @@ class UserController extends Controller
 
                     }
                 }
+            }
+            if($user->isDirty('display_name')){
+                $user->public_link = md5($incomingFields['user_display_name']);
             }
             $user->save();
         }

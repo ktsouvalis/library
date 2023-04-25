@@ -31,12 +31,10 @@
    
   <div class="container">
     <div class="row justify-content-md-center">
-      <div class="col"></div>
       <div class="col p-4">
-        <div class="d-flex justify-content-center"><p> <img src="/favicon/index.png" width="100" height="65" alt="books"></p></div>
-        <div class="d-flex justify-content-center"><a href='/password_reset' class="h4 text-dark" style="text-decoration:none; " data-toggle="tooltip" title="Αλλαγή κωδικού πρόσβασης"> {{Auth::user()->display_name}}</a></div>
+        <div class="d-flex justify-content-center"><img src="/favicon/index.png" width="100" height="65" alt="books"></div>
+        <div class=" d-flex justify-content-center"><a href='/password_change' class="h4 text-dark" style="text-decoration:none; " data-toggle="tooltip" title="Αλλαγή κωδικού πρόσβασης"> {{Auth::user()->display_name}}</a></div>
       </div>
-      <div class="col"></div>
     </div>
   </div>
   @endauth
