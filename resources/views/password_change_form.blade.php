@@ -2,6 +2,24 @@
     @push('title')
         <title>Αλλαγή Κωδικού Πρόσβασης</title>
     @endpush
+    @php
+        $user= App\Models\User::find(Illuminate\Support\Facades\Auth::id());
+        $link = $user->public_link;
+    @endphp
+    @push('copy_script')
+        @auth
+            <div class="d-flex justify-content-center">Σύνδεσμος για κατάλογο βιβλίων</div>
+            <div class="d-flex justify-content-center"><input type="text"  id="public_link" value="http://81.186.76.106/all_books/{{$link}}"></div>
+            <div class="d-flex justify-content-center"> <button value="copy" class="btn btn-primary bi bi-clipboard" onClick="copyToClipboard('public_link')"> Copy</button></div>  
+            @endauth
+            <script>
+                function copyToClipboard(id) {
+                    document.getElementById(id).select();
+                    document.execCommand('copy');
+                    alert('Link copied');
+                }
+            </script>
+    @endpush
     <div class="container">
     @include('menu')
     <form action='/password_change' method="POST" enctype="multipart/form-data">
