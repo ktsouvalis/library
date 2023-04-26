@@ -140,40 +140,30 @@ class UserController extends Controller
             return view('user',['users_array'=>$users_array,'active_tab'=>'import', 'asks_to'=>'error']);
         }
         else{
+            session(['ysers' => $users_array]);
             return view('user',['users_array'=>$users_array,'active_tab'=>'import', 'asks_to'=>'save']);
         }
     }
 
     public function insertUsers(){
-        $filename = "users_file_".Auth::id().".xlsx";
-        $spreadsheet = IOFactory::load("../storage/app/files/$filename");
-        $users_array=array();
-        $row=2;
-        do{
-            $rowSumValue="";
-            for($col=1;$col<=5;$col++){
-                $rowSumValue .= $spreadsheet->getActiveSheet()->getCellByColumnAndRow($col, $row)->getValue();
-            }
+        $users_array = session('ysers');
+        $imported=0;
+        foreach($users_array as $one_user){
             $user = new User();
-            $user->name = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue();
-            $user->display_name= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue();
-            $user->email= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue();
-            $user->password= bcrypt($spreadsheet->getActiveSheet()->getCellByColumnAndRow(4, $row)->getValue());
-            $user->public_link=md5($spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue());
-            array_push($users_array, $user);
-            $row++;
-        } while ($rowSumValue != "" || $row>10000);
-        array_pop($users_array);
-        foreach($users_array as $user){
+            $user->name = $one_user['name'];
+            $user->display_name = $one_user['display_name'];
+            $user->email = $one_user['email'];
+            $user->password = bcrypt($one_user['password']);
+            $user->public_link = md5($one_user['display_name']);
             try{
+                $imported++;
                 $user->save();
             } 
             catch(QueryException $e){
                 return view('user',['dberror2'=>"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.", 'active_tab'=>'import']);
             }
         }
-
-        $imported = $row -3;
+        session()->forget('ysers');
         return redirect('/user')->with('success', "Η εισαγωγή $imported χρηστών ολοκληρώθηκε");
     }
 
