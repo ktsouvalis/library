@@ -217,49 +217,39 @@ class BookController extends Controller
         if($error){
             return view('book',['books_array'=>$books_array,'active_tab'=>'import', 'asks_to'=>'error']);
         }else{
+            session(['boooks' => $books_array]);
             return view('book',['books_array'=>$books_array,'active_tab'=>'import', 'asks_to'=>'save']);
         }
        
     }
 
     public function insertBooks(){
-        $filename = "books_file".Auth::id().".xlsx";
-        $spreadsheet = IOFactory::load("../storage/app/files/".$filename);
-        $books_array=array();
-        $row=2;
-        do{
-            $rowSumValue="";
-            for($col=1;$col<=11;$col++){
-                $rowSumValue .= $spreadsheet->getActiveSheet()->getCellByColumnAndRow($col, $row)->getValue();
-            }
+        $books_array = session('boooks');
+        $imported=0;
+        foreach($books_array as $one_book){
             $book = new Book();
             $book->user_id = Auth::id();
-            $book->code = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue();
-            $book->title= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue();
-            $book->writer= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue();
-            $book->publisher= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(4, $row)->getValue();
-            $book->subject= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(5, $row)->getValue();
-            $book->publish_place= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(6, $row)->getValue();
-            $book->publish_year= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(7, $row)->getValue();
-            $book->no_of_pages= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(8, $row)->getValue();
-            $book->acquired_by= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(9, $row)->getValue();
-            $book->acquired_year= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(10, $row)->getValue();
-            $book->comments= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(11, $row)->getValue();
+            $book->code = $one_book['code'];
+            $book->title= $one_book['title'];
+            $book->writer= $one_book['writer'];
+            $book->publisher= $one_book['publisher'];
+            $book->subject= $one_book['subject'];
+            $book->publish_place= $one_book['publish_place'];
+            $book->publish_year= $one_book['publish_year'];
+            $book->no_of_pages= $one_book['no_of_pages'];
+            $book->acquired_by= $one_book['acquired_by'];
+            $book->acquired_year= $one_book['acquired_year'];
+            $book->comments= $one_book['comments'];
             $book->available = 1;
-            array_push($books_array, $book);
-            $row++;
-        } while ($rowSumValue != "" || $row>10000);
-        array_pop($books_array);
-        foreach($books_array as $book){
             try{
+                $imported++;
                 $book->save();
             } 
             catch(QueryException $e){
                 return view('book',['dberror2'=>"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.", 'active_tab'=>'import']);
             }
         }
-
-        $imported = $row - 3;
+        session()->forget('boooks');
         return redirect('/book')->with('success', "Η εισαγωγή $imported βιβλίων ολοκληρώθηκε");
     }
 
@@ -318,8 +308,13 @@ class BookController extends Controller
 
     public function showBooksInPublic($link){
         $user = User::where('public_link', $link)->first();
-        $books = Book::where('user_id', $user->id)->get();
-
-        return view('all-books',['books'=>$books, 'school'=>$user]);
+        
+        if($user){
+            $books = Book::where('user_id', $user->id)->get();
+            return view('all-books',['books'=>$books, 'school'=>$user]);
+        }
+        else{
+            return redirect('/')->with('failure','Η σελίδα που ζητήσατε δεν υπάρχει');
+        }
     }
 }

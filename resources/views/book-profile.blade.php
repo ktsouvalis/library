@@ -53,7 +53,7 @@
             <div class=col-sm-2>
                 <form action="/delete_book/{{$book->id}}" method="post">
                     @csrf
-                    <button type="submit" class="btn btn-danger bi bi-journal-x"> Διαγραφή βιβλίου</button>
+                    <button type="submit" class="btn btn-danger bi bi-journal-x" onclick="return confirm('Με τη διαγραφή του βιβλίου θα διαγραφεί όλο το ιστορικό των δανεισμών του. Είστε βέβαιοι ότι θέλετε να προχωρήσετε;')"> Διαγραφή βιβλίου</button>
                 </form>    
             </div>  
         @endif
