@@ -33,7 +33,7 @@
             <input type="password" class="form-control"  name="pass1_confirmation" required>
             <small class="form-text text-muted">Ο νέος σας κωδικός πρέπει να αποτελείται από τουλάχιστον 6 χαρακτήρες</small>  
         </div>
-  <button type="submit" class="btn btn-primary">Αλλαγή Κωδικού</button>
+  <button type="submit" class="bi bi-key-fill btn btn-primary"> Αλλαγή Κωδικού</button>
 </form>
 </div>
 </x-layout>

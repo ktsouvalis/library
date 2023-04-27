@@ -86,7 +86,7 @@
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='import') {{'show active'}} @endif @endisset" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
             @if(empty($asks_to))
             <nav class="navbar navbar-light bg-light">
-                <a href="/books.xlsx" class="link-info">Πρότυπο αρχείο για συμπλήρωση</a>
+                <a href="/books_template.xlsx" class="link-info">Πρότυπο αρχείο για συμπλήρωση</a>
                 <form action="{{route('book_template_upload')}}" method="post" class="container-fluid" enctype="multipart/form-data">
                     @csrf
                     

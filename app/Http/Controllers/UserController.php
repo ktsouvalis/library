@@ -66,7 +66,7 @@ class UserController extends Controller
 
     public function importUsers(Request $request){
         $rule = [
-            'import_books' => 'required|mimes:xlsx'
+            'import_users' => 'required|mimes:xlsx'
         ];
         $validator = Validator::make($request->all(), $rule);
         if($validator->fails()){ 
