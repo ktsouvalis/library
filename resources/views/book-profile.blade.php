@@ -80,9 +80,8 @@
                     @endif
                     <td>{{$loan->date_out}}</td>
                     @if($loan->date_in==null)
-                    <form action="/loans/return" method="post">
+                    <form action="/return_loan/{{$loan->id}}" method="post">
                         @csrf
-                        <input type="hidden" name="loan_id" value={{$loan->id}}>
                         <td><button class="bi bi-journal-arrow-down bg-secondary" type="submit" style="color:white" data-toggle="tooltip" data-placement="top" title="Επιστροφή"> Επιστροφή  </button></td>
                     </form>
                     @else

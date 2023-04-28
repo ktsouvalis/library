@@ -16,13 +16,7 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class LoanController extends Controller
 {
-    public function getLoans(){
-        $loans=User::find(Auth::id())->loans;
-        return view('loans', ['loans' => $loans]); 
-    }
-
-    public function returnBook(Request $request){
-        $loan = Loan::find($request['loan_id']);
+    public function returnBook(Request $request, Loan $loan){
         $loan->date_in = date('y/m/d');
         $loan->save();
         $book = Book::find($loan->book->id);

@@ -17,12 +17,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class StudentController extends Controller
 {
-    public function getStudents(){
-        $students = User::find(Auth::id())->students
-            ->where('class','<>','0');
-        return view('student', ['all_students' => $students]);
-    }
- 
     public function editStudent(Student $student){
         if($student->user_id == Auth::id() and $student->class <> '0'){
             return view('edit-student',['student' => $student]);

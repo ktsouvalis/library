@@ -21,7 +21,7 @@
     <div class="container">
     @include('menu')
     <div class="d-flex justify-content-end">
-        <a href="/users_dl" class="btn btn-primary bi bi-download"> Λήψη αρχείου χρηστών </a>
+        <a href="/dl_users" class="btn btn-primary bi bi-download"> Λήψη αρχείου χρηστών </a>
     </div>
 <!--tabs-->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -65,7 +65,7 @@
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->created_at}}</td>
                                 <td>{{$user->updated_at}}</td>
-                                <form action="/password_reset" method="post">
+                                <form action="/reset_password" method="post">
                                 @csrf
                                     <input type="hidden" name="user_id" value={{$user->id}}>
                                     <td><button class="bi bi-key-fill bg-warning" type="submit" onclick="return confirm('Επιβεβαίωση επαναφοράς κωδικού')" > </button></td>
@@ -112,7 +112,7 @@
                 @if($asks_to=='save')
                 Να προχωρήσει η εισαγωγή αυτών των στοιχείων;
                 <div class="row">
-                    <form action="/users_insertion" method="post" class="col container-fluid" enctype="multipart/form-data">
+                    <form action="/insert_users" method="post" class="col container-fluid" enctype="multipart/form-data">
                     @csrf
                         <button type="submit" class="btn btn-primary bi bi-file-arrow-up"> Εισαγωγή</button>
                     </form>

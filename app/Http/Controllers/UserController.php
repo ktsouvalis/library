@@ -44,7 +44,7 @@ class UserController extends Controller
         ];
         $validator = Validator::make($incomingFields, $rules);
         if($validator->fails()){
-            return redirect('/password_reset')->with('failure', 'Οι κωδικοί πρέπει να ταιριάζουν και να είναι 6+ χαρακτήρες');
+            return redirect('/reset_password')->with('failure', 'Οι κωδικοί πρέπει να ταιριάζουν και να είναι 6+ χαρακτήρες');
         }
         $user = User::find(Auth::id());
 

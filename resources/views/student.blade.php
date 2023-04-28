@@ -15,11 +15,15 @@
     @push('title')
         <title>Μαθητές</title>
     @endpush
+
+    @php
+        $all_students = App\Models\Student::where('user_id', Illuminate\Support\Facades\Auth::id())->get();
+    @endphp
 <body>
     <div class="container">
     @include('menu')
     <div class="d-flex justify-content-end">
-        <a href="/students_dl" class="btn btn-warning bi bi-download"> Λήψη αρχείου μαθητών </a>
+        <a href="{{route('download_students')}}" class="btn btn-warning bi bi-download"> Λήψη αρχείου μαθητών </a>
     </div>
 <!--tabs-->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -37,7 +41,6 @@
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='search') {{'show active'}}  @endif @else {{'show active'}} @endisset" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
             <!-- 1st tab's content-->
-            @isset($all_students)
             <div class="table-responsive">
                 <table  id="dataTable" class="display table table-sm table-striped table-hover">
                 <thead>
@@ -67,7 +70,6 @@
                     </tbody>
                 </table>
             </div>
-            @endisset
         </div>
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='import') {{'show active'}} @endif @endisset" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
@@ -125,7 +127,7 @@
                 @if($asks_to=='save')
                 Να προχωρήσει η εισαγωγή αυτών των στοιχείων;
                 <div class="row">
-                    <form action="/students_insertion" method="post" class="col container-fluid" enctype="multipart/form-data">
+                    <form action="{{route('insert_students_from_template')}}" method="post" class="col container-fluid" enctype="multipart/form-data">
                     @csrf
                         <button type="submit" class="btn btn-primary bi bi-file-arrow-up"> Εισαγωγή</button>
                     </form>

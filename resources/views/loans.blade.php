@@ -16,12 +16,14 @@
         <title>Ιστορικό Δανεισμών</title>
     @endpush
 
+    @php
+        $loans = App\Models\Loan::where('user_id', Illuminate\Support\Facades\Auth::id())->get();
+    @endphp
     <div class="container">
     @include('menu')
     <div class="d-flex justify-content-end">
-        <a href="/loans_dl" class="btn btn-danger bi bi-download"> Λήψη αρχείου δανεισμών </a>
+        <a href="/dl_loans" class="btn btn-danger bi bi-download"> Λήψη αρχείου δανεισμών </a>
     </div>
-    @isset($loans)
     <div class="table-responsive">
         <table id="dataTable" class="display table table-sm table-striped table-hover">
             <thead>
@@ -39,7 +41,6 @@
             </thead>
             <tbody>
             @foreach($loans as $loan)
-           
                 <tr >  
                     <td>{{$loan->book->code}}</td>
                     <td><div class="badge bg-success text-wrap"><a href="/book_profile/{{$loan->book->id}}" style="color:white; text-decoration:none;">{{$loan->book->title}}</a></div></td>
@@ -54,9 +55,8 @@
                     @endif
                     <td>{{$loan->date_out}}</td>
                     @if($loan->date_in==null)
-                    <form action="/loans/return" method="post">
+                    <form action="/return_loan/{{$loan->id}}" method="post">
                         @csrf
-                        <input type="hidden" name="loan_id" value={{$loan->id}}>
                         <td><button class="bi bi-journal-arrow-down bg-secondary" type="submit" style="color:white"> Επιστροφή</button></td>
                     </form>
                     @else
@@ -66,23 +66,9 @@
             
             @endforeach
             </tbody>
-            {{-- <tfoot>
-                <tr>
-                <th id="search">Κωδικός Βιβλίου</th>
-                <th id="search">Τίτλος</th>
-                <th id="search">Συγγραφέας</th>
-                <th id="search">Εκδότης</th>
-                <th id="search">Επώνυμο μαθητή</th>
-                <th id="search">Όνομα μαθητή</th>
-                <th id="search">Τάξη μαθητή</th>
-                <th id="search">Ημερομηνία Δανεισμού</th>
-                <th id="search">Ημερομηνία Επιστροφής</th>
-                </tr>
-            </tfoot> --}}
         </table>
     </div>
         <br>
     σύνολο ενεργών δανεισμών: <strong>{{$loans->whereNull('date_in')->count()}}</strong> από <strong>{{$loans->count()}}</strong>
-    @endisset
     </div>
 </x-layout>

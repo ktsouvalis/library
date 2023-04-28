@@ -14,11 +14,14 @@
     @push('title')
         <title>Βιβλία</title>
     @endpush
+    @php
+        $all_books = App\Models\Book::where('user_id', Illuminate\Support\Facades\Auth::id())->get();
+    @endphp
 <body>
 <div class="container">
     @include('menu')
     <div class="d-flex justify-content-end">
-        <a href="/books_dl" class="btn btn-success bi bi-download" style="color:white; text-decoration:none;"> Λήψη αρχείου βιβλίων </a>
+        <a href="/dl_books" class="btn btn-success bi bi-download" style="color:white; text-decoration:none;"> Λήψη αρχείου βιβλίων </a>
     </div>
     <!--tabs-->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -37,7 +40,6 @@
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='search') {{'show active'}}  @endif @else {{'show active'}} @endisset" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
             <!-- 1st tab's content-->
-            @isset($all_books)
             <div class="table-responsive">
                 <table  id="dataTable" class="display table table-sm table-striped table-hover">
                     <thead>
@@ -66,12 +68,11 @@
                                     <td><button class="bi bi-search bg-primary" type="submit" data-toggle="tooltip" title = "Αναζήτηση μαθητή για δανεισμό" style="color: white"> Δανεισμός </button></td>
                                 </form>
                             @else
-                                <form action="/loans/return" method="post">
+                                <form action="/return_loan/{{$book->loans()->where('book_id', $book->id)->whereNull('date_in')->first()->id}}" method="post">
                                     @csrf
                                     @php
                                         $data = $book->loans()->where('book_id', $book->id)->whereNull('date_in')->first()->student  
                                     @endphp
-                                    <input type="hidden" name="loan_id" value={{ $book->loans()->where('book_id', $book->id)->whereNull('date_in')->first()->id}}>
                                     <td><button class="bi bi-journal-arrow-down bg-secondary" type="submit" data-toggle="tooltip" title = "{{$data->surname}} {{$data->name}} {{$data->class}}" style="color: white"> Επιστροφή </button></td>
                                 </form>
                             @endif
@@ -80,7 +81,6 @@
                 </tbody>
                 </table>
             </div>
-            @endisset
         </div>
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='import') {{'show active'}} @endif @endisset" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
@@ -124,7 +124,7 @@
                 @if($asks_to=='save')
                     Να προχωρήσει η εισαγωγή αυτών των στοιχείων;
                     <div class="row">
-                        <form action="/books_insertion" method="post" class="col container-fluid" enctype="multipart/form-data">
+                        <form action="/insert_books" method="post" class="col container-fluid" enctype="multipart/form-data">
                         @csrf
                             <button type="submit" class="btn btn-primary bi bi-file-arrow-up"> Εισαγωγή</button>
                         </form>

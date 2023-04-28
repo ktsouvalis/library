@@ -55,9 +55,8 @@
                 <td>{{$loan->book->publisher}}</td>
                 <td>{{$loan->date_out}}</td>
                 @if($loan->date_in==null)
-                <form action="/loans/return" method="post">
+                <form action="/return_loan/{{$loan->id}}" method="post">
                     @csrf
-                    <input type="hidden" name="loan_id" value={{$loan->id}}>
                     <td><button class="bi bi-journal-arrow-down bg-secondary" style="color:white" type="submit" data-toggle="tooltip" data-placement="top" title="Επιστροφή"> Επιστροφή  </button></td>
                 </form>
                 @else
