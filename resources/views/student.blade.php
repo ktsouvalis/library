@@ -33,9 +33,9 @@
         <li class="nav-item" role="presentation">
           <button class="nav-link @isset($active_tab) @if($active_tab=='import') {{'active'}} @endif @endisset" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="tab2" aria-selected="false">Μαζική Εισαγωγή Μαθητών</button>
         </li>
-        <li class="nav-item" role="presentation">
+        {{-- <li class="nav-item" role="presentation">
           <button class="nav-link @isset($active_tab) @if($active_tab=='insert') {{'active'}} @endif @endisset" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" aria-controls="tab3" aria-selected="false">Εισαγωγή Μαθητή</button>
-        </li>
+        </li> --}}
     </ul>
 <!--tab content-->
     <div class="tab-content" id="myTabContent">
@@ -70,6 +70,54 @@
                     </tbody>
                 </table>
             </div>
+            @isset($dberror3)
+                <div class="alert alert-danger" role="alert">{{$dberror3}}</div>
+            @else
+                @isset($record)
+                    <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div>
+                    <div class="m-2 col-sm-2 btn btn-warning text-wrap">
+                        <a href="/student_profile/{{$record->id}}" style="color:black; text-decoration:none;">{{$record->am}}, {{$record->surname}} {{$record->name}}, {{$record->class}}</a>
+                    </div>
+                @endisset
+            @endisset
+            <div class="container py-5">
+            <div class="container px-5">
+            <nav class="navbar navbar-light bg-light">
+                <form action="{{route('insert_student')}}" method="post" class="container-fluid">
+                    @csrf
+                    <input type="hidden" name="asks_to" value="insert">
+                    <div class="input-group">
+                        <span class="input-group-text w-25"></span>
+                        <span class="input-group-text w-75"><strong>Εισαγωγή νέου Μαθητή</strong></span>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text w-25" id="basic-addon1">Αριθμός Μητρώου</span>
+                        <input name="student_am3" type="number" value="" class="form-control" placeholder="Αριθμός Μητρώου Μαθητή" aria-label="ΑΜ Μαθητή" aria-describedby="basic-addon1" required>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text w-25" id="basic-addon2">Επώνυμο</span>
+                        <input name="student_surname3" type="text" class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon2" required value="@isset($dberror3){{$old_data['student_surname3']}}@endisset"><br>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text w-25" id="basic-addon3">Όνομα</span>
+                        <input name="student_name3" type="text" class="form-control" placeholder="Όνομα Μαθητή" aria-label="Όνομα Μαθητή" aria-describedby="basic-addon3" required value="@isset($dberror3){{$old_data['student_name3']}}@endisset"><br>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text w-25" id="basic-addon4">Πατρώνυμο</span>
+                        <input name="student_fname3" type="text" class="form-control" placeholder="Πατρώνυμο Μαθητή" aria-label="Πατρώνυμο Μαθητή" aria-describedby="basic-addon4" required value="@isset($dberror3){{$old_data['student_fname3']}}@endisset" ><br>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text w-25" id="basic-addon5">Τάξη</span>
+                        <input name="student_class3" type="text" class="form-control" placeholder="Τάξη" aria-label="Τάξη" aria-describedby="basic-addon5" required value="@isset($dberror3){{$old_data['student_class3']}}@endisset" ><br>
+                    </div>
+                    <div class="input-group">
+                        <span class="w-25"></span>
+                        <button type="submit" class="btn btn-primary m-2">Προσθήκη</button>
+                        <a href="/student" class="btn btn-outline-secondary m-2">Ακύρωση</a>
+                    
+                </form>
+            </nav>
+            </div></div>
         </div>
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='import') {{'show active'}} @endif @endisset" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
@@ -144,54 +192,6 @@
             @endif
             @isset($dberror2)
                 <div class="alert alert-danger" role="alert">{{$dberror2}}</div>
-            @endisset
-        </div>
-
-        <div class="tab-pane fade @isset($active_tab) @if($active_tab=='insert') {{'show active'}} @endif @endisset" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
-            <nav class="navbar navbar-light bg-light">
-                <form action="{{route('insert_student')}}" method="post" class="container-fluid">
-                    @csrf
-                    <input type="hidden" name="asks_to" value="insert">
-                    <div class="input-group">
-                        <span class="input-group-text w-25"></span>
-                        <span class="input-group-text w-75"><strong>Εισαγωγή νέου Μαθητή</strong></span>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-text w-25" id="basic-addon1">Αριθμός Μητρώου</span>
-                        <input name="student_am3" type="number" value="" class="form-control" placeholder="Αριθμός Μητρώου Μαθητή" aria-label="ΑΜ Μαθητή" aria-describedby="basic-addon1" required>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-text w-25" id="basic-addon2">Επώνυμο</span>
-                        <input name="student_surname3" type="text" class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon2" required value="@isset($dberror3){{$old_data['student_surname3']}}@endisset"><br>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-text w-25" id="basic-addon3">Όνομα</span>
-                        <input name="student_name3" type="text" class="form-control" placeholder="Όνομα Μαθητή" aria-label="Όνομα Μαθητή" aria-describedby="basic-addon3" required value="@isset($dberror3){{$old_data['student_name3']}}@endisset"><br>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-text w-25" id="basic-addon4">Πατρώνυμο</span>
-                        <input name="student_fname3" type="text" class="form-control" placeholder="Πατρώνυμο Μαθητή" aria-label="Πατρώνυμο Μαθητή" aria-describedby="basic-addon4" required value="@isset($dberror3){{$old_data['student_fname3']}}@endisset" ><br>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-text w-25" id="basic-addon5">Τάξη</span>
-                        <input name="student_class3" type="text" class="form-control" placeholder="Τάξη" aria-label="Τάξη" aria-describedby="basic-addon5" required value="@isset($dberror3){{$old_data['student_class3']}}@endisset" ><br>
-                    </div>
-                    <div class="input-group">
-                        <span class="w-25"></span>
-                        <button type="submit" class="btn btn-primary m-2">Προσθήκη</button>
-                        <a href="/student" class="btn btn-outline-secondary m-2">Ακύρωση</a>
-                    
-                </form>
-            </nav>
-            @isset($dberror3)
-                <div class="alert alert-danger" role="alert">{{$dberror3}}</div>
-            @else
-                @isset($record)
-                    <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div>
-                    <div class="m-2 col-sm-2 btn btn-warning text-wrap">
-                        <a href="/student_profile/{{$record->id}}" style="color:black; text-decoration:none;">{{$record->am}}, {{$record->surname}} {{$record->name}}, {{$record->class}}</a>
-                    </div>
-                @endisset
             @endisset
         </div>
     </div>
