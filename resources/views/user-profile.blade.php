@@ -14,14 +14,20 @@
                     <div class="col">email</div>
                     <div class="col">createdAt</div>
                     <div class="col">updatedAt</div>
+                    <div class="col"># Βιβλίων</div>
+                    <div class="col"># Μαθητών</div>
+                    <div class="col"># Δανεισμών</div>
                 </div>
-                <div class="row rounded-bottom bg-primary p-3 text-wrap" style="">
+                <div class="row rounded-bottom bg-primary p-1 text-wrap" style="">
                     <div class="col"><strong>{{$user->id}}</strong></div>
                     <div class="col"><strong>{{$user->display_name}}</strong></div>
                     <div class="col"><strong>{{$user->name}}</strong></div>
                     <div class="col">{{$user->email}}</div>
                     <div class="col">{{$user->created_at}}</div>
                     <div class="col">{{$user->updated_at}}</div>
+                    <div class="col">{{$user->books->count()}}</div>
+                    <div class="col"> <b>Ενεργοί</b> {{$user->students->where('class','<>','0')->count()}} από <b>Σύνολο</b> {{$user->students->count()}}</div>
+                    <div class="col">{{$user->loans->count()}}</div>
                     
                 </div>
             </div>
@@ -37,6 +43,7 @@
                     <td><button class="btn btn-warning bi bi-key-fill" type="submit" onclick="return confirm('Επιβεβαίωση επαναφοράς κωδικού')"> Reset Password </button></td>
                 </form>
             </div>
+            <div class="col">/all_books/{{$user->public_link}}</div>
         </div>
     </div>
 </x-layout>

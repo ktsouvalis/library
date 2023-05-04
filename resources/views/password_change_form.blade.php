@@ -8,7 +8,9 @@
     @endphp
     @push('copy_script')
         @auth
-            <div class="d-flex justify-content-center">Σύνδεσμος για κατάλογο βιβλίων</div>
+            <p class="text-muted text-center">
+                Αυτόν τον σύνδεσμο μπορείτε να τον διαμοιραστείτε για να δώσετε πρόσβαση στον κατάλογο των βιβλίων σας
+            </p>
             <div class="d-flex justify-content-center"><input type="text" style="width: 500px" id="public_link" value="http://81.186.76.106/all_books/{{$link}}"></div>
             <div class="d-flex justify-content-center"> <button value="copy" class="btn btn-primary bi bi-clipboard" onClick="copyToClipboard('public_link')"> Copy</button></div>  
             @endauth

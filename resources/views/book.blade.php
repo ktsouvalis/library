@@ -100,19 +100,19 @@
                         <span class="input-group-text w-75"><strong>Εισαγωγή νέου Βιβλίου</strong></span>
                     </div>
                     <div class="input-group">
-                        <span class="input-group-text w-25" id="basic-addon1">Κωδικός</span>
+                        <span class="input-group-text w-25" id="basic-addon1">Κωδικός*</span>
                         <input name="book_code3" type="number" value="" class="form-control" placeholder="Κωδικός Βιβλίου" aria-label="Κωδικός Βιβλίου" aria-describedby="basic-addon1" required>
                     </div>
                     <div class="input-group">
-                        <span class="input-group-text w-25" id="basic-addon2">Συγγραφέας</span>
+                        <span class="input-group-text w-25" id="basic-addon2">Συγγραφέας*</span>
                         <input name="book_writer3" type="text" class="form-control" placeholder="Συγγραφέας" aria-label="Συγγραφέας" aria-describedby="basic-addon2" required value="@isset($dberror3){{$old_data['book_writer3']}}@endisset"><br>
                     </div>
                     <div class="input-group">
-                        <span class="input-group-text w-25" id="basic-addon3">Τίτλος</span>
+                        <span class="input-group-text w-25" id="basic-addon3">Τίτλος*</span>
                         <input name="book_title3" type="text" class="form-control" placeholder="Τίτλος" aria-label="Τίτλος" aria-describedby="basic-addon3" required value="@isset($dberror3){{$old_data['book_title3']}}@endisset"><br>
                     </div>
                     <div class="input-group">
-                        <span class="input-group-text w-25" id="basic-addon4">Εκδόσεις</span>
+                        <span class="input-group-text w-25" id="basic-addon4">Εκδόσεις*</span>
                         <input name="book_publisher3" type="text" class="form-control" placeholder="Εκδόσεις" aria-label="Εκδόσεις" aria-describedby="basic-addon4" required value="@isset($dberror3){{$old_data['book_publisher3']}}@endisset"><br>
                     </div>
                     <div class="input-group">

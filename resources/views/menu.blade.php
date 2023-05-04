@@ -12,6 +12,11 @@
     <div class=" badge bg-danger text-wrap py-2 m-1" style="width: 12rem; opacity: 0.9;">
         <a href="/loans" style="color:white; text-decoration:none;" class="fa-solid fa-book-open-reader"> Ιστορικό</a>
     </div>
+    @if (Illuminate\Support\Facades\Auth::id()==2 or Illuminate\Support\Facades\Auth::id()==1)
+        <div class=" badge bg-primary text-wrap py-2 m-1" style="width: 12rem; opacity: 0.4;">
+            <a href="/user" style="color:white; text-decoration:none;" class="fa-solid fa-users"> Σχολεία</a>
+        </div>
+    @endif
     <div class=" badge bg-dark text-wrap py-2 m-1" style="width: 12rem; opacity: 0.5;">
         <a href="/logout" style="color:white; text-decoration:none;" class="fa-solid fa-arrow-right-from-bracket"> Αποσύνδεση</a>
     </div>

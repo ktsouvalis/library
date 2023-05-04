@@ -27,7 +27,7 @@ Route::view('/','index');
 
 // STUDENT ROUTES
 
-Route::view('/student', 'student');
+Route::view('/student', 'student')->middleware('myauth');
 
 Route::post('/insert_student', [StudentController::class,'insertStudent'])->name('insert_student')->middleware('myauth');
 
@@ -45,7 +45,7 @@ Route::post('/insert_students', [StudentController::class, 'insertStudents'])->n
 
 // LOANS ROUTES
 
-Route::view('/loans', 'loans');
+Route::view('/loans', 'loans')->middleware('myauth');
 
 Route::post('/return_loan/{loan}',[LoanController::class, 'returnBook'])->name('return_loan')->middleware('myauth');
 
@@ -62,7 +62,7 @@ Route::get('/dl_loans', [LoanController::class, 'loansDl'])->middleware('myauth'
 
 // BOOK ROUTES
 
-Route::view('/book', 'book');
+Route::view('/book', 'book')->middleware('myauth');
 
 Route::post('/insert_book', [BookController::class,'insertBook'])->name('insert_book')->middleware('myauth');
 
@@ -83,7 +83,7 @@ Route::post('/delete_book/{book}', [BookController::class, 'deleteBook'])->middl
 Route::get('/all_books/{link}', [BookController::class, 'showBooksInPublic']);
 
 // MISC ROUTES
-Route::view('/change_year', 'change_year')->middleware('myauth');
+Route::view('/change_year', 'change-year')->middleware('myauth');
 
 Route::get('/subm_change_year', [StudentController::class, 'changeYear'])->middleware('myauth');
 
