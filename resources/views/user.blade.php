@@ -61,7 +61,7 @@
                             <tr>  
                                 <td>{{$user->id}}</td>
                                 <td>{{$user->name}}</td>
-                                <td><div class="badge bg-primary text-wrap"><a href="/user_profile/{{$user->id}}" style="color:white; text-decoration:none;">{{$user->display_name}}</a></div></td>
+                                <td><div class="badge text-wrap"><a href="/user_profile/{{$user->id}}" style="color:black; text-decoration:none; background-color:DarkKhaki">{{$user->display_name}}</a></div></td>
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->created_at}}</td>
                                 <td>{{$user->updated_at}}</td>

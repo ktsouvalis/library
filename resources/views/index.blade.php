@@ -9,58 +9,72 @@
             @push('title')
                 <title>Αρχική</title>
             @endpush
+            <div class="col-md-4 py-2" style="max-width:15rem; opacity: 0.9">
+                <div class="card py-5 text-bg-success"  style="text-align:center;">
+                    <a class="" style="text-decoration:none;" href="/book">
+                    <div class="h5 card-title fa-solid fa-book text-white"></div>
+                    <div class="text-white">Βιβλία</div>
+                    </a> 
+                </div>
+            </div>
+
+            <div class="col-md-4 py-2" style="max-width:15rem; opacity: 0.9">
+                <div class="card py-5 text-bg-warning"  style="text-align:center;">
+                    <a class="" style="text-decoration:none;" href="/student">
+                    <div class="h5 card-title fa-solid fa-graduation-cap text-dark"></div>
+                    <div class="text-dark">Μαθητές</div>
+                    </a> 
+                </div>
+            </div>
+
+            <div class="col-md-4 py-2" style="max-width:15rem; opacity: 0.9">
+                <div class="card py-5 text-bg-danger"  style="text-align:center;">
+                    <a class="" style="text-decoration:none;" href="/loans">
+                    <div class="h5 card-title fa-solid fa-book-open-reader text-white"></div>
+                    <div class="text-white">Ιστορικό</div>
+                    </a> 
+                </div>
+            </div>
+
+            <div class="col-md-4 py-2" style="max-width:15rem;">
+                <div class="card py-5 text-bg-primary"  style="text-align:center;  ">
+                    <a class="" style="text-decoration:none;" href="/stats">
+                    <div class="h5 card-title fa-solid fa-chart-simple text-white"></div>
+                    <div class="text-white">Στατιστικά</div>
+                    </a> 
+                </div>
+            </div>
+
+            <div class="col-md-4 py-2" style="max-width:15rem;">
+                <div class="card py-5 text-bg-dark"  style="text-align:center; opacity: 0.9">
+                    <a class="" style="text-decoration:none;" href="/change_year">
+                    <div class="h5 card-title fa-solid fa-arrow-right-arrow-left text-white"></div>
+                    <div class="text-white">Μεταφορά μαθητών</div>
+                    </a> 
+                </div>
+            </div>
             
-            <a class="col-lg-3 card w-3 text-bg-success mb-3" data-toggle="tooltip" title="Αναζήτηση, Δανεισμός, Επιστροφή, Επεξεργασία" style="max-width: 20rem; opacity: 0.9; text-decoration:none;" href="/book">
-                <div class="card-body" style="text-align: center; padding: 5rem">
-                <div class=" h5 card-title fa-solid fa-book"></div>
-                <div>Βιβλία</div>
-                <p class="card-text"></p>
-                </div> 
-            </a>
-            <a class="col-lg-3 card w-3 text-bg-warning mb-3" data-toggle="tooltip" title="Αναζήτηση, Δανεισμός, Επιστροφή, Επεξεργασία" style="max-width: 20rem; opacity: 0.9; text-decoration:none;" href="/student">
-                <div class="card-body" style="text-align: center; padding: 5rem">
-                <div class=" h5 fa-solid fa-graduation-cap card-title"></div>
-                <div>Μαθητές</div>
-                <p class="card-text"></p>
-                </div> 
-            </a>
-            <a class="col-lg-3 card w-3 text-bg-danger mb-3" style="max-width: 20rem; opacity: 0.9; text-decoration:none;" href="/loans">
-                <div class="card-body" style="text-align: center; padding: 5rem">
-                <div class="h5 fa-solid fa-book-open-reader card-title"></div>
-                <div>Ιστορικό</div>
-                <p class="card-text"></p>
-                </div> 
-            </a>
-            <a class="col-lg-3 card w-3 text-bg-primary mb-3" style="max-width: 20rem; text-decoration:none;" href="/stats">
-                <div class="card-body" style="text-align: center; padding: 5rem">
-                <div class=" h5 fa-solid fa-chart-simple card-title"></div>
-                <div>Στατιστικά</div>
-                <p class="card-text"></p>
-                </div> 
-            </a>
-            <a class="col-lg-3 card w-3 text-bg-dark mb-3" style="max-width: 20rem; opacity: 0.9; text-decoration:none;" href="/change_year">
-                <div class="card-body" style="text-align: center; padding: 5rem">
-                <div class=" h5 fa-solid fa-arrow-right-arrow-left card-title"></div>
-                <div>Μεταφορά Μαθητών</div>
-                <p class="card-text"></p>
-                </div> 
-            </a>
             @if (Illuminate\Support\Facades\Auth::id()==2 or Illuminate\Support\Facades\Auth::id()==1)
-                <a class="col-lg-3 card w-3 text-bg-primary mb-3" style="max-width: 20rem; opacity: 0.4; text-decoration:none;" href="/user">
-                <div class="card-body" style="text-align: center; padding: 5rem">
-                <div class="h5 card-title fa-solid fa-users"></div>
-                <div>Σχολεία</div>
-                <p class="card-text"></p>
-                </div> 
-                </a>
+
+                <div class="col-md-4 py-2" style="max-width:15rem;">
+                    <div class="card py-5 "  style="text-align:center; background-color:DarkKhaki">
+                        <a class="" style="text-decoration:none;" href="/user">
+                        <div class="h5 card-title fa-solid fa-users text-dark"></div>
+                        <div class="text-dark">Σχολεία</div>
+                        </a> 
+                    </div>
+                </div>
+
             @endif
-            <a class="col-lg-3 card w-3 text-bg-dark mb-3" style="max-width: 20rem; opacity: 0.5; text-decoration:none;" href="/logout">
-                <div class="card-body" style="text-align: center; padding: 5rem">
-                <div class="h5 card-title fa-solid fa-arrow-right-from-bracket"></div>
-                <div>Αποσύνδεση</div>
-                <p class="card-text"></p>
-                </div> 
-            </a>
+
+            <div class="col-md-4 py-2" style="max-width:15rem;">
+                <div class="card py-5 text-bg-dark"  style="text-align:center; opacity: 0.5; ">
+                    <a class="" style="text-decoration:none;" href="/logout">
+                    <div class="h5 card-title fa-solid fa-arrow-right-from-bracket text-white"></div>
+                    <div class="text-white">Αποσύνδεση</div>
+                    </a> 
+                </div>
+            </div>
         
         @else
         @push('title')

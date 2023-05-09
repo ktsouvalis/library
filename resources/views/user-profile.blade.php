@@ -7,7 +7,7 @@
         <body>
         <div class="p-3 row">
             <div class="container-md">
-                <div class="row rounded-top bg-primary bg-gradient text-wrap">
+                <div class="row rounded-top bg-gradient text-wrap" style="background-color:DarkKhaki">
                     <div class="col">ID</div>
                     <div class="col">DisplayName</div>
                     <div class="col">UserName</div>
@@ -18,7 +18,7 @@
                     <div class="col"># Μαθητών</div>
                     <div class="col"># Δανεισμών</div>
                 </div>
-                <div class="row rounded-bottom bg-primary p-1 text-wrap" style="">
+                <div class="row rounded-bottom  p-1 text-wrap" style="background-color:DarkKhaki">
                     <div class="col"><strong>{{$user->id}}</strong></div>
                     <div class="col"><strong>{{$user->display_name}}</strong></div>
                     <div class="col"><strong>{{$user->name}}</strong></div>

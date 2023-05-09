@@ -13,8 +13,8 @@
         <a href="/loans" style="color:white; text-decoration:none;" class="fa-solid fa-book-open-reader"> Ιστορικό</a>
     </div>
     @if (Illuminate\Support\Facades\Auth::id()==2 or Illuminate\Support\Facades\Auth::id()==1)
-        <div class=" badge bg-primary text-wrap py-2 m-1" style="width: 12rem; opacity: 0.4;">
-            <a href="/user" style="color:white; text-decoration:none;" class="fa-solid fa-users"> Σχολεία</a>
+        <div class=" badge text-wrap py-2 m-1" style="width: 12rem; background-color:DarkKhaki">
+            <a href="/user" style="color:black; text-decoration:none;" class="fa-solid fa-users"> Σχολεία</a>
         </div>
     @endif
     <div class=" badge bg-dark text-wrap py-2 m-1" style="width: 12rem; opacity: 0.5;">
