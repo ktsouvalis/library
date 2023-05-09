@@ -129,7 +129,7 @@
                 Στην ενότητα <strong class="text-primary">Κριτήρια Επιλογής Δεδομένων</strong> θα επιλέξετε <strong> τις τάξεις και τα τμήματα ΓΕΝΙΚΗΣ ΠΑΙΔΕΙΑΣ που επιθυμείτε</strong>. <br>
                 Θα πατήσετε <strong class="text-primary">Προεπισκόπηση</strong> και στη σελίδα που ανοίγει, θα επιλέξετε <strong class="text-success"> Xlsx </strong> αντί για Pdf που είναι η προεπιλογή
                 και έπειτα το κουμπί <strong class="text-primary">Αποθήκευση</strong>.<br><br>
-                Το αρχείο που θα κατέβει, το ανεβάζετε χωρίς καμία επεξεργασία στην εφαρμογή.<br><br></div>
+                Το αρχείο που θα κατέβει, το ανεβάζετε στην εφαρμογή χωρίς καμία άλλη επεξεργασία.<br><br></div>
 
                 <form action="{{route('student_template_upload')}}" method="post" class="container-fluid" enctype="multipart/form-data">
                     @csrf
