@@ -178,28 +178,27 @@ class BookController extends Controller
             ];
             $validator = Validator::make($check, $rule);
             if($validator->fails()){ 
-                $error=1;
-                $check['no_of_pages']="Πρέπει να είναι αριθμός";
+                $check['no_of_pages']=0;
                 
             }
-            $rule = [
-                'publish_year' => 'numeric'
-            ];
-            $validator = Validator::make($check, $rule);
-            if($validator->fails()){ 
-                $error=1;
-                $check['publish_year']="Πρέπει να είναι αριθμός";
+            // $rule = [
+            //     'publish_year' => 'numeric'
+            // ];
+            // $validator = Validator::make($check, $rule);
+            // if($validator->fails()){ 
+            //     $error=1;
+            //     $check['publish_year']="Πρέπει να είναι αριθμός";
                 
-            }
-            $rule = [
-                'acquired_year' => 'numeric'
-            ];
-            $validator = Validator::make($check, $rule);
-            if($validator->fails()){ 
-                $error=1;
-                $check['acquired_year']="Πρέπει να είναι αριθμός";
+            // }
+            // $rule = [
+            //     'acquired_year' => 'numeric'
+            // ];
+            // $validator = Validator::make($check, $rule);
+            // if($validator->fails()){ 
+            //     $error=1;
+            //     $check['acquired_year']="Πρέπει να είναι αριθμός";
                 
-            }
+            // }
             array_push($books_array, $check);
             $row++;
             $rowSumValue="";
