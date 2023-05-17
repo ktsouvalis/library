@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Throwable;
 use App\Models\Book;
 use App\Models\Loan;
 use App\Models\User;
@@ -29,7 +30,7 @@ class LoanController extends Controller
 
     public function addLoanStudent(Student $student){
         if($student->user_id == Auth::id() and $student->class <> '0'){
-            return view('add-loan-student', ['student' => $student, 'books' => Book::where('user_id', Auth::id())->get()]);
+            return view('add-loan-student', ['student' => $student, 'books' => Auth::user()->books]);
         }
         else{
             return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');  
@@ -38,36 +39,33 @@ class LoanController extends Controller
 
     public function addLoanBook(Book $book){
         if($book->user_id == Auth::id()){
-            return view('add-loan-book', ['book' => $book, 'students' => Student::where('user_id', Auth::id())->where('class','<>','0')->get()]);
+            return view('add-loan-book', ['book' => $book, 'students' => Auth::user()->students->where('class','<>','0')]);
         }
         else{
             return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
         }
     }
     public function lendBookFromStudent(Student $student, Request $request){
-        if(isset($request['book_id'])){
-            $book = Book::find($request['book_id']);
-            
-            try{
-                Loan::create([
-                'user_id' => Auth::id(),
-                'book_id' => $book->id,
-                'student_id' => $student->id,
-                'date_out' => date('y/m/d'),
-            ]);
-            }
-            catch(QueryException $e){
-                return redirect("/student_profile/$student->id")->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
-            }
-
-            $book->available = 0;
-            $book->save();
-
-            return redirect("/student_profile/$student->id")->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
+        
+        $book = Book::find($request['book_id']);
+        
+        try{
+            Loan::create([
+            'user_i' => Auth::id(),
+            'book_id' => $book->id,
+            'student_id' => $student->id,
+            'date_out' => date('y/m/d'),
+        ]);
         }
-        else{
-            return view('add-loan-student',['dberror'=>"Δεν επιλέξατε κάποιο βιβλίο", 'student' => $student]);
+        catch(Throwable $e){
+            return redirect("/student_profile/$student->id")->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
         }
+
+        $book->available = 0;
+        $book->save();
+
+        return redirect("/student_profile/$student->id")->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
+        
     }
 
     public function lendBookFromBook(Book $book, Request $request){
@@ -79,9 +77,9 @@ class LoanController extends Controller
                 'book_id' => $book->id,
                 'student_id' => $incomingFields['student_id'],
                 'date_out' => date('y/m/d')
-        ]);
+            ]);
         }
-        catch(QueryException $e){
+        catch(Throwable $e){
             return redirect("/book_profile/$book->id")->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
         }
 
@@ -93,7 +91,7 @@ class LoanController extends Controller
 
     public function loansDl(){
         
-        $loans = Loan::where('user_id', Auth::id())->get();
+        $loans = Auth::user()->loans;
         $spreadsheet = new Spreadsheet();
         $activeWorksheet = $spreadsheet->getActiveSheet();
         
@@ -132,8 +130,7 @@ class LoanController extends Controller
 
     public function stats(){
     
-        $top5books = Loan::where('user_id', Auth::id())
-            ->get()
+        $top5books = Auth::user()->loans
             ->groupBy('book_id')
             ->map(function($row){
                     return $row->count();
@@ -143,8 +140,7 @@ class LoanController extends Controller
             })
             ->take(5);
 
-        $top5students = Loan::where('user_id', Auth::id())
-            ->get()
+        $top5students = Auth::user()->loans
             ->groupBy('student_id')
             ->map(function($row){
                     return $row->count();

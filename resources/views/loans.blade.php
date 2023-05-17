@@ -25,7 +25,7 @@
         <a href="/dl_loans" class="btn btn-danger bi bi-download"> Λήψη αρχείου δανεισμών </a>
     </div>
     <div class="table-responsive">
-        <table id="dataTable" class="display table table-sm table-striped table-hover">
+        <table id="dataTable" class="display table table-sm table-striped table-bordered table-hover">
             <thead>
             <tr>
                 <th id="search">Κωδικός Βιβλίου</th>

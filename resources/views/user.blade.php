@@ -44,7 +44,7 @@
                     $all_users = App\Models\User::all();
                 @endphp
                 <div class="table-responsive">
-                <table  id="dataTable" class="display table table-sm table-striped table-hover">
+                <table  id="dataTable" class="display table table-sm table-striped table-bordered table-hover">
                 <thead>
                     <tr>
                         <th id="search">Αναγνωριστικό</th>

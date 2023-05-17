@@ -2,7 +2,6 @@
 
 <x-layout>
     <body class="bg-light"></body>
-    <br><br><br><br><br><br>
     <div class="container">
         <div class="row p-2 justify-content-evenly">
         @auth

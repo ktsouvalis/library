@@ -17,7 +17,7 @@
     @endpush
 
     @php
-        $all_students = App\Models\Student::where('user_id', Illuminate\Support\Facades\Auth::id())->where('class','<>','0')->get();
+        $all_students =  Illuminate\Support\Facades\Auth::user()->students->where('class','<>','0');
     @endphp
 <body>
     <div class="container">
@@ -42,7 +42,7 @@
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='search') {{'show active'}}  @endif @else {{'show active'}} @endisset" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
             <!-- 1st tab's content-->
             <div class="table-responsive">
-                <table  id="dataTable" class="display table table-sm table-striped table-hover">
+                <table  id="dataTable" class="display table table-sm table-striped table-bordered table-hover">
                 <thead>
                     <tr>
                         <th id="search">Αριθμός Μητρώου</th>

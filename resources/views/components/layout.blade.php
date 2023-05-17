@@ -25,7 +25,7 @@
   @auth
   
   @php
-    $user = App\Models\User::find(Auth::id());
+    $user = Illuminate\Support\Facades\Auth::user();
     $link = $user->public_link;
   @endphp     
    
@@ -38,8 +38,7 @@
     </div>
   </div>
   @endauth
-  {{$slot}}
-        @if (session()->has('success'))
+  @if (session()->has('success'))
         <div class='container container--narrow'>
           <div class='alert alert-success text-center'>
             {{session('success')}}
@@ -53,7 +52,17 @@
             {{session('failure')}}
         </div>
         </div>
+        @endif
+        
+         @if(session()->has('warning'))
+        <div class='container container--narrow'>
+        <div class='alert alert-warning text-center'>
+            {{session('warning')}}
+        </div>
+        </div>
         @endif    
+  {{$slot}}
+        
         
 
        <!-- footer begins -->

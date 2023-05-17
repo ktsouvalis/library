@@ -31,8 +31,8 @@ class UserController extends Controller
     }
 
     public function logout(Request $request){
-        // $request->session()->flush(); OR
-        auth()->logout();
+        $request->session()->flush();
+        // auth()->logout();
         return redirect('/')->with('success','Αποσυνδεθήκατε...');
     }
 

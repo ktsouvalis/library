@@ -57,14 +57,11 @@
                 </div>
                 <div class="input-group">
                     <span class="w-25"></span>
-                    <button type="submit" class="btn btn-primary m-2">Αποθήκευση</button>
-                    <a href="/book_profile/{{$book->id}}" class="btn btn-outline-secondary m-2">Ακύρωση αλλαγών</a>
+                    <button type="submit" class="btn btn-primary m-2 bi bi-save2"> Αποθήκευση</button>
+                    <a href="/book_profile/{{$book->id}}" class="btn btn-outline-secondary m-2 bi bi-x-circle"> Ακύρωση</a>
                 </div>
                 
             </form>
         </nav>
-        @isset($dberror)
-            <div class="alert alert-danger" role="alert">{{$dberror}}</div>
-        @endisset
     </div>
 </x-layout>

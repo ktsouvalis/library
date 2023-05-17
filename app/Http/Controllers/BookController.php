@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Throwable;
 use App\Models\Book;
 use App\Models\Loan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
@@ -18,7 +18,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class BookController extends Controller
 {   
     public function editBook(Book $book){
-        if($book->user_id == Auth::id()){
+        if($book->user == Auth::user()){
             return view('edit-book',['book' => $book]);
         }
         else{
@@ -30,11 +30,14 @@ class BookController extends Controller
       
         $incomingFields = $request->all();
         $given_code = $incomingFields['book_code3'];
-          
+        $book = Auth::user()->books->where('code',$given_code);
+
         //VALIDATION
-        if(Book::where('user_id',Auth::id())->where('code',$given_code)->count()){
-            $existing_book = Book::where('user_id',Auth::id())->where('code',$given_code)->first();
-            return view('book',['dberror3'=>"Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, Εκδόσεις $existing_book->publisher", 'old_data'=>$request]);
+        if($book->count()){
+            $existing_book = $book->first();
+            return redirect('/book')
+                ->with('failure', "Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, Εκδόσεις $existing_book->publisher")
+                ->with('old_data', $incomingFields);
         }
         //VALIDATION PASSED
         
@@ -55,11 +58,15 @@ class BookController extends Controller
                 'available' => 1
             ]);
         } 
-        catch(QueryException $e){
-            return view('book',['dberror3'=>"Κάποιο πρόβλημα προέκυψε κατά την εκτέλεση της εντολής, προσπαθήστε ξανά.", 'old_data'=>$request]);
+        catch(Throwable $e){
+            return redirect('/book')
+                ->with('failure', "Κάποιο πρόβλημα προέκυψε κατά την εκτέλεση της εντολής, προσπαθήστε ξανά.")
+                ->with('old_data', $incomingFields);
         }
 
-        return view('book',['record'=>$record]);
+        return redirect('/book')
+            ->with('success', 'Επιτυχής Καταχώρηση!')
+            ->with('record',$record);
     }
 
     public function save_profile(Book $book, Request $request){
@@ -82,18 +89,19 @@ class BookController extends Controller
         if($book->isDirty()){
             if($book->isDirty('code')){
                 $given_code = $incomingFields['book_code'];
-                if(Book::where('user_id', Auth::id())->where('code',$given_code)->count()){
-                        $existing_book = Book::where('user_id', Auth::id())->where('code',$given_code)->first();
-                        return view('edit-book',['dberror'=>"Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, Εκδόσεις $existing_book->publisher", 'book' => $book]);
+                $existing_books = Auth::user()->books->where('code',$given_code);
+                if($existing_books->count()){
+                        $existing_book = $existing_books->first();
+                        return redirect("/edit_book/$book->id")->with('failure', "Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, Εκδόσεις $existing_book->publisher");
                 }
             }
             $book->save();
         }
         else{
-            return view('edit-book',['dberror'=>"Δεν υπάρχουν αλλαγές προς αποθήκευση", 'book' => $book]);
+            return redirect("/edit_book/$book->id")->with('warning',"Δεν υπάρχουν αλλαγές προς αποθήκευση");
         }
 
-        return redirect("/book_profile/$book->id")->with('success','Επιτυχής αποθήκευση');
+        return redirect("/edit_book/$book->id")->with('success','Επιτυχής αποθήκευση');
     }
 
     public function show_profile(Book $book){
@@ -181,24 +189,6 @@ class BookController extends Controller
                 $check['no_of_pages']=0;
                 
             }
-            // $rule = [
-            //     'publish_year' => 'numeric'
-            // ];
-            // $validator = Validator::make($check, $rule);
-            // if($validator->fails()){ 
-            //     $error=1;
-            //     $check['publish_year']="Πρέπει να είναι αριθμός";
-                
-            // }
-            // $rule = [
-            //     'acquired_year' => 'numeric'
-            // ];
-            // $validator = Validator::make($check, $rule);
-            // if($validator->fails()){ 
-            //     $error=1;
-            //     $check['acquired_year']="Πρέπει να είναι αριθμός";
-                
-            // }
             array_push($books_array, $check);
             $row++;
             $rowSumValue="";
@@ -206,20 +196,21 @@ class BookController extends Controller
                 $rowSumValue .= $spreadsheet->getActiveSheet()->getCellByColumnAndRow($col, $row)->getValue();   
             }
         }
-        
+        session(['books_array' => $books_array]);
+        session(['active_tab' =>'import']);
         if($error){
-            return view('book',['books_array'=>$books_array,'active_tab'=>'import', 'asks_to'=>'error']);
+            return redirect('/book')
+                ->with('asks_to','error');
         }else{
-            session(['boooks' => $books_array]);
-            return view('book',['books_array'=>$books_array,'active_tab'=>'import', 'asks_to'=>'save']);
+            return redirect('/book')
+                ->with('asks_to','save');
         }
        
     }
 
     public function insertBooks(){
-        $books_array = session('boooks');
         $imported=0;
-        foreach($books_array as $one_book){
+        foreach(session('books_array') as $one_book){
             $book = new Book();
             $book->user_id = Auth::id();
             $book->code = $one_book['code'];
@@ -238,11 +229,15 @@ class BookController extends Controller
                 $imported++;
                 $book->save();
             } 
-            catch(QueryException $e){
-                return view('book',['dberror2'=>"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.", 'active_tab'=>'import']);
+            catch(Throwable $e){
+                
+                return redirect('/book')
+                    ->with('failure',"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά." )
+                    ->with('active_tab', 'import');
             }
         }
-        session()->forget('boooks');
+        session()->forget('books_array');
+        session()->forget('active_tab');
         return redirect('/book')->with('success', "Η εισαγωγή $imported βιβλίων ολοκληρώθηκε");
     }
 
