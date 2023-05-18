@@ -68,7 +68,7 @@
                                 <form action="/reset_password" method="post">
                                 @csrf
                                     <input type="hidden" name="user_id" value={{$user->id}}>
-                                    <td><button class="bi bi-key-fill bg-warning" type="submit" onclick="return confirm('Επιβεβαίωση επαναφοράς κωδικού')" > </button></td>
+                                    <td><button class="bi bi-key-fill btn btn-warning" type="submit" onclick="return confirm('Επιβεβαίωση επαναφοράς κωδικού')" > </button></td>
                                 </form>
                             </tr>
                         @endforeach

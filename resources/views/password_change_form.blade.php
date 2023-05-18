@@ -32,7 +32,7 @@
         </div>
         <div class="form-group">
             <label for="pass2">Επιβεβαίωση Κωδικού</label>
-            <input type="password" class="form-control"  name="pass1_confirmation" required>
+            <input type="password" class="form-control"  name="pass2" required>
             <small class="form-text text-muted">Ο νέος σας κωδικός πρέπει να αποτελείται από τουλάχιστον 6 χαρακτήρες</small>  
         </div>
   <button type="submit" class="bi bi-key-fill btn btn-primary"> Αλλαγή Κωδικού</button>

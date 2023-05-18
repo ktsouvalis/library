@@ -60,7 +60,7 @@
                                 <td>{{$student->class}}</td>
                                 <form action="{{route('search_loan_s',[$student->id])}}" method="get">
                                     @csrf
-                                    <td><button class="bi bi-search bg-primary" type="submit" data-toggle="tooltip" title = "Αναζήτηση βιβλίου για δανεισμό" style="color: white"> Δανεισμός </button></td>
+                                    <td><button class="btn btn-primary bi bi-search" type="submit" data-toggle="tooltip" title = "Αναζήτηση βιβλίου για δανεισμό" style="color: white"> Δανεισμός </button></td>
                                 </form>
                             </tr>
                         @endforeach
@@ -106,9 +106,11 @@
                     </div>
                     <div class="input-group">
                         <span class="w-25"></span>
-                        <button type="submit" class="btn btn-primary m-2 bi bi-plus-circle"> Προσθήκη</button>
-                        <a href="/student" class="btn btn-outline-secondary m-2 bi bi-x-circle"> Ακύρωση</a>
-                    
+                        <div class="hstack">
+                            <button type="submit" class="btn btn-primary m-2 bi bi-plus-circle"> Προσθήκη</button>
+                            <a href="/student" class="btn btn-outline-secondary m-2 bi bi-x-circle"> Ακύρωση</a>
+                        </div>
+                    </div>  
                 </form>
             </nav>
             </div></div>

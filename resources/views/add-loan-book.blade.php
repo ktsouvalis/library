@@ -18,6 +18,7 @@
     <div class="container py-3">
     @include('menu')
         <div class="col-sm-2 btn btn-success text-wrap">
+                <div class="fa-solid fa-book"> </div>
                 {{$book->code}}, {{$book->title}}, <i>{{$book->writer}}</i>, {{$book->publisher}}
         </div>
 
@@ -48,7 +49,7 @@
                 <form action="{{route('loans_save_book', [$book->id])}}" method="post" class="container-fluid">
                 @csrf
                     <input type="hidden" name="student_id"  value="{{$student->id}}">
-                    <td><button type="submit" class="bi bi-journal-arrow-up bg-primary" style="color:white" data-toggle="tooltip" data-placement="top" title="Καταχώρηση δανεισμού" > Δανεισμός  </button></td>
+                    <td><button type="submit" class="bi bi-journal-arrow-up btn btn-primary" style="color:white" data-toggle="tooltip" data-placement="top" title="Καταχώρηση δανεισμού" > Δανεισμός  </button></td>
                 </form>
                 </tr>
             @endforeach

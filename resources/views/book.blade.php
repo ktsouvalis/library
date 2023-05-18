@@ -62,7 +62,7 @@
                             @if($book->available)
                                 <form action="{{route('search_loan_b',[$book->id])}}" method="get">
                                     @csrf
-                                    <td><button class="bi bi-search bg-primary" type="submit" data-toggle="tooltip" title = "Αναζήτηση μαθητή για δανεισμό" style="color: white"> Δανεισμός </button></td>
+                                    <td><button class="bi bi-search btn btn-primary" type="submit" data-toggle="tooltip" title = "Αναζήτηση μαθητή για δανεισμό" style="color: white"> Δανεισμός </button></td>
                                 </form>
                             @else
                                 <form action="/return_loan/{{$book->loans->whereNull('date_in')->first()->id}}" method="post">
@@ -70,7 +70,7 @@
                                     @php
                                         $data = $book->loans->whereNull('date_in')->first()->student  
                                     @endphp
-                                    <td><button class="bi bi-journal-arrow-down bg-secondary" type="submit" data-toggle="tooltip" title = "{{$data->surname}} {{$data->name}} {{$data->class}}" style="color: white"> Επιστροφή </button></td>
+                                    <td><button class="bi bi-journal-arrow-down btn btn-secondary" type="submit" data-toggle="tooltip" title = "{{$data->surname}} {{$data->name}} {{$data->class}}" style="color: white"> Επιστροφή </button></td>
                                 </form>
                             @endif
                         </tr>
@@ -141,8 +141,10 @@
                     </div>
                     <div class="input-group">
                         <span class="w-25"></span>
+                        <div class="hstack">
                         <button type="submit" class="btn btn-primary m-2 bi bi-plus-circle"> Προσθήκη</button>
                         <a href="/book" class="btn btn-outline-secondary m-2 bi bi-x-circle"> Ακύρωση</a>
+                        </div>
                     </div>
                 </form>
             </nav>

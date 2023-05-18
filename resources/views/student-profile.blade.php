@@ -57,7 +57,7 @@
                 @if($loan->date_in==null)
                 <form action="/return_loan/{{$loan->id}}" method="post">
                     @csrf
-                    <td><button class="bi bi-journal-arrow-down bg-secondary" style="color:white" type="submit" data-toggle="tooltip" data-placement="top" title="Επιστροφή"> Επιστροφή  </button></td>
+                    <td><button class="bi bi-journal-arrow-down btn btn-secondary" style="color:white" type="submit" data-toggle="tooltip" data-placement="top" title="Επιστροφή"> Επιστροφή  </button></td>
                 </form>
                 @else
                     <td>{{$loan->date_in}}</td>
