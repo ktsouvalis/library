@@ -33,9 +33,6 @@
         <li class="nav-item" role="presentation">
           <button class="nav-link @isset($active_tab) @if($active_tab=='import') {{'active'}} @endif @endisset" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="tab2" aria-selected="false">Μαζική Εισαγωγή Μαθητών</button>
         </li>
-        {{-- <li class="nav-item" role="presentation">
-          <button class="nav-link @isset($active_tab) @if($active_tab=='insert') {{'active'}} @endif @endisset" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" aria-controls="tab3" aria-selected="false">Εισαγωγή Μαθητή</button>
-        </li> --}}
     </ul>
 <!--tab content-->
     <div class="tab-content" id="myTabContent">
@@ -70,16 +67,13 @@
                     </tbody>
                 </table>
             </div>
-            @isset($dberror3)
-                <div class="alert alert-danger" role="alert">{{$dberror3}}</div>
-            @else
-                @isset($record)
-                    <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div>
-                    <div class="m-2 col-sm-2 btn btn-warning text-wrap">
-                        <a href="/student_profile/{{$record->id}}" style="color:black; text-decoration:none;">{{$record->am}}, {{$record->surname}} {{$record->name}}, {{$record->class}}</a>
-                    </div>
-                @endisset
-            @endisset
+            
+            @if(session()->has('record'))
+                <div class="m-2 col-sm-2 btn btn-warning text-wrap">
+                    <a href="/student_profile/{{session('record')->id}}" style="color:black; text-decoration:none;">{{session('record')->am}}, {{session('record')->surname}} {{session('record')->name}}, {{session('record')->class}}</a>
+                </div>
+            @endif
+
             <div class="container py-5">
             <div class="container px-5">
             <nav class="navbar navbar-light bg-light">
@@ -96,24 +90,24 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon2">Επώνυμο*</span>
-                        <input name="student_surname3" type="text" class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon2" required value="@isset($dberror3){{$old_data['student_surname3']}}@endisset"><br>
+                        <input name="student_surname3" type="text" class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon2" required value="@if(session()->has('old_data')){{session('old_data')['student_surname3']}}@endif"><br>
                     </div>
                     <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon3">Όνομα*</span>
-                        <input name="student_name3" type="text" class="form-control" placeholder="Όνομα Μαθητή" aria-label="Όνομα Μαθητή" aria-describedby="basic-addon3" required value="@isset($dberror3){{$old_data['student_name3']}}@endisset"><br>
+                        <input name="student_name3" type="text" class="form-control" placeholder="Όνομα Μαθητή" aria-label="Όνομα Μαθητή" aria-describedby="basic-addon3" required value="@if(session()->has('old_data')){{session('old_data')['student_name3']}}@endif"><br>
                     </div>
                     <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon4">Πατρώνυμο*</span>
-                        <input name="student_fname3" type="text" class="form-control" placeholder="Πατρώνυμο Μαθητή" aria-label="Πατρώνυμο Μαθητή" aria-describedby="basic-addon4" required value="@isset($dberror3){{$old_data['student_fname3']}}@endisset" ><br>
+                        <input name="student_fname3" type="text" class="form-control" placeholder="Πατρώνυμο Μαθητή" aria-label="Πατρώνυμο Μαθητή" aria-describedby="basic-addon4" required value="@if(session()->has('old_data')){{session('old_data')['student_fname3']}}@endif" ><br>
                     </div>
                     <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon5">Τάξη*</span>
-                        <input name="student_class3" type="text" class="form-control" placeholder="Τάξη" aria-label="Τάξη" aria-describedby="basic-addon5" required value="@isset($dberror3){{$old_data['student_class3']}}@endisset" ><br>
+                        <input name="student_class3" type="text" class="form-control" placeholder="Τάξη" aria-label="Τάξη" aria-describedby="basic-addon5" required value="@if(session()->has('old_data')){{session('old_data')['student_class3']}}@endif" ><br>
                     </div>
                     <div class="input-group">
                         <span class="w-25"></span>
-                        <button type="submit" class="btn btn-primary m-2">Προσθήκη</button>
-                        <a href="/student" class="btn btn-outline-secondary m-2">Ακύρωση</a>
+                        <button type="submit" class="btn btn-primary m-2 bi bi-plus-circle"> Προσθήκη</button>
+                        <a href="/student" class="btn btn-outline-secondary m-2 bi bi-x-circle"> Ακύρωση</a>
                     
                 </form>
             </nav>

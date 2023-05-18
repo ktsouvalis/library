@@ -34,8 +34,8 @@
                     </div>
                     <div class="input-group">
                         <span class="w-25"></span>
-                        <button type="submit" class="btn btn-primary m-2">Αποθήκευση</button>
-                        <a href="/student_profile/{{$student->id}}" class="btn btn-outline-secondary m-2">Ακύρωση</a>
+                        <button type="submit" class="btn btn-primary m-2 bi bi-save2"> Αποθήκευση</button>
+                        <a href="/student_profile/{{$student->id}}" class="btn btn-outline-secondary m-2 bi bi-x-circle"> Ακύρωση</a>
                 </form>
             </nav>
             @isset($dberror)

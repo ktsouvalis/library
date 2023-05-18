@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Throwable;
 use App\Models\Loan;
 use App\Models\User;
 use App\Models\Student;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\Validator;
@@ -31,9 +30,12 @@ class StudentController extends Controller
         $incomingFields = $request->all();
         $given_am = $incomingFields['student_am3'];
 
-        if(Student::where('user_id', Auth::id())->where('am', $given_am)->count()){
-            $existing_student = Student::where('user_id', Auth::id())->where('am',$given_am)->first();
-            return view('student',['dberror3'=>"Υπάρχει ήδη μαθητής με αριθμό μητρώου $given_am: $existing_student->surname $existing_student->name, $existing_student->class", 'old_data'=>$request]);
+        if(Auth::user()->students->where('am', $given_am)->count()){
+            $existing_student = Auth::user()->students->where('am',$given_am)->first();
+
+            return redirect('/student')
+                ->with('failure', "Υπάρχει ήδη μαθητής με αριθμό μητρώου $given_am: $existing_student->surname $existing_student->name, $existing_student->class")
+                ->with('old_data', $incomingFields);
         }
         //VALIDATION PASSED
         try{
@@ -46,11 +48,15 @@ class StudentController extends Controller
                 'class' => $incomingFields['student_class3']
             ]);
         } 
-        catch(QueryException $e){
-            return view('student',['dberror3'=>"Κάποιο πρόβλημα προέκυψε κατά την εκτέλεση της εντολής, προσπαθήστε ξανά.", 'old_data'=>$request]);
+        catch(Throwable $e){
+            return redirect('/student')
+                ->with('failure', "Κάποιο πρόβλημα προέκυψε κατά την εκτέλεση της εντολής, προσπαθήστε ξανά.")
+                ->with('old_data', $incomingFields);
         }
 
-        return view('student',['record'=>$record]);
+        return redirect('/student')
+                ->with('success', "Επιτυχής καταχώρηση")
+                ->with('record', $record);
     }
 
     public function save_profile(Student $student, Request $request){
@@ -67,17 +73,17 @@ class StudentController extends Controller
             if($student->isDirty('am')){
                 $given_am = $incomingFields['student_am'];
 
-                if(Student::where('user_id', Auth::id())->where('am', $given_am)->count()){
-                    $existing_student = Student::where('user_id', Auth::id())->where('am','=',$given_am)->first();
-                    return view('edit-student',['dberror'=>"Υπάρχει ήδη μαθητής με αριθμό μητρώου $given_am: $existing_student->surname $existing_student->name, $existing_student->class", 'student' => $student]);
-
+                if(Auth::user()->students->where('am', $given_am)->count()){
+                    $existing_student = Auth::user()->students->where('am','=',$given_am)->first();
+                    return redirect("/edit_student/$student->id")->with('failure', "Υπάρχει ήδη μαθητής με αριθμό μητρώου $given_am: $existing_student->surname $existing_student->name, $existing_student->class");
                 }
             }
             $student->save();
         }
         else{
-            return view('edit-student',['dberror'=>"Δεν υπάρχουν αλλαγές προς αποθήκευση", 'student' => $student]);
+            return redirect("/edit_student/$student->id")->with('warning', "Δεν υπάρχουν αλλαγές προς αποθήκευση");
         }
+
         return redirect("/student_profile/$student->id")->with('success','Επιτυχής αποθήκευση');
     }
 
@@ -188,8 +194,9 @@ class StudentController extends Controller
                 $imported++;
                 $student->save();
             } 
-            catch(QueryException $e){
-                return view('student',['dberror2'=>"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.", 'active_tab'=>'import']);
+            catch(Throwable $e){
+                session()->forget('studs');
+                return redirect('/student')->with('failure', "Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.");
             }
         }
         session()->forget('studs');

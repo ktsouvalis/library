@@ -20,8 +20,8 @@
                 Είστε βέβαιοι ότι θέλετε να προχωρήσετε σε αλλαγή έτους;
                 <div class="input-group">
                         <span class="w-25"></span>
-                        <button type="submit" class="btn btn-primary m-2" onclick="return confirm('Επιβεβαίωση μεταφοράς μαθητών!')">Μεταφορά μαθητών</button>
-                        <a href="/" class="btn btn-outline-secondary m-2">Ακύρωση</a>
+                        <button type="submit" class="btn btn-primary m-2 fa-solid fa-arrow-right-arrow-left" onclick="return confirm('Επιβεβαίωση μεταφοράς μαθητών!')"> Μεταφορά μαθητών</button>
+                        <a href="/" class="btn btn-outline-secondary m-2 bi bi-x-circle"> Ακύρωση</a>
                 </div>
             </form>
         @else
