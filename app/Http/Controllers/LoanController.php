@@ -51,7 +51,7 @@ class LoanController extends Controller
         
         try{
             Loan::create([
-            'user_i' => Auth::id(),
+            'user_id' => Auth::id(),
             'book_id' => $book->id,
             'student_id' => $student->id,
             'date_out' => date('y/m/d'),
