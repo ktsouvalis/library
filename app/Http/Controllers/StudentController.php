@@ -21,7 +21,7 @@ class StudentController extends Controller
             return view('edit-student',['student' => $student]);
         }
         else{
-            return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
+            return redirect(url('/'))->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
         }
     }
     public function insertStudent(Request $request){
@@ -33,7 +33,7 @@ class StudentController extends Controller
         if(Auth::user()->students->where('am', $given_am)->count()){
             $existing_student = Auth::user()->students->where('am',$given_am)->first();
 
-            return redirect('/student')
+            return redirect(url('/student'))
                 ->with('failure', "Υπάρχει ήδη μαθητής με αριθμό μητρώου $given_am: $existing_student->surname $existing_student->name, $existing_student->class")
                 ->with('old_data', $incomingFields);
         }
@@ -49,12 +49,12 @@ class StudentController extends Controller
             ]);
         } 
         catch(Throwable $e){
-            return redirect('/student')
+            return redirect(url('/student'))
                 ->with('failure', "Κάποιο πρόβλημα προέκυψε κατά την εκτέλεση της εντολής, προσπαθήστε ξανά.")
                 ->with('old_data', $incomingFields);
         }
 
-        return redirect('/student')
+        return redirect(url('/student'))
                 ->with('success', "Επιτυχής καταχώρηση")
                 ->with('record', $record);
     }
@@ -81,10 +81,10 @@ class StudentController extends Controller
             $student->save();
         }
         else{
-            return redirect("/edit_student/$student->id")->with('warning', "Δεν υπάρχουν αλλαγές προς αποθήκευση");
+            return redirect(url("/edit_student/$student->id"))->with('warning', "Δεν υπάρχουν αλλαγές προς αποθήκευση");
         }
 
-        return redirect("/student_profile/$student->id")->with('success','Επιτυχής αποθήκευση');
+        return redirect(url("/student_profile/$student->id"))->with('success','Επιτυχής αποθήκευση');
     }
 
     public function show_profile(Student $student){
@@ -92,7 +92,7 @@ class StudentController extends Controller
             return view('student-profile',['student'=>$student]);
         }
         else{
-            return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
+            return redirect(url('/'))->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
         }
     }
 
@@ -102,7 +102,7 @@ class StudentController extends Controller
         ];
         $validator = Validator::make($request->all(), $rule);
         if($validator->fails()){ 
-            return redirect('/')->with('failure', 'Μη επιτρεπτός τύπος αρχείου');
+            return redirect(url('/'))->with('failure', 'Μη επιτρεπτός τύπος αρχείου');
             
         }
         $filename = "students_file_".Auth::id().".xlsx"; 
@@ -196,11 +196,11 @@ class StudentController extends Controller
             } 
             catch(Throwable $e){
                 session()->forget('studs');
-                return redirect('/student')->with('failure', "Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.");
+                return redirect(url('/student'))->with('failure', "Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.");
             }
         }
         session()->forget('studs');
-        return redirect('/student')->with('success', "Η εισαγωγή $imported μαθητών ολοκληρώθηκε");
+        return redirect(url('/student'))->with('success', "Η εισαγωγή $imported μαθητών ολοκληρώθηκε");
     }
 
     public function studentsDl(){
@@ -267,6 +267,6 @@ class StudentController extends Controller
             }
             $student->save();
         }
-        return redirect('/student')->with('success', 'Η αλλαγή τάξης κάθε μαθητή ολοκληρώθηκε επιτυχώς');
+        return redirect(url('/student'))->with('success', 'Η αλλαγή τάξης κάθε μαθητή ολοκληρώθηκε επιτυχώς');
     }
 }
