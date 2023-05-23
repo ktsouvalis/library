@@ -6,14 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     @stack('title')
     
-    <link rel="stylesheet" href="/library/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{url('/bootstrap/css/bootstrap.css')}}" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <link rel="icon" href="{!! asset('/favicon/favicon.ico') !!}"/>
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/favicon/site.webmanifest">
-    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="icon" href="{!! asset(url('/favicon/favicon.ico')) !!}"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{url('/favicon/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{url('/favicon/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{url('/favicon/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{url('/favicon/site.webmanifest')}}">
+    <link rel="mask-icon" href="{{url('/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#b91d47">
     <meta name="theme-color" content="#ffffff">
 
@@ -33,7 +33,7 @@
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="col p-4">
-        <div class="d-flex justify-content-center"><img src="/favicon/index.png" width="100" height="65" alt="books"></div>
+        <div class="d-flex justify-content-center"><img src="{{url('/favicon/index.png')}}" width="100" height="65" alt="books"></div>
         <div class=" d-flex justify-content-center"><a href="{{url('/change_password')}}" class="h4 text-dark" style="text-decoration:none; " data-toggle="tooltip" title="Αλλαγή κωδικού πρόσβασης"> {{Auth::user()->display_name}}</a></div>
       </div>
     </div>
@@ -73,7 +73,7 @@
         <tag data-toggle="tooltip" title="konstantinostef@yahoo.gr">Κωνσταντίνος Στεφανόπουλος</tag>, <tag data-toggle="tooltip" title="ktsouvalis@sch.gr">Κωνσταντίνος Τσούβαλης</tag>
       </p>
     </footer>
-    <script src="/bootstrap/js/bootstrap.js"></script>
+    <script src="{{url('/bootstrap/js/bootstrap.js')}}"></script>
     <script
                 src="https://code.jquery.com/jquery-3.6.4.min.js"
                 integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
