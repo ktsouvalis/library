@@ -55,17 +55,18 @@
                     @foreach($all_books as $book)
                         <tr>  
                             <td>{{$book->code}}</td>
-                            <td><div class="badge bg-success text-wrap"><a href="/book_profile/{{$book->id}}" style="color:white;text-decoration:none;">{{$book->title}}</a><div></div></td>
+                            <td><div class="badge bg-success text-wrap"><a href="{{url("/book_profile/$book->id")}}" style="color:white;text-decoration:none;">{{$book->title}}</a><div></div></td>
                             <td>{{$book->writer}}</td>
                             <td>{{$book->publisher}}</td>
                             <td>{{$book->subject}}</td>
                             @if($book->available)
-                                <form action="{{route('search_loan_b',[$book->id])}}" method="get">
+                                <form action="{{url("/search_b_loan/$book->id")}}" method="get">
                                     @csrf
                                     <td><button class="bi bi-search btn btn-primary" type="submit" data-toggle="tooltip" title = "Αναζήτηση μαθητή για δανεισμό" style="color: white"> Δανεισμός </button></td>
                                 </form>
                             @else
-                                <form action="/return_loan/{{$book->loans->whereNull('date_in')->first()->id}}" method="post">
+                                @php $bl = $book->loans->whereNull('date_in')->first()->id; @endphp
+                                <form action="{{url("/return_loan/$bl")}}" method="post">
                                     @csrf
                                     @php
                                         $data = $book->loans->whereNull('date_in')->first()->student  
@@ -81,14 +82,15 @@
             
             @if(session()->has('record'))
                 <div class="col-sm-2 btn btn-success text-wrap">
-                    <a href="/book_profile/{{session('record')->id}}" style="color:white; text-decoration:none;">{{session('record')->code}}, {{session('record')->writer}}, <i>{{session('record')->title}}</i>, {{session('record')->publisher}}</a>
+                    @php $ses_rec =session('record')->id @endphp
+                    <a href="{{url("/book_profile/$ses_rec")}}" style="color:white; text-decoration:none;">{{session('record')->code}}, {{session('record')->writer}}, <i>{{session('record')->title}}</i>, {{session('record')->publisher}}</a>
                 </div>
             @endif
            
             <div class="container py-5">
             <div class="container px-5">
             <nav class="navbar navbar-light bg-light">
-                <form action="{{route('insert_book')}}" method="post" class="container-fluid">
+                <form action="{{url('/insert_book')}}" method="post" class="container-fluid">
                     @csrf
                     <input type="hidden" name="asks_to" value="insert">
                     <div class="input-group">
@@ -143,7 +145,7 @@
                         <span class="w-25"></span>
                         <div class="hstack">
                         <button type="submit" class="btn btn-primary m-2 bi bi-plus-circle"> Προσθήκη</button>
-                        <a href="/book" class="btn btn-outline-secondary m-2 bi bi-x-circle"> Ακύρωση</a>
+                        <a href="{{url('/book')}}" class="btn btn-outline-secondary m-2 bi bi-x-circle"> Ακύρωση</a>
                         </div>
                     </div>
                 </form>
@@ -155,8 +157,8 @@
             <div class="tab-pane fade @if(session()->has('active_tab')) @if(session('active_tab')=='import') {{'show active'}} @endif @endif" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
             @if(!session()->has('asks_to'))
             <nav class="navbar navbar-light bg-light">
-                <a href="/books_template.xlsx" class="link-info">Πρότυπο αρχείο για συμπλήρωση</a>
-                <form action="{{route('book_template_upload')}}" method="post" class="container-fluid" enctype="multipart/form-data">
+                <a href="{{url('/books_template.xlsx')}}" class="link-info">Πρότυπο αρχείο για συμπλήρωση</a>
+                <form action="{{url('/upload_book_template')}}" method="post" class="container-fluid" enctype="multipart/form-data">
                     @csrf
                     
                     <input type="file" name="import_books" > 
@@ -193,18 +195,18 @@
                 @if(session('asks_to')=='save')
                     Να προχωρήσει η εισαγωγή αυτών των στοιχείων;
                     <div class="row">
-                        <form action="/insert_books" method="post" class="col container-fluid" enctype="multipart/form-data">
+                        <form action="{{url('/insert_books')}}" method="post" class="col container-fluid" enctype="multipart/form-data">
                         @csrf
                             <button type="submit" class="btn btn-primary bi bi-file-arrow-up"> Εισαγωγή</button>
                         </form>
-                        <a href="/book" class="col">Ακύρωση</a>
+                        <a href="{{url('/book')}}" class="col">Ακύρωση</a>
                     </div>
                 @else
                     <div class="row">
                         <div>
                             Διορθώστε τα σημειωμένα σφάλματα και υποβάλετε εκ νέου το αρχείο.
                         </div>
-                        <a href="/book" class="col">Ακύρωση</a>
+                        <a href="{{url('/book')}}" class="col">Ακύρωση</a>
                     </div>
                 @endif
             @endif

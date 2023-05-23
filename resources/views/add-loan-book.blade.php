@@ -46,7 +46,7 @@
                 <td>{{$student->name}}</td>
                 <td>{{$student->f_name}}</td>
                 <td>{{$student->class}}</td>
-                <form action="{{route('loans_save_book', [$book->id])}}" method="post" class="container-fluid">
+                <form action="{{url("/save_b_loan/$book->id")}}" method="post" class="container-fluid">
                 @csrf
                     <input type="hidden" name="student_id"  value="{{$student->id}}">
                     <td><button type="submit" class="bi bi-journal-arrow-up btn btn-primary" style="color:white" data-toggle="tooltip" data-placement="top" title="Καταχώρηση δανεισμού" > Δανεισμός  </button></td>

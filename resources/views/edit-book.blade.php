@@ -5,7 +5,7 @@
     <div class="container">
         @include('menu')
         <nav class="navbar navbar-light bg-light">
-            <form action="/edit_book/{{$book->id}}" method="post" class="container-fluid">
+            <form action="{{url("/edit_book/$book->id")}}" method="post" class="container-fluid">
                 @csrf
                 <div class="input-group">
                     <span class="input-group-text w-25" id="basic-addon0">Επεξεργασία Βιβλίου</span>
@@ -58,7 +58,7 @@
                 <div class="input-group">
                     <span class="w-25"></span>
                     <button type="submit" class="btn btn-primary m-2 bi bi-save2"> Αποθήκευση</button>
-                    <a href="/book_profile/{{$book->id}}" class="btn btn-outline-secondary m-2 bi bi-x-circle"> Ακύρωση</a>
+                    <a href="{{url("/book_profile/$book->id")}}" class="btn btn-outline-secondary m-2 bi bi-x-circle"> Ακύρωση</a>
                 </div>
                 
             </form>

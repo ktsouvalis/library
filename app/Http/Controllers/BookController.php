@@ -22,7 +22,7 @@ class BookController extends Controller
             return view('edit-book',['book' => $book]);
         }
         else{
-            return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
+            return redirect(url('/'))->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
         }
     }
 
@@ -35,7 +35,7 @@ class BookController extends Controller
         //VALIDATION
         if($book->count()){
             $existing_book = $book->first();
-            return redirect('/book')
+            return redirect(url('/book'))
                 ->with('failure', "Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, Εκδόσεις $existing_book->publisher")
                 ->with('old_data', $incomingFields);
         }
@@ -59,12 +59,12 @@ class BookController extends Controller
             ]);
         } 
         catch(Throwable $e){
-            return redirect('/book')
+            return redirect(url('/book'))
                 ->with('failure', "Κάποιο πρόβλημα προέκυψε κατά την εκτέλεση της εντολής, προσπαθήστε ξανά.")
                 ->with('old_data', $incomingFields);
         }
 
-        return redirect('/book')
+        return redirect(url('/book'))
             ->with('success', 'Επιτυχής Καταχώρηση!')
             ->with('record',$record);
     }
@@ -92,16 +92,16 @@ class BookController extends Controller
                 $existing_books = Auth::user()->books->where('code',$given_code);
                 if($existing_books->count()){
                         $existing_book = $existing_books->first();
-                        return redirect("/edit_book/$book->id")->with('failure', "Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, Εκδόσεις $existing_book->publisher");
+                        return redirect(url("/edit_book/$book->id"))->with('failure', "Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, Εκδόσεις $existing_book->publisher");
                 }
             }
             $book->save();
         }
         else{
-            return redirect("/edit_book/$book->id")->with('warning',"Δεν υπάρχουν αλλαγές προς αποθήκευση");
+            return redirect(url("/edit_book/$book->id"))->with('warning',"Δεν υπάρχουν αλλαγές προς αποθήκευση");
         }
 
-        return redirect("/edit_book/$book->id")->with('success','Επιτυχής αποθήκευση');
+        return redirect(url("/edit_book/$book->id"))->with('success','Επιτυχής αποθήκευση');
     }
 
     public function show_profile(Book $book){
@@ -109,7 +109,7 @@ class BookController extends Controller
             return view('book-profile',['book'=>$book]);
         }
         else{
-            return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
+            return redirect(url('/'))->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
         }
     }
 
@@ -119,7 +119,7 @@ class BookController extends Controller
         ];
         $validator = Validator::make($request->all(), $rule);
         if($validator->fails()){ 
-            return redirect('/')->with('failure', 'Μη επιτρεπτός τύπος αρχείου');
+            return redirect(url('/'))->with('failure', 'Μη επιτρεπτός τύπος αρχείου');
             
         }
         $filename = "books_file".Auth::id().".xlsx";
@@ -199,10 +199,10 @@ class BookController extends Controller
         session(['books_array' => $books_array]);
         session(['active_tab' =>'import']);
         if($error){
-            return redirect('/book')
+            return redirect(url('/book'))
                 ->with('asks_to','error');
         }else{
-            return redirect('/book')
+            return redirect(url('/book'))
                 ->with('asks_to','save');
         }
        
@@ -231,21 +231,21 @@ class BookController extends Controller
             } 
             catch(Throwable $e){
                 
-                return redirect('/book')
+                return redirect(url('/book'))
                     ->with('failure',"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά." )
                     ->with('active_tab', 'import');
             }
         }
         session()->forget('books_array');
         session()->forget('active_tab');
-        return redirect('/book')->with('success', "Η εισαγωγή $imported βιβλίων ολοκληρώθηκε");
+        return redirect(url('/book'))->with('success', "Η εισαγωγή $imported βιβλίων ολοκληρώθηκε");
     }
 
     public function deleteBook(Book $book){
 
         if($book->available){
             Book::find($book->id)->delete();
-            return redirect('/book')->with('success', "Το βιβλίο $book->code, $book->title, $book->writer, Εκδόσεις $book->publisher, διαγράφηκε");
+            return redirect(url('/book'))->with('success', "Το βιβλίο $book->code, $book->title, $book->writer, Εκδόσεις $book->publisher, διαγράφηκε");
         }
     }
 
@@ -302,7 +302,7 @@ class BookController extends Controller
             return view('all-books',['books'=>$books, 'school'=>$user]);
         }
         else{
-            return redirect('/')->with('failure','Η σελίδα που ζητήσατε δεν υπάρχει');
+            return redirect(url('/'))->with('failure','Η σελίδα που ζητήσατε δεν υπάρχει');
         }
     }
 }

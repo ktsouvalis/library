@@ -6,7 +6,7 @@
     </div>
     <div class=" badge bg-success text-wrap py-2 m-1" style="width: 12rem; opacity: 0.9;">
         <div class="fa-solid fa-book"></div>
-        <a href="/book" style="color:white; text-decoration:none;" class=""> Βιβλία</a>
+        <a href="{{url("/book")}}" style="color:white; text-decoration:none;" class=""> Βιβλία</a>
     </div>
     <div class=" badge bg-warning text-wrap py-2 m-1" style="width: 12rem; opacity: 0.9;">
         <div class="fa-solid fa-graduation-cap text-dark" ></div>

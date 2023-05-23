@@ -19,8 +19,8 @@
     <div class="container py-3">
     @include('menu')
         <div class="col-sm-2 btn btn-warning text-wrap">
-                <div class="fa-solid fa-graduation-cap"> </div>
-                {{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->f_name}}, {{$student->class}}
+            <div class="fa-solid fa-graduation-cap"> </div>
+            {{$student->am}}, {{$student->surname}} {{$student->name}}, {{$student->f_name}}, {{$student->class}}
         </div>
         @isset($books)
         <div class="table-responsive">
@@ -44,7 +44,7 @@
                 <td>{{$book->publisher}}</td>
                 <td>{{$book->subject}}</td>
                 @if($book->available)
-                    <form action="{{route('loans_save_student', [$student->id])}}" method="post" class="container-fluid">
+                    <form action="{{ url("/save_s_loan/$student->id")}}" method="post" class="container-fluid">
                     @csrf
                         <input type="hidden" name="book_id" id="{{$book->id}}" value="{{$book->id}}">
                         <td><button type="submit" class="bi bi-journal-arrow-up btn btn-primary" style="color:white" data-toggle="tooltip" data-placement="top" title="Καταχώρηση δανεισμού" > Δανεισμός  </button></td>

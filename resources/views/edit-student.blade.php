@@ -5,7 +5,7 @@
     <div class="container">
         @include('menu')
         <nav class="navbar navbar-light bg-light">
-                <form action="/edit_student/{{$student->id}}" method="post" class="container-fluid">
+                <form action="{{url("/edit_student/$student->id")}}" method="post" class="container-fluid">
                     @csrf
                     <input type="hidden" name="asks_to" value="insert">
                     <div class="input-group">
@@ -35,11 +35,8 @@
                     <div class="input-group">
                         <span class="w-25"></span>
                         <button type="submit" class="btn btn-primary m-2 bi bi-save2"> Αποθήκευση</button>
-                        <a href="/student_profile/{{$student->id}}" class="btn btn-outline-secondary m-2 bi bi-x-circle"> Ακύρωση</a>
+                        <a href="{{url("/student_profile/$student->id")}}" class="btn btn-outline-secondary m-2 bi bi-x-circle"> Ακύρωση</a>
                 </form>
             </nav>
-            @isset($dberror)
-                <div class="alert alert-danger" role="alert">{{$dberror}}</div>
-            @endisset
     </div>
 </x-layout>

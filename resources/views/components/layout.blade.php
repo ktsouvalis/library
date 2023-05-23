@@ -67,7 +67,7 @@
 
        <!-- footer begins -->
        <footer class="border-top text-center small text-muted py-3">
-      <p class="m-0">Copyright &copy; 2023 <a href="/" class="text-muted">library</a>. Διεύθυνση Π.Ε. Αχαΐας - Τμήμα Πληροφορικής & Νέων Τεχνολογιών</p>
+      <p class="m-0">Copyright &copy; 2023 <a href="{{url('/')}}" class="text-muted">library</a>. Διεύθυνση Π.Ε. Αχαΐας - Τμήμα Πληροφορικής & Νέων Τεχνολογιών</p>
       <p class="m-0">
         <tag data-toggle="tooltip" title="konstantinostef@yahoo.gr">Κωνσταντίνος Στεφανόπουλος</tag>, <tag data-toggle="tooltip" title="ktsouvalis@sch.gr">Κωνσταντίνος Τσούβαλης</tag>
       </p>

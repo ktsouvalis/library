@@ -10,7 +10,7 @@
             @endpush
             <div class="col-md-4 py-2" style="max-width:15rem; opacity: 0.9">
                 <div class="card py-5 text-bg-success"  style="text-align:center;">
-                    <a class="" style="text-decoration:none;" href="/book">
+                    <a class="" style="text-decoration:none;" href="{{url("/book")}}">
                     <div class="h5 card-title fa-solid fa-book text-white"></div>
                     <div class="text-white">Βιβλία</div>
                     </a> 
@@ -19,7 +19,7 @@
 
             <div class="col-md-4 py-2" style="max-width:15rem; opacity: 0.9">
                 <div class="card py-5 text-bg-warning"  style="text-align:center;">
-                    <a class="" style="text-decoration:none;" href="/student">
+                    <a class="" style="text-decoration:none;" href="{{url('/student')}}">
                     <div class="h5 card-title fa-solid fa-graduation-cap text-dark"></div>
                     <div class="text-dark">Μαθητές</div>
                     </a> 
@@ -28,7 +28,7 @@
 
             <div class="col-md-4 py-2" style="max-width:15rem; opacity: 0.9">
                 <div class="card py-5 text-bg-danger"  style="text-align:center;">
-                    <a class="" style="text-decoration:none;" href="/loans">
+                    <a class="" style="text-decoration:none;" href="{{url('/loans')}}">
                     <div class="h5 card-title fa-solid fa-book-open-reader text-white"></div>
                     <div class="text-white">Ιστορικό</div>
                     </a> 
@@ -37,7 +37,7 @@
 
             <div class="col-md-4 py-2" style="max-width:15rem;">
                 <div class="card py-5 text-bg-primary"  style="text-align:center;  ">
-                    <a class="" style="text-decoration:none;" href="/stats">
+                    <a class="" style="text-decoration:none;" href="{{url('/stats')}}">
                     <div class="h5 card-title fa-solid fa-chart-simple text-white"></div>
                     <div class="text-white">Στατιστικά</div>
                     </a> 
@@ -46,7 +46,7 @@
 
             <div class="col-md-4 py-2" style="max-width:15rem;">
                 <div class="card py-5 text-bg-dark"  style="text-align:center; opacity: 0.9">
-                    <a class="" style="text-decoration:none;" href="/change_year">
+                    <a class="" style="text-decoration:none;" href="{{url('/change_year')}}">
                     <div class="h5 card-title bi bi-arrow-down-up text-white"></div>
                     <div class="text-white">Μεταφορά μαθητών</div>
                     </a> 
@@ -57,7 +57,7 @@
 
                 <div class="col-md-4 py-2" style="max-width:15rem;">
                     <div class="card py-5 "  style="text-align:center; background-color:DarkKhaki">
-                        <a class="" style="text-decoration:none;" href="/user">
+                        <a class="" style="text-decoration:none;" href="{{url('/user')}}">
                         <div class="h5 card-title fa-solid fa-users text-dark"></div>
                         <div class="text-dark">Σχολεία</div>
                         </a> 
@@ -68,7 +68,7 @@
 
             <div class="col-md-4 py-2" style="max-width:15rem;">
                 <div class="card py-5 text-bg-dark"  style="text-align:center; opacity: 0.5; ">
-                    <a class="" style="text-decoration:none;" href="/logout">
+                    <a class="" style="text-decoration:none;" href="{{url('/logout')}}">
                     <div class="h5 card-title fa-solid fa-arrow-right-from-bracket text-white"></div>
                     <div class="text-white">Αποσύνδεση</div>
                     </a> 
@@ -84,7 +84,7 @@
                 
         </div>
         <div class="col p-3">
-                <img src="/favicon/index.png" width="200" height="131" alt="books">
+                <img src="{{url('/favicon/index.png')}}" width="200" height="131" alt="books">
         </div>
         <div class="col p-3">
             <form action="{{url('/login')}}" method="post">

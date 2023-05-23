@@ -33,7 +33,7 @@ class LoanController extends Controller
             return view('add-loan-student', ['student' => $student, 'books' => Auth::user()->books]);
         }
         else{
-            return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');  
+            return redirect(url('/'))->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');  
         }
     }
 
@@ -42,7 +42,7 @@ class LoanController extends Controller
             return view('add-loan-book', ['book' => $book, 'students' => Auth::user()->students->where('class','<>','0')]);
         }
         else{
-            return redirect('/')->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
+            return redirect(url('/'))->with('failure', 'Δεν έχετε δικαίωμα πρόσβασης σε αυτόν τον πόρο');
         }
     }
     public function lendBookFromStudent(Student $student, Request $request){
@@ -58,13 +58,13 @@ class LoanController extends Controller
         ]);
         }
         catch(Throwable $e){
-            return redirect("/student_profile/$student->id")->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
+            return redirect(url("/student_profile/$student->id"))->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
         }
 
         $book->available = 0;
         $book->save();
 
-        return redirect("/student_profile/$student->id")->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
+        return redirect(url("/student_profile/$student->id"))->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
         
     }
 
@@ -80,13 +80,13 @@ class LoanController extends Controller
             ]);
         }
         catch(Throwable $e){
-            return redirect("/book_profile/$book->id")->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
+            return redirect(url("/book_profile/$book->id"))->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
         }
 
         $book->available = 0;
         $book->save();
         
-        return redirect("/book_profile/$book->id")->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
+        return redirect(url("/book_profile/$book->id"))->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
     }
 
     public function loansDl(){

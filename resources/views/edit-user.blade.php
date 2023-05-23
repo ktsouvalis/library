@@ -4,7 +4,7 @@
     @endpush
     <div class="container">
         <nav class="navbar navbar-light bg-light">
-                <form action="/edit_user/{{$user->id}}" method="post" class="container-fluid">
+                <form action="{{url("/edit_user/$user->id")}}" method="post" class="container-fluid">
                     @csrf
                     <input type="hidden" name="asks_to" value="insert">
                     <div class="input-group">
@@ -26,7 +26,7 @@
                     <div class="input-group">
                         <span class="w-25"></span>
                         <button type="submit" class="btn btn-primary m-2">Αποθήκευση</button>
-                        <a href="/user_profile/{{$user->id}}" class="btn btn-outline-secondary m-2">Ακύρωση</a>
+                        <a href="{{url("/user_profile/$user->id")}}" class="btn btn-outline-secondary m-2"> Ακύρωση</a>
                 </form>
             </nav>
             @isset($dberror)

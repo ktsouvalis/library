@@ -70,8 +70,11 @@
             @foreach($book->loans as $loan)
             
                 <tr >
-                    <td>{{$loan->student->am}}</td>  
-                    <td><div class="badge bg-warning text-wrap"><a href ="/student_profile/{{$loan->student->id}}" style="color:black; text-decoration:none;">{{$loan->student->surname}}</a></div></td>
+                    <td>{{$loan->student->am}}</td>
+                    @php
+                        $lsi = $loan->student->id;      
+                    @endphp  
+                    <td><div class="badge bg-warning text-wrap"><a href ="{{url("/student_profile/$lsi")}}" style="color:black; text-decoration:none;">{{$loan->student->surname}}</a></div></td>
                     <td>{{$loan->student->name}}</td>
                     @if($loan->student->class <> '0')
                         <td>{{$loan->student->class}}</td>

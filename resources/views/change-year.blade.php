@@ -16,13 +16,13 @@
                 <li> Οι μαθητές της Α' τάξης θα πρέπει να εισαχθούν <strong>μαζικά</strong> από την καρτέλα "Μαζική Εισαγωγή Μαθητών" <br>ή <strong>μεμονωμένα</strong> από την καρτέλα "Εισαγωγή Μαθητή" </li>
                 <li ><strong class="text-danger">Η ενέργεια δεν είναι αναιρέσιμη </strong> </li>
             </ul>
-            <form action="/subm_change_year" method="GET">
+            <form action="{{url('/subm_change_year')}}" method="GET">
                 Είστε βέβαιοι ότι θέλετε να προχωρήσετε σε αλλαγή έτους;
                 <div class="input-group">
                         <span class="w-25"></span>
                         <div class="hstack">
                         <button type="submit" class="btn btn-dark m-2 bi bi-arrow-down-up" onclick="return confirm('Επιβεβαίωση μεταφοράς μαθητών!')"> Μεταφορά μαθητών</button>
-                        <a href="/" class="btn btn-outline-secondary m-2 bi bi-x-circle"> Ακύρωση</a>
+                        <a href="{{url('/')}}" class="btn btn-outline-secondary m-2 bi bi-x-circle"> Ακύρωση</a>
                         </div>
                 </div>
             </form>
