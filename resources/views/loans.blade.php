@@ -44,11 +44,11 @@
                 <tr >  
                     <td>{{$loan->book->code}}</td>
                     @php $lbi = $loan->book->id @endphp
-                    <td><div class="badge bg-success text-wrap"><a href="{{url('/book_profile/$lbi')}}" style="color:white; text-decoration:none;">{{$loan->book->title}}</a></div></td>
+                    <td><div class="badge bg-success text-wrap"><a href="{{url("/book_profile/$lbi")}}" style="color:white; text-decoration:none;">{{$loan->book->title}}</a></div></td>
                     <td>{{$loan->book->writer}}</td>
                     <td>{{$loan->book->publisher}}</td>
                     @php $lsi = $loan->student->id @endphp
-                    <td><div class="badge bg-warning text-wrap"><a href="{{url('/student_profile/$lsi')}}" style="color:black; text-decoration:none;">{{$loan->student->surname}}</a></div></td>
+                    <td><div class="badge bg-warning text-wrap"><a href="{{url("/student_profile/$lsi")}}" style="color:black; text-decoration:none;">{{$loan->student->surname}}</a></div></td>
                     <td>{{$loan->student->name}}</td>
                     @if($loan->student->class <> '0')
                         <td><strong>{{$loan->student->class}}</strong></td>
@@ -57,7 +57,7 @@
                     @endif
                     <td>{{$loan->date_out}}</td>
                     @if($loan->date_in==null)
-                    <form action="{{url('/return_loan/$loan->id')}}" method="post">
+                    <form action="{{url("/return_loan/$loan->id")}}" method="post">
                         @csrf
                         <td><button class="bi bi-journal-arrow-down btn btn-secondary" type="submit" style="color:white"> Επιστροφή</button></td>
                     </form>

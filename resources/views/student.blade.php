@@ -58,7 +58,7 @@
                                 <td>{{$student->name}}</td>
                                 <td>{{$student->f_name}}</td>
                                 <td>{{$student->class}}</td>
-                                <form action="url('/search_s_loan/$student->id')" method="get">
+                                <form action="{{url("/search_s_loan/$student->id")}}" method="get">
                                     @csrf
                                     <td><button class="btn btn-primary bi bi-search" type="submit" data-toggle="tooltip" title = "Αναζήτηση βιβλίου για δανεισμό" style="color: white"> Δανεισμός </button></td>
                                 </form>
@@ -70,14 +70,15 @@
             
             @if(session()->has('record'))
                 <div class="m-2 col-sm-2 btn btn-warning text-wrap">
-                    <a href="url('/student_profile/session('record')->id')" style="color:black; text-decoration:none;">{{session('record')->am}}, {{session('record')->surname}} {{session('record')->name}}, {{session('record')->class}}</a>
+                    @php $srid = session('record')->id; @endphp
+                    <a href="{{url("/student_profile/$srid")}}" style="color:black; text-decoration:none;">{{session('record')->am}}, {{session('record')->surname}} {{session('record')->name}}, {{session('record')->class}}</a>
                 </div>
             @endif
 
             <div class="container py-5">
             <div class="container px-5">
             <nav class="navbar navbar-light bg-light">
-                <form action="url('/insert_student')" method="post" class="container-fluid">
+                <form action="{{url("/insert_student")}}" method="post" class="container-fluid">
                     @csrf
                     <input type="hidden" name="asks_to" value="insert">
                     <div class="input-group">
@@ -108,7 +109,7 @@
                         <span class="w-25"></span>
                         <div class="hstack">
                             <button type="submit" class="btn btn-primary m-2 bi bi-plus-circle"> Προσθήκη</button>
-                            <a href="url('/student')" class="btn btn-outline-secondary m-2 bi bi-x-circle"> Ακύρωση</a>
+                            <a href="{{url('/student')}}" class="btn btn-outline-secondary m-2 bi bi-x-circle"> Ακύρωση</a>
                         </div>
                     </div>  
                 </form>
@@ -127,7 +128,7 @@
                 και έπειτα το κουμπί <strong class="text-primary">Αποθήκευση</strong>.<br><br>
                 Το αρχείο που θα κατέβει, το ανεβάζετε στην εφαρμογή χωρίς καμία άλλη επεξεργασία.<br><br></div>
 
-                <form action="url('/upload_student_template')" method="post" class="container-fluid" enctype="multipart/form-data">
+                <form action="{{url('/upload_student_template')}}" method="post" class="container-fluid" enctype="multipart/form-data">
                     @csrf
                     
                     <input type="file" name="import_students" > 
@@ -171,24 +172,21 @@
                 @if($asks_to=='save')
                 Να προχωρήσει η εισαγωγή αυτών των στοιχείων;
                 <div class="row">
-                    <form action="url('/insert_students')" method="post" class="col container-fluid" enctype="multipart/form-data">
+                    <form action="{{url('/insert_students')}}" method="post" class="col container-fluid" enctype="multipart/form-data">
                     @csrf
                         <button type="submit" class="btn btn-primary bi bi-file-arrow-up"> Εισαγωγή</button>
                     </form>
-                    <a href="url('/student')" class="col">Ακύρωση</a>
+                    <a href="{{url('/student')}}" class="col">Ακύρωση</a>
                 </div>
                 @else
                 <div class="row">
                     <div>
                         Διορθώστε τα σημειωμένα σφάλματα και υποβάλετε εκ νέου το αρχείο.
                     </div>
-                    <a href="url('/student')" class="col">Ακύρωση</a>
+                    <a href="{{url('/student')}}" class="col">Ακύρωση</a>
                 </div>
                 @endif
             @endif
-            @isset($dberror2)
-                <div class="alert alert-danger" role="alert">{{$dberror2}}</div>
-            @endisset
         </div>
     </div>
     </div>

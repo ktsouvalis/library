@@ -61,11 +61,11 @@
                             <tr>  
                                 <td>{{$user->id}}</td>
                                 <td>{{$user->name}}</td>
-                                <td><div class="badge text-wrap"><a href="url('/user_profile/$user->id')" style="color:black; text-decoration:none; background-color:DarkKhaki">{{$user->display_name}}</a></div></td>
+                                <td><div class="badge text-wrap"><a href="{{url("/user_profile/$user->id")}}" style="color:black; text-decoration:none; background-color:DarkKhaki">{{$user->display_name}}</a></div></td>
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->created_at}}</td>
                                 <td>{{$user->updated_at}}</td>
-                                <form action="/reset_password" method="post">
+                                <form action="{{url("/reset_password")}}" method="post">
                                 @csrf
                                     <input type="hidden" name="user_id" value={{$user->id}}>
                                     <td><button class="bi bi-key-fill btn btn-warning" type="submit" onclick="return confirm('Επιβεβαίωση επαναφοράς κωδικού')" > </button></td>
@@ -134,7 +134,7 @@
 
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='insert') {{'show active'}} @endif @endisset" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
             <nav class="navbar navbar-light bg-light">
-                <form action="{{route('insert_user')}}" method="post" class="container-fluid">
+                <form action="{{url('/insert_user')}}" method="post" class="container-fluid">
                     @csrf
                     <input type="hidden" name="asks_to" value="insert">
                     <div class="input-group">
@@ -170,7 +170,7 @@
                 @isset($record)
                     <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div>
                     <div class="m-2 col-sm-2 btn btn-primary text-wrap">
-                        <a href="{{url('/user_profile/$record->id')}}" style="color:white; text-decoration:none;">{{$record->id}}, {{$record->display_name}}, {{$record->name}}</a>
+                        <a href="{{url("/user_profile/$record->id")}}" style="color:white; text-decoration:none;">{{$record->id}}, {{$record->display_name}}, {{$record->name}}</a>
                     </div>
                 @endisset
             @endisset

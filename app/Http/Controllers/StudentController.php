@@ -235,8 +235,15 @@ class StudentController extends Controller
     public function changeYear(){
         $students = Student::where('user_id',Auth::id())->orderBy('class','DESC')->get();
         foreach ($students as $student){
-            $sec = substr($student->class,-1);
-            $class = substr($student->class, 0, -1);
+            
+            if(is_Numeric(substr($student->class,-1))){
+                $sec = substr($student->class,-1);
+                $class = substr($student->class, 0, -1);
+            }
+            else{
+                $sec="";
+                $class= $student->class;
+            }
             if($class=='ΣΤ'){
                 $student->class = '0';
             }
