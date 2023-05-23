@@ -25,7 +25,7 @@
     @endpush
     <div class="container">
     @include('menu')
-    <form action='/change_password' method="POST" enctype="multipart/form-data">
+    <form action="{{url('/change_password')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="pass1">Νέος Κωδικός</label>
