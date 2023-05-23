@@ -21,7 +21,7 @@
 <div class="container">
     @include('menu')
     <div class="d-flex justify-content-end">
-        <a href="/dl_books" class="btn btn-success bi bi-download" style="color:white; text-decoration:none;"> Λήψη αρχείου βιβλίων </a>
+        <a href="{{url('/dl_books')}}" class="btn btn-success bi bi-download" style="color:white; text-decoration:none;"> Λήψη αρχείου βιβλίων </a>
     </div>
     <!--tabs-->
     <ul class="nav nav-tabs" id="myTab" role="tablist">

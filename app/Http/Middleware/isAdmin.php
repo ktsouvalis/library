@@ -20,6 +20,6 @@ class isAdmin
         if(Auth::id()==2 or Auth::id()==1){
             return $next($request);
         }
-        return redirect('/')->with('failure','Για την ενέργεια αυτή χρειάζεστε δικαιώματα διαχειριστή');
+        return redirect(url('/'))->with('failure','Για την ενέργεια αυτή χρειάζεστε δικαιώματα διαχειριστή');
     }
 }

@@ -33,7 +33,7 @@
     <div class="row justify-content-md-center">
       <div class="col p-4">
         <div class="d-flex justify-content-center"><img src="/favicon/index.png" width="100" height="65" alt="books"></div>
-        <div class=" d-flex justify-content-center"><a href='/change_password' class="h4 text-dark" style="text-decoration:none; " data-toggle="tooltip" title="Αλλαγή κωδικού πρόσβασης"> {{Auth::user()->display_name}}</a></div>
+        <div class=" d-flex justify-content-center"><a href="{{url('/change_password')}}" class="h4 text-dark" style="text-decoration:none; " data-toggle="tooltip" title="Αλλαγή κωδικού πρόσβασης"> {{Auth::user()->display_name}}</a></div>
       </div>
     </div>
   </div>

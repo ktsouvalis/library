@@ -23,7 +23,7 @@
     <div class="container">
     @include('menu')
     <div class="d-flex justify-content-end">
-        <a href="url('/download_students')" class="btn btn-warning bi bi-download"> Λήψη αρχείου μαθητών </a>
+        <a href="{{url('/download_students')}}" class="btn btn-warning bi bi-download"> Λήψη αρχείου μαθητών </a>
     </div>
 <!--tabs-->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
