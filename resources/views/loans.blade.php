@@ -22,7 +22,7 @@
     <div class="container">
     @include('menu')
     <div class="d-flex justify-content-end">
-        <a href="/dl_loans" class="btn btn-danger bi bi-download"> Λήψη αρχείου δανεισμών </a>
+        <a href="{{url('/dl_loans')}}" class="btn btn-danger bi bi-download"> Λήψη αρχείου δανεισμών </a>
     </div>
     <div class="table-responsive">
         <table id="dataTable" class="display table table-sm table-striped table-bordered table-hover">
@@ -43,10 +43,12 @@
             @foreach($loans as $loan)
                 <tr >  
                     <td>{{$loan->book->code}}</td>
-                    <td><div class="badge bg-success text-wrap"><a href="/book_profile/{{$loan->book->id}}" style="color:white; text-decoration:none;">{{$loan->book->title}}</a></div></td>
+                    @php $lbi = $loan->book->id @endphp
+                    <td><div class="badge bg-success text-wrap"><a href="{{url('/book_profile/$lbi')}}" style="color:white; text-decoration:none;">{{$loan->book->title}}</a></div></td>
                     <td>{{$loan->book->writer}}</td>
                     <td>{{$loan->book->publisher}}</td>
-                    <td><div class="badge bg-warning text-wrap"><a href="/student_profile/{{$loan->student->id}}" style="color:black; text-decoration:none;">{{$loan->student->surname}}</a></div></td>
+                    @php $lsi = $loan->student->id @endphp
+                    <td><div class="badge bg-warning text-wrap"><a href="{{url('/student_profile/$lsi')}}" style="color:black; text-decoration:none;">{{$loan->student->surname}}</a></div></td>
                     <td>{{$loan->student->name}}</td>
                     @if($loan->student->class <> '0')
                         <td><strong>{{$loan->student->class}}</strong></td>
@@ -55,7 +57,7 @@
                     @endif
                     <td>{{$loan->date_out}}</td>
                     @if($loan->date_in==null)
-                    <form action="/return_loan/{{$loan->id}}" method="post">
+                    <form action="{{url('/return_loan/$loan->id')}}" method="post">
                         @csrf
                         <td><button class="bi bi-journal-arrow-down btn btn-secondary" type="submit" style="color:white"> Επιστροφή</button></td>
                     </form>

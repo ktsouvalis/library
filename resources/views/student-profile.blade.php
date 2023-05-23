@@ -30,10 +30,10 @@
     <div class="p-3 row">
         @if($student->class <> '0')
             <div class="col-sm-2" >
-                <a href="{{route('search_loan_s',[$student->id])}} " class="btn btn-primary bi bi-search" style="text-decoration:none;">  Αναζήτηση βιβλίου για νέο δανεισμό στον μαθητή</a>
+                <a href="{{url('/search_s_loan/$student->id')}}" class="btn btn-primary bi bi-search" style="text-decoration:none;">  Αναζήτηση βιβλίου για νέο δανεισμό στον μαθητή</a>
             </div> 
             <div class="col-sm-2 " >
-                <a href="/edit_student/{{$student->id}}" class="btn btn-primary bi bi-journal-text" style="text-decoration:none;">  Επεξεργασία στοιχείων μαθητή</a>
+                <a href="{{url('/edit_student/$student->id')}}" class="btn btn-primary bi bi-journal-text" style="text-decoration:none;">  Επεξεργασία στοιχείων μαθητή</a>
             </div>
         @endif
     </div>
@@ -50,12 +50,13 @@
         
             <tr >  
                 <td>{{$loan->book->code}}</td>
-                <td><div class="badge bg-success text-wrap"><a href='/book_profile/{{$loan->book->id}}' style="color:white; text-decoration:none;">{{$loan->book->title}}</a></div></td>
+                @php $lbi = $loan->book->id @endphp
+                <td><div class="badge bg-success text-wrap"><a href="url('/book_profile/$lbi')" style="color:white; text-decoration:none;">{{$loan->book->title}}</a></div></td>
                 <td>{{$loan->book->writer}}</td>
                 <td>{{$loan->book->publisher}}</td>
                 <td>{{$loan->date_out}}</td>
                 @if($loan->date_in==null)
-                <form action="/return_loan/{{$loan->id}}" method="post">
+                <form action="url('/return_loan/$loan->id')" method="post">
                     @csrf
                     <td><button class="bi bi-journal-arrow-down btn btn-secondary" style="color:white" type="submit" data-toggle="tooltip" data-placement="top" title="Επιστροφή"> Επιστροφή  </button></td>
                 </form>

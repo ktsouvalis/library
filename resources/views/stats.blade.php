@@ -23,7 +23,7 @@
                     @endphp
                     <tr>
                         <td>{{$book->code}}</td>
-                        <td><div class="badge bg-success text-wrap"><a href="/book_profile/{{$book->id}}" style="color:white;text-decoration:none;">{{$book->title}}</a><div></div></td>
+                        <td><div class="badge bg-success text-wrap"><a href="{{url('/book_profile/$book->id')}}" style="color:white;text-decoration:none;">{{$book->title}}</a><div></div></td>
                         <td>{{$book->writer}}</td>
                         <td>{{$book->publisher}}</td>
                         <td><strong>{{$value}}</strong></td>
@@ -49,7 +49,7 @@
                     @endphp
                     <tr>
                         <td>{{$student->am}}</td>
-                        <td><div class="badge bg-warning text-wrap"><a href="/student_profile/{{$student->id}}" style="color:black; text-decoration:none;">{{$student->surname}}</a></div></td>
+                        <td><div class="badge bg-warning text-wrap"><a href="{{url('/student_profile/$student->id')}}" style="color:black; text-decoration:none;">{{$student->surname}}</a></div></td>
                         <td>{{$student->name}}</td>
                         <td>{{$student->class}}</td>
                         <td><strong>{{$value}}</strong></td>

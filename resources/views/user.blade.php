@@ -21,7 +21,7 @@
     <div class="container">
     @include('menu')
     <div class="d-flex justify-content-end">
-        <a href="/dl_users" class="btn btn-primary bi bi-download"> Λήψη αρχείου χρηστών </a>
+        <a href="{{url('/dl_users')}}" class="btn btn-primary bi bi-download"> Λήψη αρχείου χρηστών </a>
     </div>
 <!--tabs-->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -61,7 +61,7 @@
                             <tr>  
                                 <td>{{$user->id}}</td>
                                 <td>{{$user->name}}</td>
-                                <td><div class="badge text-wrap"><a href="/user_profile/{{$user->id}}" style="color:black; text-decoration:none; background-color:DarkKhaki">{{$user->display_name}}</a></div></td>
+                                <td><div class="badge text-wrap"><a href="url('/user_profile/$user->id')" style="color:black; text-decoration:none; background-color:DarkKhaki">{{$user->display_name}}</a></div></td>
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->created_at}}</td>
                                 <td>{{$user->updated_at}}</td>
@@ -80,8 +80,8 @@
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='import') {{'show active'}} @endif @endisset" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
             @if(empty($asks_to))
             <nav class="navbar navbar-light bg-light">
-                <a href="/users_template.xlsx" class="link-info">Πρότυπο αρχείο για συμπλήρωση</a>
-                <form action="{{route('user_template_upload')}}" method="post" class="container-fluid" enctype="multipart/form-data">
+                <a href="{{url('/users_template.xlsx')}}" class="link-info">Πρότυπο αρχείο για συμπλήρωση</a>
+                <form action="{{url('/upload_user_template')}}" method="post" class="container-fluid" enctype="multipart/form-data">
                     @csrf
                     
                     <input type="file" name="import_users" > 
@@ -112,18 +112,18 @@
                 @if($asks_to=='save')
                 Να προχωρήσει η εισαγωγή αυτών των στοιχείων;
                 <div class="row">
-                    <form action="/insert_users" method="post" class="col container-fluid" enctype="multipart/form-data">
+                    <form action="{{url('/insert_users')}}" method="post" class="col container-fluid" enctype="multipart/form-data">
                     @csrf
                         <button type="submit" class="btn btn-primary bi bi-file-arrow-up"> Εισαγωγή</button>
                     </form>
-                    <a href="/user" class="col">Ακύρωση</a>
+                    <a href="{{url('/user')}}" class="col">Ακύρωση</a>
                 </div>
                 @else
                 <div class="row">
                     <div>
                         Διορθώστε τα σημειωμένα σφάλματα και υποβάλετε εκ νέου το αρχείο.
                     </div>
-                    <a href="/user" class="col">Ακύρωση</a>
+                    <a href="{{url('/user')}}" class="col">Ακύρωση</a>
                 </div>
                 @endif
             @endif
@@ -160,7 +160,7 @@
                     <div class="input-group">
                         <span class="w-25"></span>
                         <button type="submit" class="btn btn-primary m-2">Προσθήκη</button>
-                        <a href="/user" class="btn btn-outline-secondary m-2">Ακύρωση</a>
+                        <a href="{{url('/user')}}" class="btn btn-outline-secondary m-2">Ακύρωση</a>
                     
                 </form>
             </nav>
@@ -170,7 +170,7 @@
                 @isset($record)
                     <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div>
                     <div class="m-2 col-sm-2 btn btn-primary text-wrap">
-                        <a href="/user_profile/{{$record->id}}" style="color:white; text-decoration:none;">{{$record->id}}, {{$record->display_name}}, {{$record->name}}</a>
+                        <a href="{{url('/user_profile/$record->id')}}" style="color:white; text-decoration:none;">{{$record->id}}, {{$record->display_name}}, {{$record->name}}</a>
                     </div>
                 @endisset
             @endisset

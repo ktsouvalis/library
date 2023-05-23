@@ -34,16 +34,16 @@
         </div>
         <div class="p-3 row">
             <div class="col-sm-2 " >
-                <a href="/edit_user/{{$user->id}}" class="btn btn-primary bi bi-journal-text" style="text-decoration:none;">  Επεξεργασία στοιχείων χρήστη</a>
+                <a href="url('/edit_user/$user->id')" class="btn btn-primary bi bi-journal-text" style="text-decoration:none;">  Επεξεργασία στοιχείων χρήστη</a>
             </div>
             <div class="col-sm-2">
-                <form action="/reset_password" method="post">
+                <form action="url('/reset_password')" method="post">
                 @csrf
                     <input type="hidden" name="user_id" value={{$user->id}}>
                     <td><button class="btn btn-warning bi bi-key-fill" type="submit" onclick="return confirm('Επιβεβαίωση επαναφοράς κωδικού')"> Reset Password </button></td>
                 </form>
             </div>
-            <div class="col">/all_books/{{$user->public_link}}</div>
+            <div class="col">{{env('APP_URL')."/all_books/".{{$user->public_link}}}} </div>
         </div>
     </div>
 </x-layout>
