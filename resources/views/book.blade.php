@@ -97,7 +97,7 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon1">Κωδικός*</span>
-                        <input name="book_code3" type="number" value="" class="form-control" placeholder="Κωδικός Βιβλίου" aria-label="Κωδικός Βιβλίου" aria-describedby="basic-addon1" required>
+                        <input name="book_code3" type="text" value="" class="form-control" placeholder="Κωδικός Βιβλίου" aria-label="Κωδικός Βιβλίου" aria-describedby="basic-addon1" required>
                     </div>
                     <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon2">Συγγραφέας*</span>
