@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->string('code', 255);
+            $table->string('code', 255)->nullable();
             $table->string('writer',255);
             $table->string('title', 255);
-            $table->string('publisher',255);
+            $table->string('publisher',255)->nullable();
             $table->string('subject',255)->nullable();
             $table->string('publish_place',255)->nullable();
             $table->string('publish_year',255)->nullable();

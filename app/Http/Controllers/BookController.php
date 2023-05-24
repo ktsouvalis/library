@@ -127,33 +127,46 @@ class BookController extends Controller
         $mime = Storage::mimeType($path);
         $spreadsheet = IOFactory::load("../storage/app/$path");
         $books_array=array();
+        
         $row=2;
         $error=0;
         $rowSumValue="1";
         while ($rowSumValue != "" && $row<10000){
             $check=array();
-            $check['code'] = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue();
-            $check['title']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue();
-            $check['writer']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue();
-            $check['publisher']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(4, $row)->getValue();
-            $check['subject']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(5, $row)->getValue();
-            $check['publish_place']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(6, $row)->getValue();
-            $check['publish_year']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(7, $row)->getValue();
-            $check['no_of_pages']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(8, $row)->getValue();
-            $check['acquired_by']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(9, $row)->getValue();
-            $check['acquired_year']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(10, $row)->getValue();
-            $check['comments']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(11, $row)->getValue();
-            
-            if($check['code']=='' or $check['code']==null){
-                $error = 1; 
-                $check['code']="Κενός κωδικός";
+            if($request->all()['template_file']=='itdipeach'){
+                $check['code'] = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue();
+                $check['title']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue();
+                $check['writer']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue();
+                $check['publisher']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(4, $row)->getValue();
+                $check['subject']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(5, $row)->getValue();
+                $check['publish_place']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(6, $row)->getValue();
+                $check['publish_year']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(7, $row)->getValue();
+                $check['no_of_pages']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(8, $row)->getValue();
+                $check['acquired_by']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(9, $row)->getValue();
+                $check['acquired_year']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(10, $row)->getValue();
+                $check['comments']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(11, $row)->getValue();
             }
             else{
+                $check['code'] ="";
+                $check['title']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue();
+                $check['writer']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue();
+                $check['publisher']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(5, $row)->getValue();
+                $check['subject']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue();
+                $check['publish_place']= "";
+                $check['publish_year']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(7, $row)->getValue();
+                $check['no_of_pages']= 0;
+                $check['acquired_by']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(10, $row)->getValue();
+                $check['acquired_year']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(14, $row)->getValue();
+                $check['comments']= "";
+            }
+        
+            if(!($check['code']=='' or $check['code']==null)){
                 if(Book::where('user_id', Auth::id())->where('code', $check['code'])->count()){
                     $error = 1;
                     $check['code']="Ο κωδικός χρησιμοποιείται";
                 }
             }
+
             $rule = [
                 'title' => 'required'
             ];
@@ -163,6 +176,7 @@ class BookController extends Controller
                 $check['title']="Κενό πεδίο τίτλου";
                 
             }
+
             $rule = [
                 'writer' => 'required'
             ];
@@ -172,15 +186,7 @@ class BookController extends Controller
                 $check['writer']="Κενό πεδίο συγγραφέα";
                 
             }
-            $rule = [
-                'publisher' => 'required'
-            ];
-            $validator = Validator::make($check, $rule);
-            if($validator->fails()){ 
-                $error=1;
-                $check['publisher']="Κενό πεδίο εκδότη";
-                
-            }
+
             $rule = [
                 'no_of_pages' => 'numeric'
             ];
@@ -189,6 +195,7 @@ class BookController extends Controller
                 $check['no_of_pages']=0;
                 
             }
+
             array_push($books_array, $check);
             $row++;
             $rowSumValue="";
@@ -230,7 +237,8 @@ class BookController extends Controller
                 $book->save();
             } 
             catch(Throwable $e){
-                
+                session()->forget('books_array');
+                session()->forget('active_tab');
                 return redirect(url('/book'))
                     ->with('failure',"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά." )
                     ->with('active_tab', 'import');
