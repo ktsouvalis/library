@@ -51,8 +51,6 @@
                         <th id="search">Username</th>
                         <th id="search">DisplayName</th>
                         <th id="search">email</th>
-                        <th id="search">CreatedAt</th>
-                        <th id="search">UpdatedAt</th>
                         <th id="search"># Βιβλίων</th>
                         <th id="search"># Μαθητών</th>
                         <th id="">Password Reset</th>
@@ -65,8 +63,6 @@
                                 <td>{{$user->name}}</td>
                                 <td><div class="badge text-wrap"><a href="{{url("/user_profile/$user->id")}}" style="color:black; text-decoration:none; background-color:DarkKhaki">{{$user->display_name}}</a></div></td>
                                 <td>{{$user->email}}</td>
-                                <td>{{$user->created_at}}</td>
-                                <td>{{$user->updated_at}}</td>
                                 <td>{{$user->books->count()}}</td>
                                 <td>{{$user->students->count()}}</td>
                                 <form action="{{url("/reset_password")}}" method="post">
