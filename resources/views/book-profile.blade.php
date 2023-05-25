@@ -48,10 +48,10 @@
                 Το βιβλίο δεν είναι διαθέσιμο για δανεισμό
             </div>
         @endif
-        <div class="col-sm-2"><a href="/edit_book/{{$book->id}}" class="btn btn-primary bi bi-journal-text" style="text-decoration:none;">  Επεξεργασία στοιχείων βιβλίου</a></div>
+        <div class="col-sm-2"><a href="{{url("/edit_book/$book->id")}}" class="btn btn-primary bi bi-journal-text" style="text-decoration:none;">  Επεξεργασία στοιχείων βιβλίου</a></div>
         @if($book->available)
             <div class=col-sm-2>
-                <form action="/delete_book/{{$book->id}}" method="post">
+                <form action="{{url("/delete_book/$book->id")}}" method="post">
                     @csrf
                     <button type="submit" class="btn btn-danger bi bi-journal-x" onclick="return confirm('Με τη διαγραφή του βιβλίου θα διαγραφεί όλο το ιστορικό των δανεισμών του. Είστε βέβαιοι ότι θέλετε να προχωρήσετε;')"> Διαγραφή βιβλίου</button>
                 </form>    
