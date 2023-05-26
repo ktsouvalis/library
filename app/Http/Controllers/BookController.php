@@ -136,15 +136,15 @@ class BookController extends Controller
             if($request->all()['template_file']=='itdipeach'){
                 $check['code'] = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue();
                 $check['title']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue();
-                $check['writer']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue();
-                $check['publisher']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(4, $row)->getValue();
-                $check['subject']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(5, $row)->getValue();
-                $check['publish_place']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(6, $row)->getValue();
-                $check['publish_year']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(7, $row)->getValue();
-                $check['no_of_pages']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(8, $row)->getValue();
-                $check['acquired_by']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(9, $row)->getValue();
-                $check['acquired_year']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(10, $row)->getValue();
-                $check['comments']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(11, $row)->getValue();
+                $check['writer']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(4, $row)->getValue();
+                $check['publisher']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(5, $row)->getValue();
+                $check['subject']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue();
+                $check['publish_place']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(8, $row)->getValue();
+                $check['publish_year']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(6, $row)->getValue();
+                $check['no_of_pages']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(9, $row)->getValue();
+                $check['acquired_by']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(10, $row)->getValue();
+                $check['acquired_year']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(11, $row)->getValue();
+                $check['comments']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(7, $row)->getValue();
             }
             else{
                 $check['code'] ="";
