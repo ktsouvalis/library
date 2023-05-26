@@ -150,14 +150,14 @@ class BookController extends Controller
                 $check['code'] ="";
                 $check['title']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, $row)->getValue();
                 $check['writer']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(3, $row)->getValue();
-                $check['publisher']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(5, $row)->getValue();
+                $check['publisher']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(4, $row)->getValue();
                 $check['subject']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, $row)->getValue();
                 $check['publish_place']= "";
                 $check['publish_year']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(7, $row)->getValue();
                 $check['no_of_pages']= 0;
-                $check['acquired_by']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(10, $row)->getValue();
-                $check['acquired_year']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(14, $row)->getValue();
-                $check['comments']= "";
+                $check['acquired_by']= "";
+                $check['acquired_year']= "";
+                $check['comments']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(8, $row)->getValue();
             }
         
             if(!($check['code']=='' or $check['code']==null)){

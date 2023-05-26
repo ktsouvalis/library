@@ -48,45 +48,49 @@ class LoanController extends Controller
     public function lendBookFromStudent(Student $student, Request $request){
         
         $book = Book::find($request['book_id']);
-        
-        try{
-            Loan::create([
-            'user_id' => Auth::id(),
-            'book_id' => $book->id,
-            'student_id' => $student->id,
-            'date_out' => date('y/m/d'),
-        ]);
-        }
-        catch(Throwable $e){
-            return redirect(url("/student_profile/$student->id"))->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
-        }
+        if($book->available){ 
+            try{
+                Loan::create([
+                'user_id' => Auth::id(),
+                'book_id' => $book->id,
+                'student_id' => $student->id,
+                'date_out' => date('y/m/d'),
+            ]);
+            }
+            catch(Throwable $e){
+                return redirect(url("/student_profile/$student->id"))->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
+            }
 
-        $book->available = 0;
-        $book->save();
+            $book->available = 0;
+            $book->save();
 
-        return redirect(url("/student_profile/$student->id"))->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
+            return redirect(url("/student_profile/$student->id"))->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
+        }
+        return redirect(url("/student_profile/$student->id"))->with('failure','Ελέγξτε ξανά τη διαθεσιμότητά του βιβλίου');
         
     }
 
     public function lendBookFromBook(Book $book, Request $request){
         $incomingFields = $request->all();
+        if($book->available){
+            try{
+                Loan::create([
+                    'user_id' => Auth::id(),
+                    'book_id' => $book->id,
+                    'student_id' => $incomingFields['student_id'],
+                    'date_out' => date('y/m/d')
+                ]);
+            }
+            catch(Throwable $e){
+                return redirect(url("/book_profile/$book->id"))->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
+            }
 
-        try{
-            Loan::create([
-                'user_id' => Auth::id(),
-                'book_id' => $book->id,
-                'student_id' => $incomingFields['student_id'],
-                'date_out' => date('y/m/d')
-            ]);
+            $book->available = 0;
+            $book->save();
+            
+            return redirect(url("/book_profile/$book->id"))->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
         }
-        catch(Throwable $e){
-            return redirect(url("/book_profile/$book->id"))->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
-        }
-
-        $book->available = 0;
-        $book->save();
-        
-        return redirect(url("/book_profile/$book->id"))->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
+        return redirect(url("/student_profile/$student->id"))->with('failure','Ελέγξτε ξανά τη διαθεσιμότητά του βιβλίου');
     }
 
     public function loansDl(){
