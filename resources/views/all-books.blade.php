@@ -20,7 +20,7 @@
 @endisset
 @isset($books)
     <div class="table-responsive">
-    <table id="dataTable" class="display table table-sm table-striped table-hover">
+    <table id="dataTable" class="table table-striped table-bordered table-sm table-hover">
         <thead>
         <tr>
             <th id="search">Κωδικός Βιβλίου</th>
