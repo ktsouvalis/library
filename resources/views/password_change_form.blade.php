@@ -3,7 +3,7 @@
         <title>Αλλαγή Κωδικού Πρόσβασης</title>
     @endpush
     @php
-        $user= App\Models\User::find(Illuminate\Support\Facades\Auth::id());
+        $user= Auth::user();
         $link = $user->public_link;
     @endphp
     @push('copy_script')
@@ -14,6 +14,16 @@
             @php $path = env('APP_URL')."/all_books/".$link; @endphp
             <div class="d-flex justify-content-center"><input type="text" style="width: 500px" id="public_link" value="{{$path}}"></div>
             <div class="d-flex justify-content-center"> <button value="copy" class="btn btn-primary bi bi-clipboard" onClick="copyToClipboard('public_link')"> Copy</button></div>  
+            <p>
+            <div class="d-flex justify-content-center" >
+                <div class="card py-2 px-2"  style="text-align:center; background-color:gainsboro">
+                    <div class="h3 card-title fa-regular fa-eye"></div>
+                    <div class="h3">{{$user->public_visit_counter->public_visits}}</div>
+                    <div class="text-muted">Επισκέψεις</div>
+                </div>
+            </div>
+            </p>
+            {{-- <div class="d-flex justify-content-center">Αριθμός επισκεπτών: {{$user->public_visit_counter->public_visits}}</div> --}}
             @endauth
             <script>
                 function copyToClipboard(id) {

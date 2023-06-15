@@ -120,7 +120,7 @@
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='import') {{'show active'}} @endif @endisset" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
             @if(empty($asks_to))
             <nav class="navbar navbar-light bg-light">
-                <div>Η εφαρμογή <strong class="text-primary">ανανεώνει</strong> τα στοιχεία των <strong class="text-primary">υπάρχοντων μαθητών</strong> με βάση τον Α.Μ. και <strong class="text-success">εισάγει</strong> τους <strong class="text-success">νέους μαθητές.</strong><br><br></div>
+                <div>Η εφαρμογή <strong class="text-primary">ανανεώνει</strong> τα στοιχεία των <strong class="text-primary">υπάρχοντων μαθητών</strong> με βάση τον Α.Μ. <strong>και</strong> <strong class="text-success">εισάγει</strong> τους <strong class="text-success">νέους μαθητές.</strong><br><br></div>
                 <div>Το αρχείο που χρειάζεται θα το κατεβάσετε από το <strong>myschool</strong> ως εξης: <br><br></div>
                 <div> ΑΝΑΦΟΡΕΣ -> Αναφορές Μαθητών -> Γενικές Καταστάσεις -> Γενικά Στοιχεία Μαθητών. <br><br>
                 Στην ενότητα <strong class="text-primary">Ομαδοποίηση και Ταξινόμηση</strong> από τη λίστα <strong class="text-success"> Ομαδοποίηση</strong> θα επιλέξετε <strong class= "text-primary"> Τμήμα</strong>.<br>

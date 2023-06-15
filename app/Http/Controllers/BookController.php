@@ -306,6 +306,11 @@ class BookController extends Controller
         $user = User::where('public_link', $link)->first();
         
         if($user){
+            if((Auth::check() and Auth::id()<>$user->id) or !Auth::check()){
+                $user->public_visit_counter->public_visits++;
+                $user->public_visit_counter->save();   
+            }
+
             $books = Book::where('user_id', $user->id)->get();
             return view('all-books',['books'=>$books, 'school'=>$user]);
         }

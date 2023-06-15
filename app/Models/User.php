@@ -58,4 +58,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Student::class);
     }
+
+    public function public_visit_counter(){
+        return $this->hasOne(PublicVisit::class);
+    }
 }

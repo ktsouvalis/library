@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Student;
+use App\Models\PublicVisit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
@@ -157,6 +158,10 @@ class UserController extends Controller
             try{
                 $imported++;
                 $user->save();
+                PublicVisit::create([
+                    'user_id' => $user->id,
+                    'public_visits' => 0
+                ]);
             } 
             catch(QueryException $e){
                 return view('user',['dberror2'=>"Κάποιο πρόβλημα προέκυψε, προσπαθήστε ξανά.", 'active_tab'=>'import']);
@@ -191,6 +196,11 @@ class UserController extends Controller
                 'email' => $incomingFields['user_email3'],
                 'password' => bcrypt($incomingFields['user_password3']),
                 'public_link' => md5($incomingFields['user_display_name3'])
+            ]);
+
+            PublicVisit::create([
+                    'user_id' => $record->id,
+                    'public_visits' => 0
             ]);
         } 
         catch(QueryException $e){
