@@ -53,6 +53,7 @@
                         <th id="search">email</th>
                         <th id="search"># Βιβλίων</th>
                         <th id="search"># Μαθητών</th>
+                        <th id="search"># Επισκέψεων</th>
                         <th id="">Password Reset</th>
                     </tr>
                 </thead>
@@ -65,6 +66,7 @@
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->books->count()}}</td>
                                 <td>{{$user->students->count()}}</td>
+                                <td>{{$user->public_visit_counter->public_visits}}</td>
                                 <form action="{{url("/reset_password")}}" method="post">
                                 @csrf
                                     <input type="hidden" name="user_id" value={{$user->id}}>
