@@ -125,15 +125,24 @@ class StudentController extends Controller
                 $check['f_name']= $sheet->getCellByColumnAndRow(6, $row)->getValue();
                 $check['class']= $sheet->getCellByColumnAndRow(4, 14)->getValue();
 
-                if($check['am']=='' or $check['am']==null){
-                    $error = 1; 
+                // if($check['am']=='' or $check['am']==null){
+                //     $error = 1; 
+                //     $check['am']="Κενό πεδίο";
+                // }
+                // else{
+                //     if(Student::where('user_id', Auth::id())->where('am', $check['am'])->count()){
+                //         $error = 1;
+                //         $check['am']="Ο Α.Μ. χρησιμοποιείται";
+                //     }
+                // }
+
+                $rule = [
+                    'am' => 'required'
+                ];
+                $validator = Validator::make($check, $rule);
+                if($validator->fails()){ 
+                    $error=1;
                     $check['am']="Κενό πεδίο";
-                }
-                else{
-                    if(Student::where('user_id', Auth::id())->where('am', $check['am'])->count()){
-                        $error = 1;
-                        $check['am']="Ο Α.Μ. χρησιμοποιείται";
-                    }
                 }
 
                 $rule = [
@@ -183,16 +192,21 @@ class StudentController extends Controller
         $students_array = session('studs');
         $imported=0;
         foreach($students_array as $one_student){
-            $student = new Student();
-            $student->user_id = Auth::id();
-            $student->am = $one_student['am'];
-            $student->surname = $one_student['surname'];
-            $student->name = $one_student['name'];
-            $student->f_name = $one_student['f_name'];
-            $student->class = $one_student['class'];
             try{
                 $imported++;
-                $student->save();
+                Student::updateOrCreate(
+                    [
+                        'am' => $one_student['am']
+                    ],
+                    [
+                        'am' => $one_student['am'],
+                        'user_id' => Auth::id(),
+                        'surname' => $one_student['surname'],
+                        'name' => $one_student['name'],
+                        'f_name'=> $one_student['f_name'],
+                        'class'=> $one_student['class']
+                    ]
+                );
             } 
             catch(Throwable $e){
                 session()->forget('studs');
