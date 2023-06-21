@@ -62,7 +62,7 @@
                             <tr>  
                                 <td>{{$user->id}}</td>
                                 <td>{{$user->name}}</td>
-                                <td><div class="badge text-wrap"><a href="{{url("/user_profile/$user->id")}}" style="color:black; text-decoration:none; background-color:DarkKhaki">{{$user->display_name}}</a></div></td>
+                                <td><div class="badge text-wrap"><a href="{{url("/user_profile/$user->name")}}" style="color:black; text-decoration:none; background-color:DarkKhaki">{{$user->display_name}}</a></div></td>
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->books->count()}}</td>
                                 <td>{{$user->students->count()}}</td>
@@ -172,7 +172,7 @@
                 @isset($record)
                     <div class="alert alert-success" role="alert">Έγινε η καταχώρηση με τα εξής στοιχεία:</div>
                     <div class="m-2 col-sm-2 btn btn-primary text-wrap">
-                        <a href="{{url("/user_profile/$record->id")}}" style="color:white; text-decoration:none;">{{$record->id}}, {{$record->display_name}}, {{$record->name}}</a>
+                        <a href="{{url("/user_profile/$record->name")}}" style="color:white; text-decoration:none;">{{$record->id}}, {{$record->display_name}}, {{$record->name}}</a>
                     </div>
                 @endisset
             @endisset

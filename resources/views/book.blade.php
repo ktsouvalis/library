@@ -55,7 +55,7 @@
                     @foreach($all_books as $book)
                         <tr>  
                             <td>{{$book->code}}</td>
-                            <td><div class="badge bg-success text-wrap"><a href="{{url("/book_profile/$book->id")}}" style="color:white;text-decoration:none;">{{$book->title}}</a><div></div></td>
+                            <td><div class="badge bg-success text-wrap"><a href="{{url("/book_profile/$book->url")}}" style="color:white;text-decoration:none;">{{$book->title}}</a><div></div></td>
                             <td>{{$book->writer}}</td>
                             <td>{{$book->publisher}}</td>
                             <td>{{$book->subject}}</td>
@@ -82,7 +82,7 @@
             
             @if(session()->has('record'))
                 <div class="col-sm-2 btn btn-success text-wrap">
-                    @php $ses_rec =session('record')->id @endphp
+                    @php $ses_rec =session('record')->url; @endphp
                     <a href="{{url("/book_profile/$ses_rec")}}" style="color:white; text-decoration:none;">{{session('record')->code}}, {{session('record')->writer}}, <i>{{session('record')->title}}</i>, {{session('record')->publisher}}</a>
                 </div>
             @endif

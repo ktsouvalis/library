@@ -82,13 +82,13 @@ class LoanController extends Controller
                 ]);
             }
             catch(Throwable $e){
-                return redirect(url("/book_profile/$book->id"))->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
+                return redirect(url("/book_profile/$book->url"))->with('failure','Ο δανεισμός δεν καταχωρήθηκε, προσπαθήστε ξανά');
             }
 
             $book->available = 0;
             $book->save();
             
-            return redirect(url("/book_profile/$book->id"))->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
+            return redirect(url("/book_profile/$book->url"))->with('success','Ο δανεισμός καταχωρήθηκε επιτυχώς');
         }
         return redirect(url("/student_profile/$student->id"))->with('failure','Ελέγξτε ξανά τη διαθεσιμότητά του βιβλίου');
     }

@@ -43,7 +43,7 @@
             @foreach($loans as $loan)
                 <tr >  
                     <td>{{$loan->book->code}}</td>
-                    @php $lbi = $loan->book->id @endphp
+                    @php $lbi = $loan->book->url @endphp
                     <td><div class="badge bg-success text-wrap"><a href="{{url("/book_profile/$lbi")}}" style="color:white; text-decoration:none;">{{$loan->book->title}}</a></div></td>
                     <td>{{$loan->book->writer}}</td>
                     <td>{{$loan->book->publisher}}</td>

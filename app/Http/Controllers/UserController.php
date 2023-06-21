@@ -247,7 +247,7 @@ class UserController extends Controller
         else{
             return view('edit-user',['dberror'=>"Δεν υπάρχουν αλλαγές προς αποθήκευση", 'user' => $user]);
         }
-        return redirect(url("/user_profile/$user->id"))->with('success','Επιτυχής αποθήκευση');
+        return redirect(url("/user_profile/$user->name"))->with('success','Επιτυχής αποθήκευση');
     }
 
     public function show_profile(User $user){

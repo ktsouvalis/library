@@ -6,6 +6,7 @@ use Throwable;
 use App\Models\Book;
 use App\Models\Loan;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -30,15 +31,7 @@ class BookController extends Controller
       
         $incomingFields = $request->all();
         $given_code = $incomingFields['book_code3'];
-        $book = Auth::user()->books->where('code',$given_code);
-
-        //VALIDATION
-        if($book->count()){
-            $existing_book = $book->first();
-            return redirect(url('/book'))
-                ->with('failure', "Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, Εκδόσεις $existing_book->publisher")
-                ->with('old_data', $incomingFields);
-        }
+        
         //VALIDATION PASSED
         
         try{
@@ -57,6 +50,11 @@ class BookController extends Controller
                 'comments' => $incomingFields['book_comments3'],
                 'available' => 1
             ]);
+            $url = Str::lower(trim($incomingFields['book_title3']));
+            $url = Str::replace(' ', '_', $url);
+            $url = Str::ascii($url).$record->id;
+            $record->url=$url;
+            $record->save();
         } 
         catch(Throwable $e){
             return redirect(url('/book'))
@@ -160,12 +158,12 @@ class BookController extends Controller
                 $check['comments']= $spreadsheet->getActiveSheet()->getCellByColumnAndRow(8, $row)->getValue();
             }
         
-            if(!($check['code']=='' or $check['code']==null)){
-                if(Book::where('user_id', Auth::id())->where('code', $check['code'])->count()){
-                    $error = 1;
-                    $check['code']="Ο κωδικός χρησιμοποιείται";
-                }
-            }
+            // if(!($check['code']=='' or $check['code']==null)){
+            //     if(Book::where('user_id', Auth::id())->where('code', $check['code'])->count()){
+            //         $error = 1;
+            //         $check['code']="Ο κωδικός χρησιμοποιείται";
+            //     }
+            // }
 
             $rule = [
                 'title' => 'required'
@@ -218,23 +216,27 @@ class BookController extends Controller
     public function insertBooks(){
         $imported=0;
         foreach(session('books_array') as $one_book){
-            $book = new Book();
-            $book->user_id = Auth::id();
-            $book->code = $one_book['code'];
-            $book->title= $one_book['title'];
-            $book->writer= $one_book['writer'];
-            $book->publisher= $one_book['publisher'];
-            $book->subject= $one_book['subject'];
-            $book->publish_place= $one_book['publish_place'];
-            $book->publish_year= $one_book['publish_year'];
-            $book->no_of_pages= $one_book['no_of_pages'];
-            $book->acquired_by= $one_book['acquired_by'];
-            $book->acquired_year= $one_book['acquired_year'];
-            $book->comments= $one_book['comments'];
-            $book->available = 1;
             try{
-                $imported++;
-                $book->save();
+                $record = Book::create([
+                    'user_id' => Auth::id(),
+                    'code' => $one_book['code'],
+                    'writer' => $one_book['writer'],
+                    'title' => $one_book['title'],
+                    'publisher' => $one_book['publisher'],
+                    'subject' => $one_book['subject'],
+                    'publish_place' => $one_book['publish_place'],
+                    'publish_year' => $one_book['publish_year'],
+                    'no_of_pages' => $one_book['no_of_pages'],
+                    'acquired_by' => $one_book['acquired_by'],
+                    'acquired_year' => $one_book['acquired_year'],
+                    'comments' => $one_book['comments'],
+                    'available' => 1
+                ]);
+                $url = Str::lower(trim($one_book['title']));
+                $url = Str::replace(' ', '_', $url);
+                $url = Str::ascii($url).$record->id;
+                $record->url=$url;
+                $record->save();
             } 
             catch(Throwable $e){
                 session()->forget('books_array');

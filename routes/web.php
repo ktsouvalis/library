@@ -68,7 +68,7 @@ Route::post('/insert_book', [BookController::class,'insertBook'])->name('insert_
 
 Route::get('/dl_books', [BookController::class, 'booksDl'])->middleware('myauth');
 
-Route::get('/book_profile/{book}',[BookController::class, 'show_profile'])->middleware('myauth');
+Route::get('/book_profile/{book:url}',[BookController::class, 'show_profile'])->middleware('myauth');
 
 Route::get('/edit_book/{book}',[BookController::class,'editBook'])->middleware('myauth');
 
@@ -96,7 +96,7 @@ Route::post('/insert_user', [UserController::class,'insertUser'])->name('insert_
 
 Route::get('/dl_users', [UserController::class, 'usersDl'])->middleware('isAdmin');
 
-Route::get('/user_profile/{user}',[UserController::class, 'show_profile'])->middleware('isAdmin');
+Route::get('/user_profile/{user:name}',[UserController::class, 'show_profile'])->middleware('isAdmin');
 
 Route::get('/edit_user/{user}', function(User $user){
     return view('edit-user',['user' => $user]);

@@ -23,7 +23,7 @@
                     @endphp
                     <tr>
                         <td>{{$book->code}}</td>
-                        <td><div class="badge bg-success text-wrap"><a href="{{url("/book_profile/$book->id")}}" style="color:white;text-decoration:none;">{{$book->title}}</a><div></div></td>
+                        <td><div class="badge bg-success text-wrap"><a href="{{url("/book_profile/$book->url")}}" style="color:white;text-decoration:none;">{{$book->title}}</a><div></div></td>
                         <td>{{$book->writer}}</td>
                         <td>{{$book->publisher}}</td>
                         <td><strong>{{$value}}</strong></td>
