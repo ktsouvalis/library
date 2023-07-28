@@ -17,7 +17,7 @@
     @endpush
 
     @php
-        $all_students =  Illuminate\Support\Facades\Auth::user()->students->where('class','<>','0');
+        $all_students =  Illuminate\Support\Facades\Auth::user()->students;
     @endphp
 <body>
     <div class="container">
