@@ -237,6 +237,7 @@ class BookController extends Controller
                 $url = Str::ascii($url).$record->id;
                 $record->url=$url;
                 $record->save();
+                $imported++;
             } 
             catch(Throwable $e){
                 session()->forget('books_array');
