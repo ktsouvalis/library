@@ -28,13 +28,14 @@
         <table id="dataTable" class="display table table-sm table-striped table-bordered table-hover">
             <thead>
             <tr>
-                <th id="search">Κωδικός Βιβλίου</th>
-                <th id="search">Τίτλος</th>
-                <th id="search">Συγγραφέας</th>
-                <th id="search">Εκδότης</th>
+                <th id="search">Κωδικός Δανεισμού</th>
                 <th id="search">Επώνυμο μαθητή</th>
                 <th id="search">Όνομα μαθητή</th>
                 <th id="search">Τάξη μαθητή</th>
+                <th id="search">Κωδικός Βιβλίου</th>
+                <th id="search">Τίτλος</th>
+                <th id="search">Συγγραφέας</th>
+                {{-- <th id="search">Εκδότης</th> --}}
                 <th id="search">Ημερομηνία Δανεισμού</th>
                 <th id="search">Ημερομηνία Επιστροφής</th>
                 </tr>
@@ -42,11 +43,7 @@
             <tbody>
             @foreach($loans as $loan)
                 <tr >  
-                    <td>{{$loan->book->code}}</td>
-                    @php $lbi = $loan->book->url @endphp
-                    <td><div class="badge bg-success text-wrap"><a href="{{url("/book_profile/$lbi")}}" style="color:white; text-decoration:none;">{{$loan->book->title}}</a></div></td>
-                    <td>{{$loan->book->writer}}</td>
-                    <td>{{$loan->book->publisher}}</td>
+                    <td>{{$loan->id}}</td>
                     @php $lsi = $loan->student->id @endphp
                     <td><div class="badge bg-warning text-wrap"><a href="{{url("/student_profile/$lsi")}}" style="color:black; text-decoration:none;">{{$loan->student->surname}}</a></div></td>
                     <td>{{$loan->student->name}}</td>
@@ -55,6 +52,12 @@
                     @else
                         <td style="color:red"> ΑΠΟΦΟΙΤΟΣ </td>
                     @endif
+                    <td>{{$loan->book->code}}</td>
+                    @php $lbi = $loan->book->url @endphp
+                    <td><div class="badge bg-success text-wrap"><a href="{{url("/book_profile/$lbi")}}" style="color:white; text-decoration:none;">{{$loan->book->title}}</a></div></td>
+                    <td>{{$loan->book->writer}}</td>
+                    {{-- <td>{{$loan->book->publisher}}</td> --}}
+                    
                     <td>{{$loan->date_out}}</td>
                     @if($loan->date_in==null)
                     <form action="{{url("/return_loan/$loan->id")}}" method="post">
