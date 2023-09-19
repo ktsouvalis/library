@@ -93,6 +93,11 @@ class LoanController extends Controller
         return redirect(url("/student_profile/$student->id"))->with('failure','Ελέγξτε ξανά τη διαθεσιμότητά του βιβλίου');
     }
 
+    public function delete_loan(Request $request, Loan $loan){
+        $loan->delete();
+        return back()->with('success', ' Ο δανεισμός διαγράφηκε');
+    }
+
     public function loansDl(){
         
         $loans = Auth::user()->loans;

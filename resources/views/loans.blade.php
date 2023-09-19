@@ -28,7 +28,7 @@
         <table id="dataTable" class="display table table-sm table-striped table-bordered table-hover">
             <thead>
             <tr>
-                <th id="search">Κωδικός Δανεισμού</th>
+                <th id="search">ID Δανεισμού</th>
                 <th id="search">Επώνυμο μαθητή</th>
                 <th id="search">Όνομα μαθητή</th>
                 <th id="search">Τάξη μαθητή</th>
@@ -36,8 +36,9 @@
                 <th id="search">Τίτλος</th>
                 <th id="search">Συγγραφέας</th>
                 {{-- <th id="search">Εκδότης</th> --}}
-                <th id="search">Ημερομηνία Δανεισμού</th>
-                <th id="search">Ημερομηνία Επιστροφής</th>
+                <th id="search">Ημ/νία Δανεισμού</th>
+                <th id="search">Ημ/νία Επιστροφής</th>
+                <th id="search">Διαγραφή Δανεισμού</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,8 +65,13 @@
                         @csrf
                         <td><button class="bi bi-journal-arrow-down btn btn-secondary" type="submit" style="color:white"> Επιστροφή</button></td>
                     </form>
+                    <td> - </td>
                     @else
                         <td>{{$loan->date_in}}</td>
+                        <form action="{{url("/delete_loan/$loan->id")}}" method="post">
+                            @csrf
+                            <td><button class="bi bi-x-circle btn btn-danger" type="submit" style="color:white"> Διαγραφή</button></td>
+                        </form>
                     @endif
                 </tr>
             

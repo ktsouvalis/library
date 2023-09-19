@@ -59,6 +59,8 @@ Route::post('/save_b_loan/{book}',[LoanController::class, 'lendBookFromBook'])->
 
 Route::get('/dl_loans', [LoanController::class, 'loansDl'])->middleware('myauth');
 
+Route::post('/delete_loan/{loan}',[LoanController::class, 'delete_loan'])->middleware('myauth');
+
 
 // BOOK ROUTES
 
