@@ -98,8 +98,8 @@
                         <input name="student_name3" type="text" class="form-control" placeholder="Όνομα Μαθητή" aria-label="Όνομα Μαθητή" aria-describedby="basic-addon3" required value="@if(session()->has('old_data')){{session('old_data')['student_name3']}}@endif"><br>
                     </div>
                     <div class="input-group">
-                        <span class="input-group-text w-25" id="basic-addon4">Πατρώνυμο*</span>
-                        <input name="student_fname3" type="text" class="form-control" placeholder="Πατρώνυμο Μαθητή" aria-label="Πατρώνυμο Μαθητή" aria-describedby="basic-addon4" required value="@if(session()->has('old_data')){{session('old_data')['student_fname3']}}@endif" ><br>
+                        <span class="input-group-text w-25" id="basic-addon4">Πατρώνυμο</span>
+                        <input name="student_fname3" type="text" class="form-control" placeholder="Πατρώνυμο Μαθητή" aria-label="Πατρώνυμο Μαθητή" aria-describedby="basic-addon4" value="@if(session()->has('old_data')){{session('old_data')['student_fname3']}}@endif" ><br>
                     </div>
                     <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon5">Τάξη*</span>
@@ -160,7 +160,7 @@
                         <td @if ($student['am']=="Κενό πεδίο" or $student['am']=="Ο Α.Μ. χρησιμοποιείται") style='color:red;' @endif>{{$student['am']}}</td>
                         <td @if ($student['surname']=='Κενό πεδίο') style='color:red;' @endif>{{$student['surname']}}</td>
                         <td @if ($student['name']=='Κενό πεδίο') style='color:red;' @endif>{{$student['name']}}</td>
-                        <td @if ($student['f_name']=='Κενό πεδίο') style='color:red;' @endif>{{$student['f_name']}}</td>
+                        <td>{{$student['f_name']}}</td>
                         <td @if ($student['class']=='Κενό πεδίο') style='color:red;' @endif>{{$student['class']}}</td>
                         
                     </tr>

@@ -26,7 +26,7 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon4">Πατρώνυμο</span>
-                        <input name="student_fname" type="text" value="{{$student->f_name}}" class="form-control" placeholder="Πατρώνυμο Μαθητή" aria-label="Πατρώνυμο Μαθητή" aria-describedby="basic-addon4" required><br>
+                        <input name="student_fname" type="text" value="{{$student->f_name}}" class="form-control" placeholder="Πατρώνυμο Μαθητή" aria-label="Πατρώνυμο Μαθητή" aria-describedby="basic-addon4"><br>
                     </div>
                     <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon5">Τάξη</span>

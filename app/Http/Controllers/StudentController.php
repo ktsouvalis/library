@@ -163,14 +163,14 @@ class StudentController extends Controller
                     $check['name']="Κενό πεδίο";
                 }
 
-                $rule = [
-                    'f_name' => 'required',
-                ];
-                $validator = Validator::make($check, $rule);
-                if($validator->fails()){ 
-                    $error=1;
-                    $check['f_name']="Κενό πεδίο";
-                }
+                // $rule = [
+                //     'f_name' => 'required',
+                // ];
+                // $validator = Validator::make($check, $rule);
+                // if($validator->fails()){ 
+                //     $error=1;
+                //     $check['f_name']="Κενό πεδίο";
+                // }
 
                 array_push($students_array, $check);
                 $row++;
