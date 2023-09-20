@@ -32,7 +32,7 @@
                     <th id="search">Συγγραφέας</th>
                     <th id="search">Εκδότης</th>
                     <th id="search">Θεματική</th>
-                    <th id="">Δανεισμός / Επιστροφή</th>
+                    <th id="search">Διαθεσιμότητα</th>
                 </tr>
             </thead>
             <tbody>
