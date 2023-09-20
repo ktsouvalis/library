@@ -70,7 +70,7 @@
                         <td>{{$loan->date_in}}</td>
                         <form action="{{url("/delete_loan/$loan->id")}}" method="post">
                             @csrf
-                            <td><button class="bi bi-x-circle btn btn-danger" type="submit" style="color:white"> Διαγραφή</button></td>
+                            <td><button class="bi bi-x-circle btn btn-danger" type="submit" style="color:white" onclick="return confirm('Επιβεβαίωση διαγραφής δανεισμού;')"> Διαγραφή</button></td>
                         </form>
                     @endif
                 </tr>
