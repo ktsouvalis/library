@@ -196,11 +196,10 @@ class StudentController extends Controller
                 $imported++;
                 Student::updateOrCreate(
                     [
-                        'am' => $one_student['am']
+                        'am' => $one_student['am'],
+                        'user_id' => Auth::id()
                     ],
                     [
-                        'am' => $one_student['am'],
-                        'user_id' => Auth::id(),
                         'surname' => $one_student['surname'],
                         'name' => $one_student['name'],
                         'f_name'=> $one_student['f_name'],
