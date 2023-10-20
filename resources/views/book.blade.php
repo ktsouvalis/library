@@ -65,8 +65,12 @@
                                     <td><button class="bi bi-search btn btn-primary" type="submit" data-toggle="tooltip" title = "Αναζήτηση μαθητή για δανεισμό" style="color: white"> Δανεισμός </button></td>
                                 </form>
                             @else
-                                @php $bl = $book->loans->whereNull('date_in')->first()->id; @endphp
-                                <form action="{{url("/return_loan/$bl")}}" method="post">
+                                @php 
+                                    $bl = $book->loans->whereNull('date_in');
+                                    if($bl)
+                                        $bl_id = $bl->first()->id; 
+                                @endphp
+                                <form action="{{url("/return_loan/$bl_id")}}" method="post">
                                     @csrf
                                     @php
                                         $data = $book->loans->whereNull('date_in')->first()->student  
