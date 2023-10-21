@@ -118,21 +118,3 @@ Route::view('/change_password', 'password_change_form')->middleware('myauth');
 Route::post('/change_password', [UserController::class, 'passwordChange'])->middleware('myauth');
 
 Route::post('/reset_password', [UserController::class, 'passwordReset'])->middleware('isAdmin');
-
-
-Route::get('/fix', [function(){
-    foreach(User::all() as $school){
-        $i=0;
-        foreach($school->loans as $loan){
-            // dd($school->loans);
-            $student = Student::find($loan->student_id);
-            if($student->user_id<>$school->id){
-                $i++;
-                echo $i.' '.$student->id. ' '.$student->am.'<br>' ;
-                $student->user_id = $school->id;
-                $student->save(); 
-            }  
-        }
-        echo '<br><br>';
-    }
-}]);
