@@ -13,15 +13,15 @@
                         <span class="input-group-text w-75" id="basic-addon0"><strong>{{$student->am}} {{$student->surname}} {{$student->name}} {{$student->class}}</strong></span>
                     </div>
                     <div class="input-group">
-                        <span class="input-group-text w-25" id="basic-addon1">Αριθμός Μητρώου</span>
+                        <span class="input-group-text w-25" id="basic-addon1">Αριθμός Μητρώου*</span>
                         <input name="student_am" type="number" value="{{$student->am}}" class="form-control" placeholder="Αριθμός Μητρώου Μαθητή" aria-label="ΑΜ Μαθητή" aria-describedby="basic-addon1" required>
                     </div>
                     <div class="input-group">
-                        <span class="input-group-text w-25" id="basic-addon2">Επώνυμο</span>
+                        <span class="input-group-text w-25" id="basic-addon2">Επώνυμο*</span>
                         <input name="student_surname" type="text" value="{{$student->surname}}"  class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon2" required><br>
                     </div>
                     <div class="input-group">
-                        <span class="input-group-text w-25" id="basic-addon3">Όνομα</span>
+                        <span class="input-group-text w-25" id="basic-addon3">Όνομα*</span>
                         <input name="student_name" type="text" value="{{$student->name}}" class="form-control" placeholder="Όνομα Μαθητή" aria-label="Όνομα Μαθητή" aria-describedby="basic-addon3" required><br>
                     </div>
                     <div class="input-group">
@@ -29,7 +29,7 @@
                         <input name="student_fname" type="text" value="{{$student->f_name}}" class="form-control" placeholder="Πατρώνυμο Μαθητή" aria-label="Πατρώνυμο Μαθητή" aria-describedby="basic-addon4"><br>
                     </div>
                     <div class="input-group">
-                        <span class="input-group-text w-25" id="basic-addon5">Τάξη</span>
+                        <span class="input-group-text w-25" id="basic-addon5">Τάξη*</span>
                         <input name="student_class" type="text" value="{{$student->class}}" class="form-control" placeholder="Τάξη" aria-label="Τάξη" aria-describedby="basic-addon5" required><br>
                     </div>
                     <div class="input-group">

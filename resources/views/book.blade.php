@@ -203,7 +203,7 @@
                         <td @if ($book['writer']=='Κενό πεδίο συγγραφέα') style='color:red;' @endif>{{$book['writer']}}</td>
                         <td>{{$book['publisher']}}</td>
                         <td>{{$book['publish_year']}}</td>
-                        <td @if ($book['no_of_pages']==0) style='color:red;' @endif>{{$book['no_of_pages']}}</td>
+                        <td @if ($book['no_of_pages']==0) style='color:blue;' @endif>{{$book['no_of_pages']}}</td>
                         <td>{{$book['acquired_year']}}</td>
                     </tr>
                 @endforeach
