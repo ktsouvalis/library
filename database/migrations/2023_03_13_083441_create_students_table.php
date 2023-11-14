@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('am');
             $table->string('surname',255);
             $table->string('name',255);
-            $table->string('f_name',255);
+            $table->string('f_name',255)->nullable();
             $table->string('class',20);
             $table->timestamps();
         });

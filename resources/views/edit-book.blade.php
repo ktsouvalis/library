@@ -13,19 +13,19 @@
                 </div>
                 <div class="input-group">
                     <span class="input-group-text w-25" id="basic-addon1">Κωδικός</span>
-                    <input name="book_code" type="text" value="{{$book->code}}" class="form-control" placeholder="Κωδικός Βιβλίου" aria-label="Κωδικός Βιβλίου" aria-describedby="basic-addon1" required>
+                    <input name="book_code" type="text" value="{{$book->code}}" class="form-control" placeholder="Κωδικός Βιβλίου" aria-label="Κωδικός Βιβλίου" aria-describedby="basic-addon1">
                 </div>
                 <div class="input-group">
-                    <span class="input-group-text w-25" id="basic-addon2">Συγγραφέας</span>
+                    <span class="input-group-text w-25" id="basic-addon2">Συγγραφέας*</span>
                     <input name="book_writer" type="text" value="{{$book->writer}}"  class="form-control" placeholder="Συγγραφέας" aria-label="Συγγραφέας" aria-describedby="basic-addon2" required><br>
                 </div>
                 <div class="input-group">
-                    <span class="input-group-text w-25" id="basic-addon3">Τίτλος</span>
+                    <span class="input-group-text w-25" id="basic-addon3">Τίτλος*</span>
                     <input name="book_title" type="text" value="{{$book->title}}" class="form-control" placeholder="Τίτλος" aria-label="Τίτλος" aria-describedby="basic-addon3" required><br>
                 </div>
                 <div class="input-group">
                     <span class="input-group-text w-25" id="basic-addon4">Εκδόσεις</span>
-                    <input name="book_publisher" type="text" value="{{$book->publisher}}" class="form-control" placeholder="Εκδόσεις" aria-label="Εκδόσεις" aria-describedby="basic-addon4" required><br>
+                    <input name="book_publisher" type="text" value="{{$book->publisher}}" class="form-control" placeholder="Εκδόσεις" aria-label="Εκδόσεις" aria-describedby="basic-addon4"><br>
                 </div>
                 <div class="input-group">
                     <span class="input-group-text w-25" id="basic-addon5">Θεματική</span>
