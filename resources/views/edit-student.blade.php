@@ -17,6 +17,10 @@
                         <input name="student_am" type="number" value="{{$student->am}}" class="form-control" placeholder="Αριθμός Μητρώου Μαθητή" aria-label="ΑΜ Μαθητή" aria-describedby="basic-addon1" required>
                     </div>
                     <div class="input-group">
+                        <span class="input-group-text w-25" id="basic-addon0">Βιβλίο Μητρώου*</span>
+                        <input name="student_bm" type="number" value="{{$student->bm}}" class="form-control" placeholder="Βιβλίο Μητρώου" aria-label="Βιβλίο Μητρώου" aria-describedby="basic-addon0" required>
+                    </div>
+                    <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon2">Επώνυμο</span>
                         <input name="student_surname" type="text" value="{{$student->surname}}"  class="form-control" placeholder="Επώνυμο Μαθητή" aria-label="Επώνυμο Μαθητή" aria-describedby="basic-addon2" required><br>
                     </div>

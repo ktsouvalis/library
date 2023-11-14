@@ -29,12 +29,13 @@ class StudentController extends Controller
         //VALIDATION
         $incomingFields = $request->all();
         $given_am = $incomingFields['student_am3'];
+        $given_bm = $incomingFields['student_bm3'];
 
-        if(Auth::user()->students->where('am', $given_am)->count()){
-            $existing_student = Auth::user()->students->where('am',$given_am)->first();
+        if(Auth::user()->students->where('am', $given_am)->where('bm', $given_bm)->count()){
+            $existing_student = Auth::user()->students->where('am',$given_am)->where('bm', $incomingFields['student_bm3'])->first();
 
             return redirect(url('/student'))
-                ->with('failure', "Υπάρχει ήδη μαθητής με αριθμό μητρώου $given_am: $existing_student->surname $existing_student->name, $existing_student->class")
+                ->with('failure', "Υπάρχει ήδη μαθητής με αριθμό μητρώου $given_am στο βιβλίο $given_bm: $existing_student->surname $existing_student->name, $existing_student->class")
                 ->with('old_data', $incomingFields);
         }
         //VALIDATION PASSED
@@ -42,6 +43,7 @@ class StudentController extends Controller
             $record = Student::create([
                 'user_id' => Auth::id(),
                 'am' => $incomingFields['student_am3'],
+                'bm' => $incomingFields['student_bm3'],
                 'surname' => $incomingFields['student_surname3'],
                 'name' => $incomingFields['student_name3'],
                 'f_name' => $incomingFields['student_fname3'],
@@ -64,18 +66,19 @@ class StudentController extends Controller
         $incomingFields = $request->all();
         $student->user_id = Auth::id();
         $student->am = $incomingFields['student_am'];
+        $student->bm = $incomingFields['student_bm'];
         $student->surname = $incomingFields['student_surname'];
         $student->name = $incomingFields['student_name'];
         $student->f_name = $incomingFields['student_fname'];
         $student->class = $incomingFields['student_class'];
 
         if($student->isDirty()){
-            if($student->isDirty('am')){
+            if($student->isDirty('am') or $student->isDirty('bm')){
                 $given_am = $incomingFields['student_am'];
-
-                if(Auth::user()->students->where('am', $given_am)->count()){
+                $given_bm = $incomingFields['student_bm'];
+                if(Auth::user()->students->where('am', $given_am)->where('bm', $given_bm)->count()){
                     $existing_student = Auth::user()->students->where('am','=',$given_am)->first();
-                    return redirect("/edit_student/$student->id")->with('failure', "Υπάρχει ήδη μαθητής με αριθμό μητρώου $given_am: $existing_student->surname $existing_student->name, $existing_student->class");
+                    return redirect("/edit_student/$student->id")->with('failure', "Υπάρχει ήδη μαθητής με αριθμό μητρώου $given_am στο βιβλίο $given_bm: $existing_student->surname $existing_student->name, $existing_student->class");
                 }
             }
             $student->save();
@@ -288,5 +291,16 @@ class StudentController extends Controller
             $student->save();
         }
         return redirect(url('/student'))->with('success', 'Η αλλαγή τάξης κάθε μαθητή ολοκληρώθηκε επιτυχώς');
+    }
+
+    public function update_bm(Request $request, User $user){
+        foreach($request->all() as $key => $value){
+            if(substr($key,0,7)=='student'){
+                $student = Student::find($value);
+                $student->bm = $request->all()['bm'];
+                $student->save();    
+            }
+        }
+        return redirect(url('/'))->with('success', 'Η ενημέρωση των βιβλίων μητρώου έγινε επιτυχώς και μπορείτε να συνεχίσετε με τη χρήση της εφαρμογής');
     }
 }

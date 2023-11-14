@@ -85,14 +85,14 @@ class BookController extends Controller
         $book->comments= $incomingFields['book_comments'];
 
         if($book->isDirty()){
-            if($book->isDirty('code')){
-                $given_code = $incomingFields['book_code'];
-                $existing_books = Auth::user()->books->where('code',$given_code);
-                if($existing_books->count()){
-                        $existing_book = $existing_books->first();
-                        return redirect(url("/edit_book/$book->id"))->with('failure', "Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, Εκδόσεις $existing_book->publisher");
-                }
-            }
+            // if($book->isDirty('code')){
+            //     $given_code = $incomingFields['book_code'];
+            //     $existing_books = Auth::user()->books->where('code',$given_code);
+            //     if($existing_books->count()){
+            //             $existing_book = $existing_books->first();
+            //             return redirect(url("/edit_book/$book->id"))->with('failure', "Υπάρχει ήδη βιβλίο με κωδικό $given_code: $existing_book->title, $existing_book->writer, Εκδόσεις $existing_book->publisher");
+            //     }
+            // }
             $book->save();
         }
         else{

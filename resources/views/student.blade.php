@@ -43,6 +43,7 @@
                 <thead>
                     <tr>
                         <th id="search">Αριθμός Μητρώου</th>
+                        <th id="search">Βιβλίο Μητρώου</th>
                         <th id="search">Επώνυμο</th>
                         <th id="search">Όνομα</th>
                         <th id="search">Πατρώνυμο</th>
@@ -54,6 +55,7 @@
                         @foreach($all_students as $student)
                             <tr>  
                                 <td>{{$student->am}}</td>
+                                <td>{{$student->bm}}</td>
                                 <td><div class="badge bg-warning text-wrap"><a href="{{url("/student_profile/$student->id")}}" style="color:black; text-decoration:none;">{{$student->surname}}</a></div></td>
                                 <td>{{$student->name}}</td>
                                 <td>{{$student->f_name}}</td>
@@ -88,6 +90,10 @@
                     <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon1">Αριθμός Μητρώου*</span>
                         <input name="student_am3" type="number" value="" class="form-control" placeholder="Αριθμός Μητρώου Μαθητή" aria-label="ΑΜ Μαθητή" aria-describedby="basic-addon1" required>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text w-25" id="basic-addon0">Βιβλίο Μητρώου*</span>
+                        <input name="student_bm3" type="number" value="" class="form-control" placeholder="Βιβλίο Μητρώου" aria-label="Βιβλίο Μητρώου" aria-describedby="basic-addon0" required>
                     </div>
                     <div class="input-group">
                         <span class="input-group-text w-25" id="basic-addon2">Επώνυμο*</span>
@@ -148,6 +154,7 @@
                 <tr>
                     <th>#</th>
                     <th>Αριθμός Μητρώου</th>
+                    <th>Βιβλίο Μητρώου</th>
                     <th>Επώνυμο</th>
                     <th>Όνομα</th>
                     <th>Πατρώνυμο</th>
@@ -158,6 +165,7 @@
                     <tr> 
                         <td>{{$no_of_students}}</td> 
                         <td @if ($student['am']=="Κενό πεδίο" or $student['am']=="Ο Α.Μ. χρησιμοποιείται") style='color:red;' @endif>{{$student['am']}}</td>
+                        <td @if ($student['bm']=="Κενό πεδίο") style='color:red;' @endif>{{$student['bm']}}</td>
                         <td @if ($student['surname']=='Κενό πεδίο') style='color:red;' @endif>{{$student['surname']}}</td>
                         <td @if ($student['name']=='Κενό πεδίο') style='color:red;' @endif>{{$student['name']}}</td>
                         <td>{{$student['f_name']}}</td>
