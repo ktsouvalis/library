@@ -25,9 +25,15 @@
     <nav class="navbar navbar-light bg-light">
     <form action="/update_bm/{{$user->id}}" method="post">
         @csrf
-        
-            <b>Αριθμός Βιβλίου Μητρώου</b>
-            <input name="bm" type="number" class="m-2"required><br>
+        <div class="vstack gap-2">
+            <div>
+                <b>Αριθμός Βιβλίου Μητρώου</b>
+                <input name="bm" type="number" class="m-2"required>
+            </div>
+            <div>
+                <button type="button" onclick="selectAllCheckboxes()" class="btn btn-secondary m-2">Επιλογή όλων</button>
+                <button type="button" onclick="revertSelection()" class="btn btn-secondary m-2">Αντιστροφή επιλογής</button><br>
+            </div>
             <b>Μαθητές σχολείου</b>
             <div class="vstack gap-1"> 
             @foreach($user->students->whereNull('bm') as $student)
@@ -37,8 +43,8 @@
                 </div>
             @endforeach
             </div>
-            <button type="button" onclick="selectAllCheckboxes()" class="btn btn-secondary m-2">Επιλογή όλων</button>
-            <button type="button" onclick="revertSelection()" class="btn btn-secondary m-2">Αντιστροφή επιλογής</button>
+        </div>
+            
         </div>
         <div class="input-group">
             <span class="w-25"></span>

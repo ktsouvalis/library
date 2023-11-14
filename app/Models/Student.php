@@ -16,7 +16,8 @@ class Student extends Model
                             'name',
                             'f_name',
                             'class',
-                            'am'
+                            'am',
+                            'bm'
 ];
 
     public function loans()
