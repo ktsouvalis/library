@@ -32,23 +32,24 @@ class StudentController extends Controller
         $given_bm = $incomingFields['student_bm3'];
 
         if(Auth::user()->students->where('am', $given_am)->where('bm', $given_bm)->count()){
-            $existing_student = Auth::user()->students->where('am',$given_am)->where('bm', $incomingFields['student_bm3'])->first();
+            $existing_student = Auth::user()->students->where('am',$given_am)->where('bm', $given_bm)->first();
 
             return redirect(url('/student'))
                 ->with('failure', "Υπάρχει ήδη μαθητής με αριθμό μητρώου $given_am στο βιβλίο $given_bm: $existing_student->surname $existing_student->name, $existing_student->class")
                 ->with('old_data', $incomingFields);
         }
         //VALIDATION PASSED
+        
+        $record = new Student();
+        $record->user_id = Auth::id();
+        $record->am = $given_am;
+        $record->bm = $given_bm;
+        $record->surname = $incomingFields['student_surname3'];
+        $record->name = $incomingFields['student_name3'];
+        $record->f_name = $incomingFields['student_fname3'];
+        $record->class = $incomingFields['student_class3'];
         try{
-            $record = Student::create([
-                'user_id' => Auth::id(),
-                'am' => $incomingFields['student_am3'],
-                'bm' => $incomingFields['student_bm3'],
-                'surname' => $incomingFields['student_surname3'],
-                'name' => $incomingFields['student_name3'],
-                'f_name' => $incomingFields['student_fname3'],
-                'class' => $incomingFields['student_class3']
-            ]);
+            $record->save();
         } 
         catch(Throwable $e){
             return redirect(url('/student'))
@@ -77,7 +78,7 @@ class StudentController extends Controller
                 $given_am = $incomingFields['student_am'];
                 $given_bm = $incomingFields['student_bm'];
                 if(Auth::user()->students->where('am', $given_am)->where('bm', $given_bm)->count()){
-                    $existing_student = Auth::user()->students->where('am','=',$given_am)->first();
+                    $existing_student = Auth::user()->students->where('am',$given_am)->where('bm', $given_bm)->first();
                     return redirect("/edit_student/$student->id")->with('failure', "Υπάρχει ήδη μαθητής με αριθμό μητρώου $given_am στο βιβλίο $given_bm: $existing_student->surname $existing_student->name, $existing_student->class");
                 }
             }
@@ -123,21 +124,11 @@ class StudentController extends Controller
             while ($rowSumValue != "" && $row<10000){
                 $check=array();
                 $check['am'] = $sheet->getCellByColumnAndRow(2, $row)->getValue();
-                $check['surname']= $sheet->getCellByColumnAndRow(3, $row)->getValue();
-                $check['name']= $sheet->getCellByColumnAndRow(5, $row)->getValue();
-                $check['f_name']= $sheet->getCellByColumnAndRow(6, $row)->getValue();
-                $check['class']= $sheet->getCellByColumnAndRow(4, 14)->getValue();
-
-                // if($check['am']=='' or $check['am']==null){
-                //     $error = 1; 
-                //     $check['am']="Κενό πεδίο";
-                // }
-                // else{
-                //     if(Student::where('user_id', Auth::id())->where('am', $check['am'])->count()){
-                //         $error = 1;
-                //         $check['am']="Ο Α.Μ. χρησιμοποιείται";
-                //     }
-                // }
+                $check['bm']= $sheet->getCellByColumnAndRow(3, $row)->getValue();
+                $check['surname']= $sheet->getCellByColumnAndRow(4, $row)->getValue();
+                $check['name']= $sheet->getCellByColumnAndRow(6, $row)->getValue();
+                $check['f_name']= $sheet->getCellByColumnAndRow(7, $row)->getValue();
+                $check['class']= $sheet->getCellByColumnAndRow(5, 14)->getValue();
 
                 $rule = [
                     'am' => 'required'
@@ -146,6 +137,15 @@ class StudentController extends Controller
                 if($validator->fails()){ 
                     $error=1;
                     $check['am']="Κενό πεδίο";
+                }
+
+                $rule = [
+                    'bm' => 'required'
+                ];
+                $validator = Validator::make($check, $rule);
+                if($validator->fails()){ 
+                    $error=1;
+                    $check['bm']="Κενό πεδίο";
                 }
 
                 $rule = [
@@ -165,23 +165,12 @@ class StudentController extends Controller
                     $error=1;
                     $check['name']="Κενό πεδίο";
                 }
-
-                // $rule = [
-                //     'f_name' => 'required',
-                // ];
-                // $validator = Validator::make($check, $rule);
-                // if($validator->fails()){ 
-                //     $error=1;
-                //     $check['f_name']="Κενό πεδίο";
-                // }
-
                 array_push($students_array, $check);
                 $row++;
                 $rowSumValue="";
                 $rowSumValue = $sheet->getCellByColumnAndRow(1, $row)->getValue();   
             }
         }
-        // echo 'error='.$error;exit;
         if($error){
             return view('student',['students_array'=>$students_array,'active_tab'=>'import', 'asks_to'=>'error']);
         }
@@ -200,6 +189,7 @@ class StudentController extends Controller
                 Student::updateOrCreate(
                     [
                         'am' => $one_student['am'],
+                        'bm' => $one_student['bm'],
                         'user_id' => Auth::id()
                     ],
                     [
