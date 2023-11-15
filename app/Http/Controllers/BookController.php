@@ -237,7 +237,7 @@ class BookController extends Controller
                     ]);
                 }
                 else{
-                    $record = Book::updateOCreate(
+                    $record = Book::updateOrCreate(
                     [
                         'code'=>$one_book['code'],
                         'user_id' => Auth::id(),
