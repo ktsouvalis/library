@@ -18,9 +18,11 @@ class RegisterStudents
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-
-        if (!optional($user->students)->every('bm')) {
-            return redirect(url('/update_bm'));
+        if($user->students){
+            if($user->students->whereNull('bm')->count() > 0){
+                return redirect(url('/update_bm'));
+            }
+            return $next($request);
         }
 
         return $next($request);
