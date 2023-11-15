@@ -8,6 +8,7 @@ use App\Models\Loan;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -217,21 +218,44 @@ class BookController extends Controller
         $imported=0;
         foreach(session('books_array') as $one_book){
             try{
-                $record = Book::create([
-                    'user_id' => Auth::id(),
-                    'code' => $one_book['code'],
-                    'writer' => $one_book['writer'],
-                    'title' => $one_book['title'],
-                    'publisher' => $one_book['publisher'],
-                    'subject' => $one_book['subject'],
-                    'publish_place' => $one_book['publish_place'],
-                    'publish_year' => $one_book['publish_year'],
-                    'no_of_pages' => $one_book['no_of_pages'],
-                    'acquired_by' => $one_book['acquired_by'],
-                    'acquired_year' => $one_book['acquired_year'],
-                    'comments' => $one_book['comments'],
-                    'available' => 1
-                ]);
+                if($one_book['code']=='' or $one_book['code']==null){
+                    
+                    $record = Book::create([
+                        'user_id' => Auth::id(),
+                        'code' => $one_book['code'],
+                        'writer' => $one_book['writer'],
+                        'title' => $one_book['title'],
+                        'publisher' => $one_book['publisher'],
+                        'subject' => $one_book['subject'],
+                        'publish_place' => $one_book['publish_place'],
+                        'publish_year' => $one_book['publish_year'],
+                        'no_of_pages' => $one_book['no_of_pages'],
+                        'acquired_by' => $one_book['acquired_by'],
+                        'acquired_year' => $one_book['acquired_year'],
+                        'comments' => $one_book['comments'],
+                        'available' => 1
+                    ]);
+                }
+                else{
+                    $record = Book::updateOCreate(
+                    [
+                        'code'=>$one_book['code'],
+                        'user_id' => Auth::id(),
+                    ],
+                    [
+                        'writer' => $one_book['writer'],
+                        'title' => $one_book['title'],
+                        'publisher' => $one_book['publisher'],
+                        'subject' => $one_book['subject'],
+                        'publish_place' => $one_book['publish_place'],
+                        'publish_year' => $one_book['publish_year'],
+                        'no_of_pages' => $one_book['no_of_pages'],
+                        'acquired_by' => $one_book['acquired_by'],
+                        'acquired_year' => $one_book['acquired_year'],
+                        'comments' => $one_book['comments'],
+                        'available' => 1    
+                    ]);   
+                }
                 $url = Str::lower(trim($one_book['title']));
                 $url = Str::replace(' ', '_', $url);
                 $url = Str::ascii($url).$record->id;
@@ -240,6 +264,7 @@ class BookController extends Controller
                 $imported++;
             } 
             catch(Throwable $e){
+                Log::error("import books for user ".Auth::id().' '.$e->getMessage());
                 session()->forget('books_array');
                 session()->forget('active_tab');
                 return redirect(url('/book'))
