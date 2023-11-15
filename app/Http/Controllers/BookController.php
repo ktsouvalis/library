@@ -54,6 +54,9 @@ class BookController extends Controller
             $url = Str::lower(trim($incomingFields['book_title3']));
             $url = Str::replace(' ', '_', $url);
             $url = Str::ascii($url).$record->id;
+            if (strlen($url) > 191) {
+                $url = substr($url, 0, 191);
+            }
             $record->url=$url;
             $record->save();
         } 
@@ -259,6 +262,9 @@ class BookController extends Controller
                 $url = Str::lower(trim($one_book['title']));
                 $url = Str::replace(' ', '_', $url);
                 $url = Str::ascii($url).$record->id;
+                if (strlen($url) > 191) {
+                    $url = substr($url, 0, 191);
+                }
                 $record->url=$url;
                 $record->save();
                 $imported++;
