@@ -34,7 +34,7 @@
             Αν έχετε παραπάνω από ένα βιβλία μητρώου, θα πρέπει να επαναλάβετε τη διαδικασία. <br></p>
         </div>
     <nav class="navbar navbar-light bg-light">
-    <form action="/update_bm/{{$user->id}}" method="post">
+    <form action='{{url("/update_bm/$user->id")}}' method="post">
         @csrf
         <div class="vstack gap-2">
             <div>
