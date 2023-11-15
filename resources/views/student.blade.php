@@ -126,21 +126,17 @@
         <div class="tab-pane fade @isset($active_tab) @if($active_tab=='import') {{'show active'}} @endif @endisset" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
             @if(empty($asks_to))
             <nav class="navbar navbar-light bg-light">
-                <div>Η εφαρμογή <strong class="text-primary">ανανεώνει</strong> τα στοιχεία των <strong class="text-primary">υπάρχοντων μαθητών</strong> με βάση τον Α.Μ. <strong>και</strong> <strong class="text-success">εισάγει</strong> τους <strong class="text-success">νέους μαθητές.</strong><br><br></div>
-                <div>Το αρχείο που χρειάζεται θα το κατεβάσετε από το <strong>myschool</strong> ως εξης: <br><br></div>
-                <div> ΑΝΑΦΟΡΕΣ -> Αναφορές Μαθητών -> Γενικές Καταστάσεις -> Γενικά Στοιχεία Μαθητών. <br><br>
-                Στην ενότητα <strong class="text-primary">Ομαδοποίηση και Ταξινόμηση</strong> από τη λίστα <strong class="text-success"> Ομαδοποίηση</strong> θα επιλέξετε <strong class= "text-primary"> Τμήμα</strong>.<br>
-                Στην ενότητα <strong class="text-primary">Κριτήρια Επιλογής Δεδομένων</strong> θα επιλέξετε <strong> τις τάξεις και τα τμήματα ΓΕΝΙΚΗΣ ΠΑΙΔΕΙΑΣ που επιθυμείτε</strong>. <br>
-                Θα πατήσετε <strong class="text-primary">Προεπισκόπηση</strong> και στη σελίδα που ανοίγει, θα επιλέξετε <strong class="text-success"> Xlsx </strong> αντί για Pdf που είναι η προεπιλογή
-                και έπειτα το κουμπί <strong class="text-primary">Αποθήκευση</strong>.<br><br>
-                Το αρχείο που θα κατέβει, το ανεβάζετε στην εφαρμογή χωρίς καμία άλλη επεξεργασία.<br><br></div>
-
+                <div class="vstack gap-3">
+                <div>Η εφαρμογή <strong class="text-primary">ανανεώνει</strong> τα στοιχεία των <strong class="text-primary">υπάρχοντων μαθητών</strong> με βάση τον Α.Μ. και τον Αριθμό Βιβλίου Μητρώου <strong>και</strong> <strong class="text-success">εισάγει</strong> τους <strong class="text-success">νέους μαθητές.</strong></div>
+                <a href="{{url('/books_template.xlsx')}}" class="link-info">Κατεβάστε από εδώ οδηγίες για την εξαγωγή της επιθυμητής αναφοράς από το myschool</a>
+                
                 <form action="{{url('/upload_student_template')}}" method="post" class="container-fluid" enctype="multipart/form-data">
                     @csrf
                     
                     <input type="file" name="import_students" > 
                     <button type="submit" class="btn btn-primary bi bi-filetype-xlsx"> Αποστολή αρχείου</button>
                 </form>
+                </div>
             </nav>
             @else
             <div style="p-3 mb-2 bg-info text-dark">
