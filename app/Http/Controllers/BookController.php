@@ -20,7 +20,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class BookController extends Controller
 {   
     public function editBook(Book $book){
-        if($book->user == Auth::user()){
+        if($book->user_id == Auth::id()){
             return view('edit-book',['book' => $book]);
         }
         else{

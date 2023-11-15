@@ -128,7 +128,7 @@
             <nav class="navbar navbar-light bg-light">
                 <div class="vstack gap-3">
                 <div>Η εφαρμογή <strong class="text-primary">ανανεώνει</strong> τα στοιχεία των <strong class="text-primary">υπάρχοντων μαθητών</strong> με βάση τον Α.Μ. και τον Αριθμό Βιβλίου Μητρώου <strong>και</strong> <strong class="text-success">εισάγει</strong> τους <strong class="text-success">νέους μαθητές.</strong></div>
-                <a href="{{url('/instructions.pdf')}}" class="link-info">Κατεβάστε από εδώ οδηγίες για την εξαγωγή της επιθυμητής αναφοράς από το myschool</a>
+                <a href="{{url('/instructions.pdf')}}" target="_blank" class="link-info">Κατεβάστε από εδώ οδηγίες για την εξαγωγή της επιθυμητής αναφοράς από το myschool</a>
                 
                 <form action="{{url('/upload_student_template')}}" method="post" class="container-fluid" enctype="multipart/form-data">
                     @csrf
