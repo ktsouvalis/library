@@ -115,7 +115,9 @@ Route::post('/login', [UserController::class,'login'])->middleware('guest');
 
 Route::get('/logout',[UserController::class, 'logout'])->middleware('myauth');
 
-Route::view('/change_password', 'password_change_form')->middleware('myauth');
+Route::get('/change_password', function(){
+    return view('password_change_form');
+})->middleware('myauth');
 
 Route::post('/change_password', [UserController::class, 'passwordChange'])->middleware('myauth');
 

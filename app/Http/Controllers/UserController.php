@@ -45,13 +45,13 @@ class UserController extends Controller
         ];
         $validator = Validator::make($incomingFields, $rules);
         if($validator->fails()){
-            return redirect(url('/reset_password'))->with('failure', 'Οι κωδικοί πρέπει να ταιριάζουν και να είναι 6+ χαρακτήρες');
+            return back()->with('failure', 'Οι κωδικοί πρέπει να ταιριάζουν και να είναι 6+ χαρακτήρες');
         }
         $user = User::find(Auth::id());
         
         $user->password = bcrypt($incomingFields['pass1']);
         $user->save();
-        return redirect(url('/'))->with('success', 'Ο νέος σας κωδικός αποθηκεύτηκε επιτυχώς');
+        return back()->with('success', 'Ο νέος σας κωδικός αποθηκεύτηκε επιτυχώς');
     }
 
     public function passwordReset(Request $request){
