@@ -38,6 +38,14 @@
                 <a href="{{url("/edit_student/$student->id")}}" class="btn btn-primary bi bi-journal-text" style="text-decoration:none;">  Επεξεργασία στοιχείων μαθητή</a>
             </div>
         @endif
+        @if(!$student->hasActiveLoan())
+            <div class=col-sm-2>
+                <form action="{{url("/delete_student/$student->id")}}" method="post">
+                    @csrf
+                    <button type="submit" class="btn btn-danger bi bi-journal-x" onclick="return confirm('Με τη διαγραφή του μαθητή θα διαγραφεί όλο το ιστορικό των δανεισμών του. Είστε βέβαιοι ότι θέλετε να προχωρήσετε;')"> Διαγραφή μαθητή</button>
+                </form>    
+            </div>  
+        @endif
     </div>
     <table class="table table-striped table-hover table-light">
         <tr>

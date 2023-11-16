@@ -28,4 +28,8 @@ class Student extends Model
     public function user(){
         return $this->belongsTo(User::class,'user_id');
     }
+
+    public function hasActiveLoan(){
+        return $this->loans()->whereNull('date_in')->exists();
+    }
 }

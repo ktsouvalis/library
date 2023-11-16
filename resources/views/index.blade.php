@@ -52,6 +52,15 @@
                     </a> 
                 </div>
             </div>
+
+            <div class="col-md-4 py-2" style="max-width:15rem; ">
+                <div class="card py-5"  style="text-align:center; background-color:#7E31E1;opacity: 0.9">
+                    <a class="" style="text-decoration:none;" href="{{url('/db_reset')}}">
+                    <div class="h5 card-title fa-solid fa-circle-radiation text-white"></div>
+                    <div class="text-white">Διαγραφή Δεδομένων</div>
+                    </a> 
+                </div>
+            </div>
             
             @if (Illuminate\Support\Facades\Auth::id()==2 or Illuminate\Support\Facades\Auth::id()==1)
 

@@ -283,6 +283,14 @@ class StudentController extends Controller
         return redirect(url('/student'))->with('success', 'Η αλλαγή τάξης κάθε μαθητή ολοκληρώθηκε επιτυχώς');
     }
 
+    public function deleteStudent(Student $student){
+
+        if(!$student->hasActiveLoan()){
+            Student::find($student->id)->delete();
+            return redirect(url('/student'))->with('success', "Ο μαθητής $student->surname $student->name, με Α.Μ. $student->am ($student->bm), διαγράφηκε");
+        }
+    }
+
     public function update_bm(Request $request, User $user){
         foreach($request->all() as $key => $value){
             if(substr($key,0,7)=='student'){

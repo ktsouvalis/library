@@ -42,6 +42,8 @@ Route::post('/upload_student_template', [StudentController::class, 'importStuden
 
 Route::post('/insert_students', [StudentController::class, 'insertStudents'])->name('insert_students_from_template')->middleware('myauth');
 
+Route::post('/delete_student/{student}', [StudentController::class, 'deleteStudent'])->middleware('myauth');
+
 
 // LOANS ROUTES
 
@@ -122,3 +124,54 @@ Route::post('/reset_password', [UserController::class, 'passwordReset'])->middle
 Route::view('/update_bm', 'update-bm')->middleware('myauth');
 
 Route::post('/update_bm/{user}', [StudentController::class, 'update_bm']);
+
+// Route::get('/test', function(){
+//     $student = Student::find(81);
+//     return $student->hasActiveLoan();
+// });
+
+//DB ROUTES
+
+Route::view('/db_reset', 'db-reset')->middleware('myauth');
+
+Route::post('/reset_books/{user}', function(User $user, Request $request){
+    if(Auth::user()->id == $user->id){
+        // if($user->loans->count())
+        //     $user->loans()->delete();
+        if($user->books->count()){
+            $user->books()->delete(); 
+            return back()->with('success', 'Όλα τα βιβλία διαγράφηκαν');
+        } 
+        else
+            return back()->with('warning', 'Δεν υπάρχουν βιβλία για διαγραφή'); 
+    }
+    return back()->with('error', 'Δεν έχετε δικαίωμα πρόσβασης');
+});
+
+Route::post('/reset_students/{user}', function(User $user, Request $request){
+    if(Auth::user()->id == $user->id){
+        // if($user->loans->count())
+        //     $user->loans()->delete();
+        if($user->students->count()){
+            $user->students()->delete();
+            $user->books()->update(['available' => 1]);  
+            return back()->with('success', 'Όλοι οι μαθητές διαγράφηκαν');
+        }
+        else
+            return back()->with('warning', 'Δεν υπάρχουν μαθητές για διαγραφή');
+    }
+    return back()->with('error', 'Δεν έχετε δικαίωμα πρόσβασης');
+});
+
+Route::post('/reset_loans/{user}', function(User $user, Request $request){
+    if(Auth::user()->id == $user->id){
+        if($user->loans->count()){
+            $user->loans()->delete();
+            $user->books()->update(['available' => 1]); 
+            return back()->with('success', 'Όλοι οι δανεισμοί διαγράφηκαν');
+        }
+        else
+            return back()->with('warning', 'Δεν υπάρχουν δανεισμοί για διαγραφή');        
+    }
+    return back()->with('error', 'Δεν έχετε δικαίωμα πρόσβασης');
+});
